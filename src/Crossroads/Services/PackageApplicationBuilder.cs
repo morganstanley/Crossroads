@@ -1,0 +1,155 @@
+﻿using Crossroads.Core;
+using System;
+using System.IO;
+using System.IO.Abstractions;
+using System.Linq;
+using System.Threading.Tasks;
+
+namespace Crossroads.Services
+{
+    public class PackageApplicationBuilder : IPackageApplicationBuilder, IDisposable
+    {
+        private readonly IFileSystem fileSystem;
+        private readonly IResourcesAssemblyBuilder resourcesAssemblyBuilder;
+        private readonly ILauncherAppsettingsFileService launcherAppsettingsFileService;
+        private readonly IAppHostService appHostService;
+
+        public PackageApplicationBuilder(IFileSystem fileSystem, IResourcesAssemblyBuilder resourcesAssemblyBuilder, ILauncherAppsettingsFileService launcherAppsettingsFileService, IAppHostService appHostService)
+        {
+            this.fileSystem = fileSystem;
+            this.resourcesAssemblyBuilder = resourcesAssemblyBuilder;
+            this.launcherAppsettingsFileService = launcherAppsettingsFileService;
+            this.appHostService = appHostService;
+        }
+
+        private bool disposed = false;
+
+        public PackageOption Option { get; set; }
+
+        public async Task Build(PackageOption option)
+        {
+            Option = option;
+            if (Option == null)
+            {
+                throw new ArgumentException(nameof(Option));
+            }
+            if (string.IsNullOrWhiteSpace(Option.Name))
+            {
+                throw new ArgumentException(nameof(Option.Name));
+            }
+
+            await Task.Run(() => CopyDirectory(launcherSourceDirectory, appHostDirectory, true));
+
+            await launcherAppsettingsFileService.SetOption(appSettingsFilePath, option);
+
+            // copy include files
+            CopyIncludeDirectories();
+
+            string resourceassemblyPathResult = await resourcesAssemblyBuilder.Build(resourceassemblyPath, Option.Version, Option.Icon);
+            await appHostService.ConvertLauncherToBundle(Path.ChangeExtension(Option.Name, "exe"), Option.Location, appHostDirectory, resourceassemblyPathResult);
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposed)
+            {
+                return;
+            }
+            if (disposing)
+            {
+                cleanWorkingDirectory();
+            }
+            disposed = true;
+        }
+
+        private void cleanWorkingDirectory()
+        {
+            if (fileSystem.Directory.Exists(workingDirectory))
+            {
+                fileSystem.Directory.Delete(workingDirectory, true);
+            }
+        }
+
+        private string WorkingDirectory
+        {
+            get
+            {
+                if (string.IsNullOrWhiteSpace(workingDirectory))
+                {
+                    workingDirectory = Path.Combine(Path.GetTempPath(), "crossroads", Path.GetRandomFileName());
+                    if (!fileSystem.Directory.Exists(workingDirectory))
+                    {
+                        fileSystem.Directory.CreateDirectory(workingDirectory);
+                    }
+                }
+                return workingDirectory;
+            }
+        }
+
+        private void CopyIncludeDirectories()
+        {
+            if (Option.Include == null)
+            {
+                return;
+            }
+
+            var invalidIncludes = Option.Include.Where(x => !fileSystem.Directory.Exists(x)).ToArray();
+            if (invalidIncludes.Length == 1)
+            {
+                throw new ArgumentException($"Invalid include directory {invalidIncludes.First()}");
+            }
+            else if (invalidIncludes.Length > 1)
+            {
+                throw new AggregateException("Invalid include directories", invalidIncludes.Select(x => new ArgumentException($"Invalid include directory {x}")));
+            }
+
+            foreach (var includeDirectory in Option.Include)
+            {
+                DirectoryInfoBase dirInfo = fileSystem.DirectoryInfo.FromDirectoryName(includeDirectory);
+                CopyDirectory(includeDirectory, Path.Combine(assetsDirectory, dirInfo.Name), true);
+            }
+        }
+
+        private string workingDirectory;
+        private string appHostDirectory => Path.Combine(WorkingDirectory, "AppDirectory");
+        private string launcherSourceDirectory => Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Crossroads.Launcher");
+        private string appSettingsFilePath => Path.Combine(appHostDirectory, "appsettings.json");
+        private string resourceassemblyPath => Path.Combine(appHostDirectory, "crossraods.resourceassembly.dll");
+        private string assetsDirectory => Path.Combine(appHostDirectory, "assets");
+
+        private void CopyDirectory(string sourceDirName, string destDirName, bool copySubDirs)
+        {
+            // Get the subdirectories for the specified directory.
+            DirectoryInfoBase dir = fileSystem.DirectoryInfo.FromDirectoryName(sourceDirName);
+
+            DirectoryInfoBase[] dirs = dir.GetDirectories();
+
+            // If the destination directory doesn't exist, create it.       
+            fileSystem.Directory.CreateDirectory(destDirName);
+
+            // Get the files in the directory and copy them to the new location.
+            FileInfoBase[] files = dir.GetFiles();
+            foreach (FileInfoBase file in files)
+            {
+                string tempPath = Path.Combine(destDirName, file.Name);
+                file.CopyTo(tempPath, false);
+            }
+
+            // If copying subdirectories, copy them and their contents to new location.
+            if (copySubDirs)
+            {
+                foreach (DirectoryInfoBase subdir in dirs)
+                {
+                    string tempPath = Path.Combine(destDirName, subdir.Name);
+                    CopyDirectory(subdir.FullName, tempPath, copySubDirs);
+                }
+            }
+        }
+    }
+}

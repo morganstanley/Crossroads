@@ -1,0 +1,49 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+	<ItemGroup>
+		<PackageReference Include="coverlet.msbuild" Version="2.9.0">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.5.0" />
+		<PackageReference Include="xunit" Version="2.4.0" />
+		<PackageReference Include="xunit.runner.visualstudio" Version="2.4.0">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+		</PackageReference>
+		<PackageReference Include="coverlet.collector" Version="1.2.0">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+		</PackageReference>
+		<PackageReference Include="Moq" Version="4.14.5" />
+		<PackageReference Include="System.IO.Abstractions.TestingHelpers" Version="3.0.2" />
+	</ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\..\src\Crossroads\Crossroads.csproj" />
+		<ProjectReference Include="..\Crossroads.Test.Utility\Crossroads.Test.Utility.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<None Update="assets\**">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+	</ItemGroup>
+
+	<Target Name="CopyLauncher" BeforeTargets="CopyAdditionalFiles">
+		<ItemGroup>
+			<LauncherFile Include="..\..\src\Crossroads.Launcher\$(OutDir)**"></LauncherFile>
+			<None Include="@(LauncherFile)">
+				<Link>Crossroads.Launcher\%(LauncherFile.FileName)%(LauncherFile.Extension)</Link>
+				<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+			</None>
+		</ItemGroup>
+	</Target>
+
+	<Target Name="CopyAppHost" BeforeTargets="CopyAdditionalFiles" DependsOnTargets="ResolveFrameworkReferences">
+		<ItemGroup>
+			<None Include="$(AppHostSourcePath)">
+				<Link>apphost\apphost.exe</Link>
+				<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+			</None>
+		</ItemGroup>
+	</Target>
+</Project>

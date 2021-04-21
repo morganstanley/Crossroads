@@ -1,0 +1,85 @@
+﻿using Crossroads.Commands;
+using Crossroads.Core;
+using Crossroads.Services;
+using Moq;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.IO.Abstractions.TestingHelpers;
+using System.Text;
+using System.Threading.Tasks;
+using Xunit;
+
+namespace Crossroads.Services.Test
+{
+    public class PackageApplicationBuilderTests
+    {
+        [Fact]
+        public async Task Build_NoName_ArgumentExcetpion()
+        {
+            using var packageApplicationBuilder = GetPackageApplicationBuilder();
+            var option = new PackageOption();
+            await Assert.ThrowsAsync<ArgumentException>(async () => await packageApplicationBuilder.Build(option));
+        }
+
+        [Fact]
+        public async Task Build_InvalidInclude_ArgumentException()
+        {
+            using var packageApplicationBuilder = GetPackageApplicationBuilder();
+            var option = new PackageOption
+            {
+                Name = "testapp",
+                Command = "Notepad",
+                Version = "3.0.1.0",
+                Include = new[] { @".\assets\invalidinclude" }
+            };
+            await Assert.ThrowsAsync<ArgumentException>( async () => await packageApplicationBuilder.Build(option));
+        }
+
+        [Fact]
+        public async Task Build_InvalidIncludes_ArgumentException()
+        {
+            using var packageApplicationBuilder = GetPackageApplicationBuilder();
+            var option = new PackageOption
+            {
+                Name = "testapp",
+                Command = "Notepad",
+                Version = "3.0.1.0",
+                Include = new[] { @".\assets\invalidinclude", @".\assets\invalidinclude2" }
+            };
+            await Assert.ThrowsAsync<AggregateException>(async () => await packageApplicationBuilder.Build(option));
+        }
+
+        [Fact]
+        public async Task Build_OptionNull_Argumentexception()
+        {
+            using var packageApplicationBuilder = GetPackageApplicationBuilder();
+            await Assert.ThrowsAsync<ArgumentException>(async () => await packageApplicationBuilder.Build(null));
+        }
+
+        [Fact]
+        public async Task Build_Success()
+        {
+            using var packageApplicationBuilder = GetPackageApplicationBuilder();
+            var option = new PackageOption
+            {
+                Name = "testapp",
+                Command = "Notepad",
+                Version = "3.0.1.0",
+                Include = new string[] { @"assets\include" }
+            };
+            await packageApplicationBuilder.Build(option);
+        }
+
+        private PackageApplicationBuilder GetPackageApplicationBuilder()
+        {
+            var fileSystem = new MockFileSystem();
+            fileSystem.AddFile(@"assets\include\include2\file1.txt", new MockFileData("abc"));
+            fileSystem.AddDirectory(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Crossroads.Launcher"));
+            var resource = new Mock<IResourcesAssemblyBuilder>();
+            var appsettingsFile = new Mock<ILauncherAppsettingsFileService>();
+            var appHostService = new Mock<IAppHostService>();
+            return new PackageApplicationBuilder(fileSystem, resource.Object, appsettingsFile.Object, appHostService.Object);
+        }
+    }
+}
