@@ -53,7 +53,8 @@ namespace Crossroads.Core.Test
             IProcessService processService = new ProcessService();
             var startInfo = new ProcessStartInfo
             {
-                FileName = "cmd"
+                FileName = "cmd",
+                Arguments = "/k echo wait time out"
             };
             await Assert.ThrowsAsync<TimeoutException>(async () => await processService.GetConsoleOutputAsync(startInfo, 3000));
         }
