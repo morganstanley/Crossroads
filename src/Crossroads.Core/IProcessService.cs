@@ -20,6 +20,6 @@ namespace Crossroads.Core
     public interface IProcessService
     {
         Task<int> RunAsync(ProcessStartInfo startInfo);
-        Task<string> GetConsoleOutputAsync(ProcessStartInfo startInfo, int millionSeconds);
+        Task<string> GetConsoleOutputAsync(ProcessStartInfo startInfo, int milliseconds);
     }
 }
