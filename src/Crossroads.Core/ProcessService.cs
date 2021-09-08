@@ -20,7 +20,7 @@ namespace Crossroads.Core
 {
     public class ProcessService : IProcessService
     {
-        public async Task<string> GetConsoleOutputAsync(ProcessStartInfo startInfo, int millionSeconds)
+        public async Task<string> GetConsoleOutputAsync(ProcessStartInfo startInfo, int milliseconds)
         {
             string result = string.Empty;
             startInfo.RedirectStandardOutput = true;
@@ -31,7 +31,7 @@ namespace Crossroads.Core
             {
                 var process = Process.Start(startInfo);
 
-                if (process.WaitForExit(millionSeconds))
+                if (process.WaitForExit(milliseconds))
                 {
                     var exitCode = process.ExitCode;
                     if (exitCode == 0)
