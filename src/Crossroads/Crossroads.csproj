@@ -7,8 +7,6 @@
 		<PublishReadyToRun>true</PublishReadyToRun>
     <Version>1.0.1-alpha</Version>
     <InformationalVersion>This is a prerelease package</InformationalVersion>
-    <GeneratePackageOnBuild>False</GeneratePackageOnBuild>
-    <Description>This is a prerelease version</Description>
   </PropertyGroup>
 
 	<ItemGroup>
