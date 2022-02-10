@@ -5,15 +5,15 @@
 		<PublishSingleFile>true</PublishSingleFile>
 		<SelfContained>true</SelfContained>
 		<PublishReadyToRun>true</PublishReadyToRun>
-    <VersionPrefix>1.0.0-preview</VersionPrefix>
-    <InformationalVersion>This is a prerelease package</InformationalVersion>
-  </PropertyGroup>
+    		<VersionPrefix>1.0.0-preview</VersionPrefix>
+    		<InformationalVersion>This is a prerelease package</InformationalVersion>
+  	</PropertyGroup>
 
 	<ItemGroup>
-    <PackageReference Include="GitVersion.MsBuild" Version="5.8.1">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
+	    	<PackageReference Include="GitVersion.MsBuild" Version="5.8.1">
+	      		<PrivateAssets>all</PrivateAssets>
+	      		<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+	    	</PackageReference>
 		<PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="3.5.0" />
 		<PackageReference Include="Microsoft.CodeAnalysis.Analyzers" Version="3.0.0" />
 		<PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
