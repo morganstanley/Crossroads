@@ -5,7 +5,7 @@
 		<PublishSingleFile>true</PublishSingleFile>
 		<SelfContained>true</SelfContained>
 		<PublishReadyToRun>true</PublishReadyToRun>
-    <Version>1.0.1-alpha</Version>
+    <VersionPrefix>1.0.0-preview</VersionPrefix>
     <InformationalVersion>This is a prerelease package</InformationalVersion>
   </PropertyGroup>
 
