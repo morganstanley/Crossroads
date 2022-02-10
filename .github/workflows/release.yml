@@ -8,15 +8,3 @@ on:
 jobs:
   build:
     uses: ./.github/workflows/continuous-integration.yml
-
-  nuget-push:
-    runs-on: windows-latest
-    needs: build
-    steps:
-      - name: Download artifacts
-        uses: actions/download-artifact@v2
-        with:
-          name: packages
-          path: ./packages
-      - name: Publish
-        run: dotnet nuget push "./packages/*.nupkg" --no-symbols true --source "https://api.nuget.org/v3/index.json" --api-key ${{ secrets.NUGET_KEY }}
