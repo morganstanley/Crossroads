@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.30320.27
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.32014.148
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Crossroads", "src\Crossroads\Crossroads.csproj", "{F6D3B53F-694B-4C98-BAF3-91E630383F65}"
 	ProjectSection(ProjectDependencies) = postProject
@@ -26,11 +26,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Crossroads.Test", "test\Crossroads.Test\Crossroads.Test.csproj", "{36117EBE-B456-4793-9E25-927064F9388A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Crossroads.Core", "src\Crossroads.Core\Crossroads.Core.csproj", "{79857D08-A131-449A-9472-E43F609CA990}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Crossroads.Test.Utility", "test\Crossroads.Test.Utility\Crossroads.Test.Utility.csproj", "{DAB76F1D-1C44-44E6-A31E-424F1FE802FB}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Crossroads.Core.Test", "test\Crossroads.Core.Test\Crossroads.Core.Test.csproj", "{FFFC6E78-1EA7-49BC-92C2-AA7863FA1630}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -54,18 +50,10 @@ Global
 		{36117EBE-B456-4793-9E25-927064F9388A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{36117EBE-B456-4793-9E25-927064F9388A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{36117EBE-B456-4793-9E25-927064F9388A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{79857D08-A131-449A-9472-E43F609CA990}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{79857D08-A131-449A-9472-E43F609CA990}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{79857D08-A131-449A-9472-E43F609CA990}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{79857D08-A131-449A-9472-E43F609CA990}.Release|Any CPU.Build.0 = Release|Any CPU
 		{DAB76F1D-1C44-44E6-A31E-424F1FE802FB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{DAB76F1D-1C44-44E6-A31E-424F1FE802FB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DAB76F1D-1C44-44E6-A31E-424F1FE802FB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DAB76F1D-1C44-44E6-A31E-424F1FE802FB}.Release|Any CPU.Build.0 = Release|Any CPU
-		{FFFC6E78-1EA7-49BC-92C2-AA7863FA1630}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{FFFC6E78-1EA7-49BC-92C2-AA7863FA1630}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{FFFC6E78-1EA7-49BC-92C2-AA7863FA1630}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{FFFC6E78-1EA7-49BC-92C2-AA7863FA1630}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -75,9 +63,7 @@ Global
 		{D5CFC6B7-467A-4588-8F30-7ED3FEDD1D2E} = {25BC40E7-F8F5-4CBB-BB93-6FEBB82A27CB}
 		{94091C89-9D5B-4D04-87AC-7165C9D74013} = {59C1FECC-EF9E-49DF-AB1A-A483FEE8CEF4}
 		{36117EBE-B456-4793-9E25-927064F9388A} = {59C1FECC-EF9E-49DF-AB1A-A483FEE8CEF4}
-		{79857D08-A131-449A-9472-E43F609CA990} = {25BC40E7-F8F5-4CBB-BB93-6FEBB82A27CB}
 		{DAB76F1D-1C44-44E6-A31E-424F1FE802FB} = {59C1FECC-EF9E-49DF-AB1A-A483FEE8CEF4}
-		{FFFC6E78-1EA7-49BC-92C2-AA7863FA1630} = {59C1FECC-EF9E-49DF-AB1A-A483FEE8CEF4}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {A33F4766-4A4F-4B84-821E-ECD6B428A449}

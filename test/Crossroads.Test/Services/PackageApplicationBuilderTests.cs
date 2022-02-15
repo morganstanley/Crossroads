@@ -13,7 +13,7 @@
  */
 
 using Crossroads.Commands;
-using Crossroads.Core;
+using Crossroads.Launcher.Services;
 using Crossroads.Services;
 using Moq;
 using System;

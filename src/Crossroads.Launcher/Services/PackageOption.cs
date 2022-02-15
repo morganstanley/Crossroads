@@ -12,13 +12,18 @@
  * and limitations under the License.
  */
 
-using Crossroads.Launcher.Services;
-using System.Threading.Tasks;
+using System.Collections.Generic;
 
-namespace Crossroads.Services
+namespace Crossroads.Launcher.Services
 {
-    public interface ILauncherAppsettingsFileService
+    public class PackageOption
     {
-        Task SetOption(string filePath, PackageOption option);
+        public string Name { get; set; }
+        public string Version { get; set; }
+        public string Icon { get; set; }
+        public IEnumerable<string> Include { get; set; }
+        public string Command { get; set; }
+        public string Args { get; set; }
+        public string Location { get; set; }
     }
 }

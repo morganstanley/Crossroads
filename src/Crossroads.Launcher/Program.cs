@@ -12,7 +12,6 @@
  * and limitations under the License.
  */
 
-using Crossroads.Core;
 using Crossroads.Launcher.Commands;
 using Crossroads.Launcher.Services;
 using Microsoft.Extensions.Configuration;

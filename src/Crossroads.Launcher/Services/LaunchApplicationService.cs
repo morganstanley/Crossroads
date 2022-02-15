@@ -12,7 +12,6 @@
  * and limitations under the License.
  */
 
-using Crossroads.Core;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Diagnostics;

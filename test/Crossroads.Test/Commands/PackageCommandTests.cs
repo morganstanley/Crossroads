@@ -12,7 +12,7 @@
  * and limitations under the License.
  */
 
-using Crossroads.Core;
+using Crossroads.Launcher.Services;
 using Crossroads.Services;
 using Crossroads.Test.Utility;
 using Microsoft.Extensions.DependencyInjection;
