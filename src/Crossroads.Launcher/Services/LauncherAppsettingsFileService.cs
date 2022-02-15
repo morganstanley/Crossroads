@@ -18,7 +18,7 @@ using Newtonsoft.Json.Linq;
 using System.IO.Abstractions;
 using System.Threading.Tasks;
 
-namespace Crossroads.Services
+namespace Crossroads.Launcher.Services
 {
     public class LauncherAppsettingsFileService : ILauncherAppsettingsFileService
     {

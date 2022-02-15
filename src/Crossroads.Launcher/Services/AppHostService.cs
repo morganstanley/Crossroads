@@ -18,7 +18,7 @@ using System;
 using System.IO;
 using System.Threading.Tasks;
 
-namespace Crossroads.Services
+namespace Crossroads.Launcher.Services
 {
     public class AppHostService : IAppHostService
     {

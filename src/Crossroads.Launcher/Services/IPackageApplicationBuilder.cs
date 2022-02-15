@@ -12,12 +12,13 @@
  * and limitations under the License.
  */
 
+using System;
 using System.Threading.Tasks;
 
-namespace Crossroads.Services
+namespace Crossroads.Launcher.Services
 {
-    public interface IInspectService
+    public interface IPackageApplicationBuilder: IDisposable
     {
-        Task<string> InspectLauncherPackage(string packagePath);
+        Task Build(PackageOption option);
     }
 }

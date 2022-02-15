@@ -14,10 +14,10 @@
 
 using System.Threading.Tasks;
 
-namespace Crossroads.Services
+namespace Crossroads.Launcher.Services
 {
-    public interface IResourcesAssemblyBuilder
+    public interface IAppHostService
     {
-        Task<string> Build(string targetPath, string version = null, string iconPath = null);
+        Task ConvertLauncherToBundle(string bundleName, string bundleDirectory, string appHostDirectory, string resourceassemblyPathResult);
     }
 }

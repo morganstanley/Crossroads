@@ -24,6 +24,7 @@ using System.CommandLine.Hosting;
 using System.CommandLine.Parsing;
 using System.Diagnostics;
 using System.IO.Abstractions;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Crossroads.Launcher
@@ -31,6 +32,43 @@ namespace Crossroads.Launcher
     class Program
     {
         static async Task<int> Main(string[] args)
+        {
+            string toolMode = "package";
+            if (args.Contains(toolMode))  return await ToolMode(args);
+
+            return await LauncherMode(args);
+        }
+
+        private async static Task<int> ToolMode(string[] args)
+        {
+            var parser = new CommandLineBuilder()
+                .UseDefaults()
+                .UseHost(_ => Host.CreateDefaultBuilder(args),
+                    hostBuilder =>
+                    {
+                        hostBuilder.ConfigureAppConfiguration((hostingContext, config) =>
+                        {
+                            config.AddJsonFile($"{AppDomain.CurrentDomain.BaseDirectory}appsettings.json", optional: false, reloadOnChange: true);
+                        })
+                        .ConfigureServices(services =>
+                        {
+                            services.AddSingleton<IFileSystem, FileSystem>();
+                            services.AddTransient<IPackageApplicationBuilder, PackageApplicationBuilder>();
+                            services.AddTransient<IAppHostService, AppHostService>();
+                            services.AddTransient<IResourcesAssemblyBuilder, ResourcesAssemblyBuilder>();
+                            services.AddTransient<ILauncherAppsettingsFileService, LauncherAppsettingsFileService>();
+                            services.AddTransient<IProcessService, ProcessService>();
+                            services.AddTransient<IInspectService, InspectService>();
+                        });
+                    })
+                .AddCommand(new PackageCommand())
+                .AddCommand(new InspectCommand())
+                .Build();
+
+            return await parser.InvokeAsync(args);
+        }
+
+        private async static Task<int> LauncherMode(string[] args)
         {
             // Debugger.Launch();
             var parser = new CommandLineBuilder(new LauncherRootCommand())

@@ -17,7 +17,7 @@ using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
 
-namespace Crossroads.Services
+namespace Crossroads.Launcher.Services
 {
     // todo: reuse process service
     public class InspectService : IInspectService

@@ -12,14 +12,13 @@
  * and limitations under the License.
  */
 
-using Crossroads.Launcher.Services;
 using System;
 using System.IO;
 using System.IO.Abstractions;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Crossroads.Services
+namespace Crossroads.Launcher.Services
 {
     public class PackageApplicationBuilder : IPackageApplicationBuilder, IDisposable
     {

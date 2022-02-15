@@ -12,14 +12,14 @@
  * and limitations under the License.
  */
 
-using Crossroads.Services;
+using Crossroads.Launcher.Services;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System;
 using System.CommandLine;
 using System.CommandLine.Invocation;
 
-namespace Crossroads.Commands
+namespace Crossroads.Launcher.Commands
 {
     public class InspectCommand : Command
     {

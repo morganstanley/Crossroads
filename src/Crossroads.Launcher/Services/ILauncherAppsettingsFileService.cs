@@ -12,12 +12,13 @@
  * and limitations under the License.
  */
 
+using Crossroads.Launcher.Services;
 using System.Threading.Tasks;
 
-namespace Crossroads.Services
+namespace Crossroads.Launcher.Services
 {
-    public interface IAppHostService
+    public interface ILauncherAppsettingsFileService
     {
-        Task ConvertLauncherToBundle(string bundleName, string bundleDirectory, string appHostDirectory, string resourceassemblyPathResult);
+        Task SetOption(string filePath, PackageOption option);
     }
 }

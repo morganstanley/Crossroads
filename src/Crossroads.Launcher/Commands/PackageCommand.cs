@@ -13,7 +13,6 @@
  */
 
 using Crossroads.Launcher.Services;
-using Crossroads.Services;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System;
@@ -22,7 +21,7 @@ using System.CommandLine;
 using System.CommandLine.Invocation;
 using System.Threading.Tasks;
 
-namespace Crossroads.Commands
+namespace Crossroads.Launcher.Commands
 {
     public class PackageCommand : Command
     {

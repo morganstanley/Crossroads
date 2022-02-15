@@ -21,7 +21,7 @@ using System.IO.Abstractions;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Crossroads.Services
+namespace Crossroads.Launcher.Services
 {
     public class ResourcesAssemblyBuilder : IResourcesAssemblyBuilder
     {
