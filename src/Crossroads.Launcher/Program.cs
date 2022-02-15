@@ -33,10 +33,10 @@ namespace Crossroads.Launcher
     {
         static async Task<int> Main(string[] args)
         {
-            string toolMode = "package";
-            if (args.Contains(toolMode))  return await ToolMode(args);
+            string argMode = "package";
+            if (args.Contains(argMode))  return await LauncherMode(args);
 
-            return await LauncherMode(args);
+            return await ToolMode(args);
         }
 
         private async static Task<int> ToolMode(string[] args)
