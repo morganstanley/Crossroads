@@ -12,13 +12,13 @@
  * and limitations under the License.
  */
 
-using Crossroads.Launcher.Services;
+using Crossroads.Services;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.IO.Abstractions;
 using System.Threading.Tasks;
 
-namespace Crossroads.Launcher.Services
+namespace Crossroads.Services
 {
     public class LauncherAppsettingsFileService : ILauncherAppsettingsFileService
     {

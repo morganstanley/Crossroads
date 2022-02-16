@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.32014.148
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Crossroads.Launcher", "src\Crossroads.Launcher\Crossroads.Launcher.csproj", "{D5CFC6B7-467A-4588-8F30-7ED3FEDD1D2E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Crossroads", "src\Crossroads.Launcher\Crossroads.csproj", "{D5CFC6B7-467A-4588-8F30-7ED3FEDD1D2E}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Crossroads.Launcher.Test", "test\crossroads.Launcher.Test\Crossroads.Launcher.Test.csproj", "{94091C89-9D5B-4D04-87AC-7165C9D74013}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Crossroads.Test", "test\crossroads.Launcher.Test\Crossroads.Test.csproj", "{94091C89-9D5B-4D04-87AC-7165C9D74013}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{25BC40E7-F8F5-4CBB-BB93-6FEBB82A27CB}"
 EndProject

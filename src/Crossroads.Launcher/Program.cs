@@ -12,8 +12,8 @@
  * and limitations under the License.
  */
 
-using Crossroads.Launcher.Commands;
-using Crossroads.Launcher.Services;
+using Crossroads.Commands;
+using Crossroads.Services;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -27,14 +27,14 @@ using System.IO.Abstractions;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Crossroads.Launcher
+namespace Crossroads
 {
     class Program
     {
         static async Task<int> Main(string[] args)
         {
-            string argMode = "package";
-            if (args.Contains(argMode))  return await LauncherMode(args);
+            string[] argMode = {"Crossroads","package"};
+            if (!argMode.Any(args.Contains))  return await LauncherMode(args);
 
             return await ToolMode(args);
         }

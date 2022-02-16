@@ -12,13 +12,14 @@
  * and limitations under the License.
  */
 
+using Crossroads.Services;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Crossroads.Launcher.Services
+namespace Crossroads.Services
 {
     public class LauncherInspectService : ILauncherInspectService
     {

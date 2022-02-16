@@ -15,7 +15,7 @@
 using System;
 using System.Threading.Tasks;
 
-namespace Crossroads.Launcher.Services
+namespace Crossroads.Services
 {
     public interface IPackageApplicationBuilder: IDisposable
     {

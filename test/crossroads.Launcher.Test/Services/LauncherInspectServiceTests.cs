@@ -12,7 +12,7 @@
  * and limitations under the License.
  */
 
-using Crossroads.Launcher.Services;
+using Crossroads.Services;
 using Microsoft.Extensions.Configuration;
 using Moq;
 using System;
@@ -20,14 +20,14 @@ using System.Collections.Generic;
 using System.Text;
 using Xunit;
 
-namespace Crossroads.Launcher.Services.Test
+namespace Crossroads.Test.Services
 {
     public class LauncherInspectServiceTests
     {
         [Fact]
         public void DisplayOption_Success()
         {
-            IConfiguration configuration = Mock.Of<IConfiguration>(x => x["Launcher:Name"] == "testapp" 
+            IConfiguration configuration = Mock.Of<IConfiguration>(x => x["Launcher:Name"] == "testapp"
                 && x["Launcher:Location"] == "");
 
             ILauncherInspectService service = new LauncherInspectService(configuration);

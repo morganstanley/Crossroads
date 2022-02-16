@@ -12,13 +12,14 @@
  * and limitations under the License.
  */
 
+using Crossroads.Services;
 using Microsoft.NET.HostModel.AppHost;
 using Microsoft.NET.HostModel.Bundle;
 using System;
 using System.IO;
 using System.Threading.Tasks;
 
-namespace Crossroads.Launcher.Services
+namespace Crossroads.Services
 {
     public class AppHostService : IAppHostService
     {

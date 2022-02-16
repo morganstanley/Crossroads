@@ -12,10 +12,10 @@
  * and limitations under the License.
  */
 
-using Crossroads.Launcher.Services;
+using Crossroads.Services;
 using System.Threading.Tasks;
 
-namespace Crossroads.Launcher.Services
+namespace Crossroads.Services
 {
     public interface ILauncherAppsettingsFileService
     {

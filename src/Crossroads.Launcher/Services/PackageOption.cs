@@ -14,7 +14,7 @@
 
 using System.Collections.Generic;
 
-namespace Crossroads.Launcher.Services
+namespace Crossroads.Services
 {
     public class PackageOption
     {

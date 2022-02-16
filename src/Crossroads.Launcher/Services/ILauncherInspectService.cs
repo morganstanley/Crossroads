@@ -12,7 +12,7 @@
  * and limitations under the License.
  */
 
-namespace Crossroads.Launcher.Services
+namespace Crossroads.Services
 {
     public interface ILauncherInspectService
     {

@@ -12,13 +12,14 @@
  * and limitations under the License.
  */
 
+using Crossroads.Services;
 using System;
 using System.IO;
 using System.IO.Abstractions;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace Crossroads.Launcher.Services.Test
+namespace Crossroads.Test.Services
 {
     public class PackageApplicationBuilderEETests
     {
@@ -42,7 +43,7 @@ namespace Crossroads.Launcher.Services.Test
             {
                 Command = "Notepad",
                 Version = "3.0.1.0",
-                Include = new[] { @".\assets\include1"}
+                Include = new[] { @".\assets\include1" }
             };
             await packageApplicationBuilder.Build(option);
         }

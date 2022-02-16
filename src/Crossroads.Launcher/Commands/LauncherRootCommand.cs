@@ -12,7 +12,7 @@
  * and limitations under the License.
  */
 
-using Crossroads.Launcher.Services;
+using Crossroads.Services;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
@@ -21,14 +21,14 @@ using System.CommandLine;
 using System.CommandLine.Invocation;
 using System.Threading.Tasks;
 
-namespace Crossroads.Launcher.Commands
+namespace Crossroads.Commands
 {
-    public class LauncherRootCommand: RootCommand
+    public class LauncherRootCommand : RootCommand
     {
         public LauncherRootCommand()
         {
             AddOption(argsOption);
-            this.Handler = CommandHandler.Create<IHost, string>(LauncherApplicationHandler);
+            Handler = CommandHandler.Create<IHost, string>(LauncherApplicationHandler);
         }
 
         private async Task<int> LauncherApplicationHandler(IHost host, string args)
@@ -40,7 +40,7 @@ namespace Crossroads.Launcher.Commands
                 return await launcherService.RunAsync(args);
 
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 logger.LogError(e.Message);
             }

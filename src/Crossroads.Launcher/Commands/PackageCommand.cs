@@ -12,7 +12,7 @@
  * and limitations under the License.
  */
 
-using Crossroads.Launcher.Services;
+using Crossroads.Services;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System;
@@ -21,7 +21,7 @@ using System.CommandLine;
 using System.CommandLine.Invocation;
 using System.Threading.Tasks;
 
-namespace Crossroads.Launcher.Commands
+namespace Crossroads.Commands
 {
     public class PackageCommand : Command
     {
@@ -57,7 +57,7 @@ namespace Crossroads.Launcher.Commands
         };
 
         private readonly Option ArgsOption = new Option(
-                    new[] { "--args"},
+                    new[] { "--args" },
                     description: "Add arguments for the internal application")
         {
             Argument = new Argument<string>
@@ -67,7 +67,7 @@ namespace Crossroads.Launcher.Commands
         };
 
         private readonly Option LocationOption = new Option<string>(
-                new[] { "--location", "-l"},
+                new[] { "--location", "-l" },
                  "Set the output file location of the package")
         {
             Argument = new Argument<string>
@@ -77,7 +77,7 @@ namespace Crossroads.Launcher.Commands
         };
 
         private readonly Option IconOption = new Option<string>(
-                    new[] { "--icon"},
+                    new[] { "--icon" },
                     description: "Set icon for the executable package, should be of '.ico' extension")
         {
             Argument = new Argument<string>
@@ -110,7 +110,7 @@ namespace Crossroads.Launcher.Commands
                 Console.WriteLine("Package application successfully.");
                 return 0;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Console.WriteLine("Failed to package the application.");
                 Console.WriteLine(ex.Message);

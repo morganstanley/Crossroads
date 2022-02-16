@@ -12,6 +12,7 @@
  * and limitations under the License.
  */
 
+using Crossroads.Services;
 using Moq;
 using System;
 using System.IO;
@@ -19,7 +20,7 @@ using System.IO.Abstractions.TestingHelpers;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace Crossroads.Launcher.Services.Test
+namespace Crossroads.Test.Services
 {
     public class PackageApplicationBuilderTests
     {
@@ -42,7 +43,7 @@ namespace Crossroads.Launcher.Services.Test
                 Version = "3.0.1.0",
                 Include = new[] { @".\assets\invalidinclude" }
             };
-            await Assert.ThrowsAsync<ArgumentException>( async () => await packageApplicationBuilder.Build(option));
+            await Assert.ThrowsAsync<ArgumentException>(async () => await packageApplicationBuilder.Build(option));
         }
 
         [Fact]

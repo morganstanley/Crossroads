@@ -12,12 +12,13 @@
  * and limitations under the License.
  */
 
+using Crossroads.Services;
 using System;
 using System.IO;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace Crossroads.Launcher.Services.Test
+namespace Crossroads.Test.Services
 {
     public class AppHostServiceTests
     {

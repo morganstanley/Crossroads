@@ -12,12 +12,12 @@
  * and limitations under the License.
  */
 
-using Crossroads.Launcher.Services;
+using Crossroads.Services;
 using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
 
-namespace Crossroads.Launcher.Services
+namespace Crossroads.Services
 {
     // todo: reuse process service
     public class InspectService : IInspectService
