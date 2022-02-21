@@ -7,6 +7,7 @@ on:
     branches: [ main ]
   pull_request:
     branches: [ main ]
+  workflow_call:
 
 jobs:
   build:
@@ -22,8 +23,16 @@ jobs:
       with:
         dotnet-version: 3.1.x
     - name: Restore dependencies
-      run: dotnet restore
+      run: dotnet restore --locked-mode
     - name: Build
-      run: dotnet build --no-restore
+      run: dotnet build --no-restore --configuration Release
     - name: Test
       run: dotnet test --no-build --verbosity normal -p:CollectCoverage=true -p:CoverletOutputFormat=opencover
+    - name: Publish
+      run: dotnet publish -c Release -o package
+    - name: Package published artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: package
+        path: package/*
+        if-no-files-found: error
