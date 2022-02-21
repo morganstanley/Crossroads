@@ -5,8 +5,8 @@
 		<PublishSingleFile>true</PublishSingleFile>
 		<SelfContained>true</SelfContained>
 		<PublishReadyToRun>true</PublishReadyToRun>
-    		<VersionPrefix>1.0.0-preview</VersionPrefix>
-    		<InformationalVersion>This is a prerelease package</InformationalVersion>
+    		<Configuration>Debug;Release</Configuration>
+		<VersionPrefix>1.0.0</VersionPrefix>
   	</PropertyGroup>
 
 	<ItemGroup>
