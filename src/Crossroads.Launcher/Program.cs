@@ -33,10 +33,17 @@ namespace Crossroads
     {
         static async Task<int> Main(string[] args)
         {
-            string[] argMode = {"Crossroads","package"};
-            if (!argMode.Any(args.Contains))  return await LauncherMode(args);
+            string[] argsPassed = {"package","inspect"};
+            if (args.Any(x => argsPassed.Contains(x))) 
+            {
+                await ToolMode(args);
+            }
+            else
+            {
+                await LauncherMode(args);
+            }
 
-            return await ToolMode(args);
+            return 0;
         }
 
         private async static Task<int> ToolMode(string[] args)

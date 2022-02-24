@@ -41,7 +41,7 @@ namespace Crossroads.Test.Services
             string appHostDirectory = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Crossroads.Launcher");
 
             IAppHostService appHost = new AppHostService();
-            await appHost.ConvertLauncherToBundle(bundleName, bundleDirectory, appHostDirectory, Path.Combine(appHostDirectory, "CrossRoads.Launcher.dll"));
+            await appHost.ConvertLauncherToBundle(bundleName, bundleDirectory, appHostDirectory, Path.Combine(appHostDirectory, "CrossRoads.dll"));
         }
 
     }

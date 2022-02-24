@@ -12,7 +12,6 @@
  * and limitations under the License.
  */
 
-using Crossroads.Services;
 using System.Threading.Tasks;
 
 namespace Crossroads.Services

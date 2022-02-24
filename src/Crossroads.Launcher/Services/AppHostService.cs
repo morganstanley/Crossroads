@@ -12,7 +12,6 @@
  * and limitations under the License.
  */
 
-using Crossroads.Services;
 using Microsoft.NET.HostModel.AppHost;
 using Microsoft.NET.HostModel.Bundle;
 using System;
@@ -31,8 +30,10 @@ namespace Crossroads.Services
             var bundler = new Bundler(bundleName, bundleDirectory);
             await Task.Run(() => bundler.GenerateBundle(appHostDirectory));
         }
+
+        // path to bin win64
         private string appHostSourceFilePath => Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "AppHost", "apphost.exe");
-        private string appBinaryFilePath => "CrossRoads.Launcher.dll";
+        private string appBinaryFilePath => "CrossRoads.dll";
 
     }
 }

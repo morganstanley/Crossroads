@@ -18,6 +18,7 @@ using Microsoft.Extensions.Hosting;
 using System;
 using System.CommandLine;
 using System.CommandLine.Invocation;
+using System.Threading.Tasks;
 
 namespace Crossroads.Commands
 {
@@ -28,12 +29,20 @@ namespace Crossroads.Commands
         {
             AddOption(PackageOption);
 
-            Handler = CommandHandler.Create<IHost, string, IConsole>(async (host, package, console) =>
-            {
-                var inspectService = host.Services.GetRequiredService<IInspectService>();
-                var consoleOutput = await inspectService.InspectLauncherPackage(package);
-                Console.WriteLine(consoleOutput);
-            });
+            //Handler = CommandHandler.Create<IHost, string, IConsole>(async (host, package, console) =>
+            //{
+            //    var inspectService = host.Services.GetRequiredService<IInspectService>();
+            //    var consoleOutput = await inspectService.InspectLauncherPackage(package);
+            //    Console.WriteLine(consoleOutput);
+            //});
+            Handler = CommandHandler.Create<IHost, string, IConsole>(InspectHandler);
+        }
+        private async Task InspectHandler(IHost host, string package, IConsole console)
+        {
+
+            var inspectService = host.Services.GetRequiredService<IInspectService>();
+            var consoleOutput = await inspectService.InspectLauncherPackage(package);
+            Console.WriteLine(consoleOutput);
         }
 
         private Option PackageOption = new Option<string>(
