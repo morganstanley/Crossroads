@@ -12,14 +12,14 @@
  * and limitations under the License.
  */
 
-using Crossroads.Core;
+using Crossroads.Services;
 using Moq;
 using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace Crossroads.Services.Test
+namespace Crossroads.Test.Services
 {
     public class InspectServiceTests
     {

@@ -18,7 +18,7 @@ using System.IO;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace Crossroads.Services.Test
+namespace Crossroads.Test.Services
 {
     public class AppHostServiceTests
     {
@@ -41,7 +41,7 @@ namespace Crossroads.Services.Test
             string appHostDirectory = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Crossroads.Launcher");
 
             IAppHostService appHost = new AppHostService();
-            await appHost.ConvertLauncherToBundle(bundleName, bundleDirectory, appHostDirectory, Path.Combine(appHostDirectory, "CrossRoads.Launcher.dll"));
+            await appHost.ConvertLauncherToBundle(bundleName, bundleDirectory, appHostDirectory, Path.Combine(appHostDirectory, "CrossRoads.dll"));
         }
 
     }

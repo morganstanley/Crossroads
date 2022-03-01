@@ -16,7 +16,7 @@ using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
 
-namespace Crossroads.Core
+namespace Crossroads.Services
 {
     public class ProcessService : IProcessService
     {

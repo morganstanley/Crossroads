@@ -12,6 +12,7 @@
  * and limitations under the License.
  */
 
+using Crossroads.Services;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -19,7 +20,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace Crossroads.Core.Test
+namespace Crossroads.Test.Services
 {
     public class ProcessServiceTests
     {
@@ -32,7 +33,7 @@ namespace Crossroads.Core.Test
                 FileName = "cmd",
                 Arguments = "/c echo hello"
             };
-            var actual  = await processService.RunAsync(startInfo);
+            var actual = await processService.RunAsync(startInfo);
             Assert.Equal(0, actual);
         }
 
@@ -45,7 +46,7 @@ namespace Crossroads.Core.Test
                 FileName = "bad"
             };
             await Assert.ThrowsAnyAsync<Exception>(async () => await processService.RunAsync(startInfo));
-            
+
         }
 
         [Fact]
@@ -62,7 +63,7 @@ namespace Crossroads.Core.Test
         }
 
         //todo: failed on github tests
-        [Fact(Skip = "exit no timeout") ]
+        [Fact(Skip = "exit no timeout")]
         public async Task GetConsoleOutput_Output_TimeoutException()
         {
             IProcessService processService = new ProcessService();

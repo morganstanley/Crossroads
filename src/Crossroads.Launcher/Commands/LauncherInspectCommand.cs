@@ -12,13 +12,13 @@
  * and limitations under the License.
  */
 
-using Crossroads.Launcher.Services;
+using Crossroads.Services;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System.CommandLine;
 using System.CommandLine.Invocation;
 
-namespace Crossroads.Launcher.Commands
+namespace Crossroads.Commands
 {
     public class LauncherInspectCommand : Command
     {

@@ -30,8 +30,10 @@ namespace Crossroads.Services
             var bundler = new Bundler(bundleName, bundleDirectory);
             await Task.Run(() => bundler.GenerateBundle(appHostDirectory));
         }
+
+        // path to bin win64
         private string appHostSourceFilePath => Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "AppHost", "apphost.exe");
-        private string appBinaryFilePath => "CrossRoads.Launcher.dll";
+        private string appBinaryFilePath => "CrossRoads.dll";
 
     }
 }

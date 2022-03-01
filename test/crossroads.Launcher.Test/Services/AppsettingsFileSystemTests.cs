@@ -12,7 +12,6 @@
  * and limitations under the License.
  */
 
-using Crossroads.Core;
 using Crossroads.Services;
 using Moq;
 using System;
@@ -22,7 +21,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace Crossroads.Services.Test
+namespace Crossroads.Test.Services
 {
     public class AppsettingsFileSystemTests
     {
@@ -32,11 +31,11 @@ namespace Crossroads.Services.Test
             MockFileSystem fileSystem = new MockFileSystem();
             fileSystem.AddFile("goodAppsettings", new MockFileData(@"{""Launcher"": {""Command"": """", ""Args"":  """" }}"));
             ILauncherAppsettingsFileService fileService = new LauncherAppsettingsFileService(fileSystem);
-            await fileService.SetOption("goodAppsettings", 
-                new PackageOption 
+            await fileService.SetOption("goodAppsettings",
+                new PackageOption
                 {
                     Name = "nameAppSettings",
-                    Include = new string[] {"include1", "include2"}
+                    Include = new string[] { "include1", "include2" }
                 });
         }
     }

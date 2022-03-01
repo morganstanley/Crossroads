@@ -12,14 +12,12 @@
  * and limitations under the License.
  */
 
-using Crossroads.Core;
-using System;
 using System.Threading.Tasks;
 
 namespace Crossroads.Services
 {
-    public interface IPackageApplicationBuilder: IDisposable
+    public interface ILauncherAppsettingsFileService
     {
-        Task Build(PackageOption option);
+        Task SetOption(string filePath, PackageOption option);
     }
 }

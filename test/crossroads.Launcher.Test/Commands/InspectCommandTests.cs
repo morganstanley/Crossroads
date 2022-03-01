@@ -12,7 +12,6 @@
  * and limitations under the License.
  */
 
-using Crossroads.Commands;
 using Crossroads.Services;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
