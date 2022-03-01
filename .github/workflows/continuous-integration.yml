@@ -4,24 +4,35 @@ name: CI
 
 on:
   push:
-    branches: [ main ]
+    branches: [ main, migrate-dotnet-tool ]
   pull_request:
-    branches: [ main ]
+    branches: [ main, migrate-dotnet-tool ]
+  workflow_call:
 
 jobs:
   build:
 
-    runs-on: windows-latest
+    runs-on: windows-2022
 
     steps:
     - uses: actions/checkout@v2
+      with: 
+        fetch-depth: 0
     - name: Setup .NET
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 3.1.x
     - name: Restore dependencies
-      run: dotnet restore
+      run: dotnet restore --locked-mode
     - name: Build
-      run: dotnet build --no-restore
+      run: dotnet build --no-restore --configuration Release
     - name: Test
-      run: dotnet test --no-build --verbosity normal -p:CollectCoverage=true -p:CoverletOutputFormat=opencover
+      run: dotnet test --verbosity normal -p:CollectCoverage=true -p:CoverletOutputFormat=opencover
+    - name: Pack
+      run: dotnet pack --no-build --configuration Release --output package
+    - name: Package published artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: package
+        path: package/*.nupkg
+        if-no-files-found: error
