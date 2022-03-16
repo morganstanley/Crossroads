@@ -28,16 +28,6 @@
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</None>
 	</ItemGroup>
-	
-	<Target Name="CopyLauncher" BeforeTargets="CopyAdditionalFiles">
-		<ItemGroup>
-			<LauncherFile Include="..\..\src\Crossroads.Launcher\$(OutDir)**"></LauncherFile>
-			<None Include="@(LauncherFile)">
-				<Link>Crossroads.Launcher\%(LauncherFile.FileName)%(LauncherFile.Extension)</Link>
-				<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-			</None>
-		</ItemGroup>
-	</Target>
 
 	<Target Name="CopyAppHost" BeforeTargets="CopyAdditionalFiles" DependsOnTargets="ResolveFrameworkReferences">
 		<ItemGroup>
