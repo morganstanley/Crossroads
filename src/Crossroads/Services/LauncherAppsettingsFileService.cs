@@ -37,7 +37,6 @@ namespace Crossroads.Services
                 jsonObj["Launcher"]["Name"] = option.Name;
                 jsonObj["Launcher"]["Version"] = option.Version;
                 jsonObj["Launcher"]["Icon"] = option.Icon;
-                //ask Tq
                 jsonObj["Launcher"]["Include"] = option.Include == null ? null : JToken.FromObject(option.Include);
                 jsonObj["Launcher"]["Command"] = option.Command;
                 jsonObj["Launcher"]["Args"] = option.Args;

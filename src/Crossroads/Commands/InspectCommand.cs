@@ -24,25 +24,17 @@ namespace Crossroads.Commands
 {
     public class InspectCommand : Command
     {
-        public InspectCommand():
+        public InspectCommand() :
             base("inspect", "View metadata of a generated package")
         {
             AddOption(PackageOption);
 
-            //Handler = CommandHandler.Create<IHost, string, IConsole>(async (host, package, console) =>
-            //{
-            //    var inspectService = host.Services.GetRequiredService<IInspectService>();
-            //    var consoleOutput = await inspectService.InspectLauncherPackage(package);
-            //    Console.WriteLine(consoleOutput);
-            //});
-            Handler = CommandHandler.Create<IHost, string, IConsole>(InspectHandler);
-        }
-        private async Task InspectHandler(IHost host, string package, IConsole console)
-        {
-
-            var inspectService = host.Services.GetRequiredService<IInspectService>();
-            var consoleOutput = await inspectService.InspectLauncherPackage(package);
-            Console.WriteLine(consoleOutput);
+            Handler = CommandHandler.Create<IHost, string, IConsole>(async (host, package,console) =>
+             {
+                var inspectService = host.Services.GetRequiredService<IInspectService>();
+                var consoleOutput = await inspectService.InspectLauncherPackage(package);
+                Console.WriteLine(consoleOutput);
+            });
         }
 
         private Option PackageOption = new Option<string>(
@@ -52,6 +44,7 @@ namespace Crossroads.Commands
         {
             IsRequired = true
         };
+
     }
 
 }

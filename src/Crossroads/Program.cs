@@ -31,24 +31,38 @@ namespace Crossroads
 {
     class Program
     {
+        private static Parser CommandLineParser { get; set; }
         static async Task<int> Main(string[] args)
         {
-            string[] argsPassed = {"package","inspect"};
-            if (args.Any(x => argsPassed.Contains(x))) 
+            CommandLineParser = SetParser(args);
+
+            var rootCommand = CommandLineParser.Configuration.RootCommand;
+            var packageCommand = rootCommand.Children.FirstOrDefault(x => x.Name == "package");
+
+            if (args.Any(x => x.Contains(packageCommand.Name)))
+            {
+                return await ToolMode(args);
+            }
+
+
+            var inspectCommand = rootCommand.Children.FirstOrDefault(x => x.Name == "inspect");
+            if (args.Any(x => x.Contains(inspectCommand.Name)))
             {
                 await ToolMode(args);
+                await LauncherMode(args);
+                return 0;
             }
-            else
             {
+                //launch application
                 await LauncherMode(args);
             }
 
             return 0;
         }
 
-        private async static Task<int> ToolMode(string[] args)
+        private static Parser SetParser(string[] args)
         {
-            var parser = new CommandLineBuilder()
+           return new CommandLineBuilder()
                 .UseDefaults()
                 .UseHost(_ => Host.CreateDefaultBuilder(args),
                     hostBuilder =>
@@ -70,9 +84,12 @@ namespace Crossroads
                     })
                 .AddCommand(new PackageCommand())
                 .AddCommand(new InspectCommand())
-                .Build();
+            .Build();
+        }
+        private async static Task<int> ToolMode(string[] args)
+        {
 
-            return await parser.InvokeAsync(args);
+            return await CommandLineParser.InvokeAsync(args);
         }
 
         private async static Task<int> LauncherMode(string[] args)
