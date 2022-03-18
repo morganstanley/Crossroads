@@ -27,7 +27,7 @@ namespace Crossroads.Test.Services
         {
             string bundleName = Path.GetRandomFileName();
             string bundleDirectory = Path.Combine(Path.GetTempPath(), "crossroads", Path.GetRandomFileName());
-            string appHostDirectory = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Crossroads.Launcher");
+            string appHostDirectory = AppDomain.CurrentDomain.BaseDirectory;
 
             IAppHostService appHost = new AppHostService();
             await appHost.ConvertLauncherToBundle(bundleName, bundleDirectory, appHostDirectory, null);
@@ -38,11 +38,11 @@ namespace Crossroads.Test.Services
         {
             string bundleName = Path.GetRandomFileName();
             string bundleDirectory = Path.Combine(Path.GetTempPath(), "crossroads", Path.ChangeExtension(Path.GetRandomFileName(), "exe"));
-            string appHostDirectory = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Crossroads.Launcher");
+            string appHostDirectory = AppDomain.CurrentDomain.BaseDirectory;
 
             IAppHostService appHost = new AppHostService();
             await appHost.ConvertLauncherToBundle(bundleName, bundleDirectory, appHostDirectory, Path.Combine(appHostDirectory, "CrossRoads.dll"));
         }
-
+       
     }
 }
