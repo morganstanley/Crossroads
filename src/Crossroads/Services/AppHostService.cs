@@ -33,7 +33,7 @@ namespace Crossroads.Services
 
         // path to bin win64
         private string appHostSourceFilePath => Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "AppHost", "apphost.exe");
-        private string appBinaryFilePath => "CrossRoads.dll";
+        private string appBinaryFilePath => "Crossroads.dll";
 
     }
 }

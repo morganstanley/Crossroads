@@ -30,7 +30,6 @@ namespace Crossroads.Services
             return await Task.Run(() =>
             {
                 var process = Process.Start(startInfo);
-
                 if (process.WaitForExit(milliseconds))
                 {
                     var exitCode = process.ExitCode;

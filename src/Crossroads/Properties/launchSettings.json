@@ -1,8 +1,7 @@
 {
   "profiles": {
     "Crossroads": {
-      "commandName": "Project",
-      "commandLineArgs": " inspect --package \".\\newnotepad.exe\""
+      "commandName": "Project"
     }
   }
 }

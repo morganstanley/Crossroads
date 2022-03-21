@@ -15,6 +15,7 @@
 using Crossroads.Services;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using System;
 using System.CommandLine;
 using System.CommandLine.Invocation;
 
@@ -25,7 +26,6 @@ namespace Crossroads.Commands
         public LauncherInspectCommand()
             :base("inspect")
         {
-            // Handler = CommandHandler.Create<IHost>((host) =>
             Handler = CommandHandler.Create<IHost>((host) =>
             {
                 var service = host.Services.GetRequiredService<ILauncherInspectService>();

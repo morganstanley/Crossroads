@@ -37,7 +37,6 @@ namespace Crossroads.Services
                     FileName = packagePath,
                     Arguments = "inspect"
                 };
-
                 result = await processService.GetConsoleOutputAsync(startInfo, 3000);
             }
             catch(Exception)
