@@ -1,7 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 	<ItemGroup>
 		<ProjectReference Include="..\..\src\Crossroads\Crossroads.csproj" />
-		<ProjectReference Include="..\Crossroads.Test.Utility\Crossroads.Test.Utility.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>
