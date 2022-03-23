@@ -40,17 +40,17 @@ namespace Crossroads.Test.Services
 
 
         [Theory]
-        [InlineData(@".\Crossroads.Launcher\Crossroads.Launcher.exe")]
+        [InlineData(@".\Crossroads\Crossroads.exe")]
         public async Task Inspect_Success(string packagePath)
         {
             var processService = new Mock<IProcessService>();
-            processService.Setup(x => x.GetConsoleOutputAsync(It.Is<ProcessStartInfo>(x => x.Arguments == "inspect"), It.IsAny<int>()))
-                .ReturnsAsync("Crossroads Inspect")
+            processService.Setup(x => x.GetConsoleOutputAsync(It.Is<ProcessStartInfo>(x => x.Arguments == "inspectApp"), It.IsAny<int>()))
+                .ReturnsAsync("Crossroads InspectApp")
                 .Verifiable();
 
             IInspectService inspectService = new InspectService(processService.Object);
             var actual = await inspectService.InspectLauncherPackage(packagePath);
-            Assert.Contains("Crossroads Inspect", actual);
+            Assert.Contains("Crossroads InspectApp", actual);
 
             processService.Verify();
         }
