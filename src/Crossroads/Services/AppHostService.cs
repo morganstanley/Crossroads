@@ -31,7 +31,6 @@ namespace Crossroads.Services
             await Task.Run(() => bundler.GenerateBundle(appHostDirectory));
         }
 
-        // path to bin win64
         private string appHostSourceFilePath => Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "AppHost", "apphost.exe");
         private string appBinaryFilePath => "Crossroads.dll";
 
