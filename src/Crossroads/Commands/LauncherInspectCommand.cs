@@ -24,7 +24,7 @@ namespace Crossroads.Commands
     public class LauncherInspectCommand : Command
     {
         public LauncherInspectCommand()
-            :base("inspect")
+            :base("LauncherInspect")
         {
             Handler = CommandHandler.Create<IHost>((host) =>
             {

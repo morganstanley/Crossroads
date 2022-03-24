@@ -29,7 +29,7 @@ namespace Crossroads.Commands
         {
             AddOption(PackageOption);
 
-            Handler = CommandHandler.Create<IHost, string, IConsole>(async (host, package,console) =>
+            Handler = CommandHandler.Create<IHost, string, IConsole>(async (host, package, console) =>
              {
                 var inspectService = host.Services.GetRequiredService<IInspectService>();
                 var consoleOutput = await inspectService.InspectLauncherPackage(package);
@@ -44,7 +44,6 @@ namespace Crossroads.Commands
         {
             IsRequired = true
         };
-
     }
 
 }
