@@ -33,7 +33,7 @@ namespace Crossroads
     {
         static async Task<int> Main(string[] args)
         {
-            var parser = new CommandLineBuilder(new LauncherRootCommand())
+            var parser = new CommandLineBuilder(LauncherRootCommand.GetInstance())
                    .AddCommand(new LauncherInspectCommand())
                    .UseDefaults()
                    .UseHost(_ => Host.CreateDefaultBuilder(args),

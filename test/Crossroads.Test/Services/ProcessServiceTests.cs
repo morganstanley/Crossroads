@@ -69,6 +69,7 @@ namespace Crossroads.Test.Services
                 FileName = "cmd",
                 Arguments = "Timeout /t 50 /nobreak"
             };
+
             try
             {
                 var actual = await processService.GetConsoleOutputAsync(startInfo, 3000);

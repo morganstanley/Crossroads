@@ -25,12 +25,16 @@ namespace Crossroads.Commands
 {
     public class LauncherRootCommand : RootCommand
     {
-        public LauncherRootCommand()
+        private LauncherRootCommand()
         {
             AddOption(argsOption);
             Handler = CommandHandler.Create<IHost, string>(LauncherApplicationHandler);
         }
-
+        private static LauncherRootCommand _instance;
+        public static LauncherRootCommand GetInstance()
+        {
+            return _instance ??= new LauncherRootCommand();
+        }
         private async Task<int> LauncherApplicationHandler(IHost host, string args)
         {
             var logger = host.Services.GetRequiredService<ILogger<LauncherRootCommand>>();

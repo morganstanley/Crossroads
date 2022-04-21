@@ -32,7 +32,7 @@ namespace Crossroads.Test.Commands
             launchApp.Setup(x => x.RunAsync(It.IsAny<string>()))
                 .ReturnsAsync(0)
                 .Verifiable();
-            var command = new LauncherRootCommand();
+            var command = LauncherRootCommand.GetInstance();
             var actual = await command.ExecuteSystemCommand(null, (_, services) =>
             {
                 services.AddSingleton<ILaunchApplicationService>(launchApp.Object);
@@ -49,7 +49,7 @@ namespace Crossroads.Test.Commands
             launchApp.Setup(x => x.RunAsync(It.IsAny<string>()))
                 .ReturnsAsync(0)
                 .Verifiable();
-            var command = new LauncherRootCommand();
+            var command = LauncherRootCommand.GetInstance();
             var actual = await command.ExecuteSystemCommand("/c echo withargs", (_, services) =>
             {
                 services.AddSingleton<ILaunchApplicationService>(launchApp.Object);
@@ -66,7 +66,7 @@ namespace Crossroads.Test.Commands
             launchApp.Setup(x => x.RunAsync(It.IsAny<string>()))
                 .ThrowsAsync(Mock.Of<Exception>())
                 .Verifiable();
-            var command = new LauncherRootCommand();
+            var command = LauncherRootCommand.GetInstance();
             var actual = await command.ExecuteSystemCommand(null, (_, services) =>
             {
                 services.AddSingleton<ILaunchApplicationService>(launchApp.Object);

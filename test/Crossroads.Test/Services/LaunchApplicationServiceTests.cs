@@ -89,7 +89,9 @@ namespace Crossroads.Test.Services
             IFileSystem fileSystem = new MockFileSystem();
             IConfiguration configuration = Mock.Of<IConfiguration>();
             ILaunchApplicationService launchApplicationService = new LaunchApplicationService(configuration, fileSystem, Mock.Of<IProcessService>());
-            await Assert.ThrowsAsync<Exception>(async () => await launchApplicationService.RunAsync());
+            var exception = await Record.ExceptionAsync(async ()=> await launchApplicationService.RunAsync());
+            Assert.Null(exception);
+            
         }
 
         [Fact]

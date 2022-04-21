@@ -12,9 +12,11 @@
  * and limitations under the License.
  */
 
+using Crossroads.Commands;
 using Crossroads.Services;
 using Microsoft.Extensions.Configuration;
 using System;
+using System.CommandLine;
 using System.Diagnostics;
 using System.IO;
 using System.IO.Abstractions;
@@ -44,7 +46,7 @@ namespace Crossroads.Services
             string command = launcherOption.Command;
             if (string.IsNullOrWhiteSpace(command))
             {
-                throw new Exception("Command is not configured correctly.");
+                return CommandExtensions.Invoke(LauncherRootCommand.GetInstance(), "-h"); 
             }
 
             string workingDirectory;
