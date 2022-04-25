@@ -63,7 +63,8 @@ namespace Crossroads.Test.Services
         }
 
         //todo: failed on github tests
-        [Fact(Skip = "exit no timeout")]
+        // [Fact(Skip = "exit no timeout")]
+        [Fact]
         public async Task GetConsoleOutput_Output_TimeoutException()
         {
             IProcessService processService = new ProcessService();
