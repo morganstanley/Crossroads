@@ -67,13 +67,19 @@ namespace Crossroads.Test.Services
             IProcessService processService = new ProcessService();
             var startInfo = new ProcessStartInfo
             {
-                FileName = "PowerShell",
-                Arguments = "Timeout /T 8"
+                FileName = "cmd",
+                Arguments = "Timeout /t 50 /nobreak"
             };
-            var exception = await Assert.ThrowsAsync<TimeoutException>(async () => await processService.GetConsoleOutputAsync(startInfo, 3000));
-            Assert.Equal("Package: PowerShell", exception.Message);
+            try
+            {
+                var actual = await processService.GetConsoleOutputAsync(startInfo, 3000);
+            }
+            catch (TimeoutException ex)
+            {
+                Assert.Equal("Package: cmd", ex.Message);
+            }
         }
-             
+
         [Fact]
         public async Task GetConsoleOutput_Return1_TimeoutException()
         {
