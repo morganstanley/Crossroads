@@ -73,7 +73,21 @@ namespace Crossroads.Test.Services
                 FileName = "cmd",
                 Arguments = "/c \"echo wait time out&&pause\""
             };
-            await Assert.ThrowsAsync<TimeoutException>(async () => await processService.GetConsoleOutputAsync(startInfo, 3000));
+            // await Assert.ThrowsAsync<TimeoutException>(async () => await processService.GetConsoleOutputAsync(startInfo, 3000));
+            try
+            {
+                var actual = await processService.GetConsoleOutputAsync(startInfo, 3000);
+                Assert.False(true, actual);
+            }
+            catch(TimeoutException)
+            {
+                Assert.True(true, "Timeout exception success.");
+            }
+            catch(Exception ex)
+            {
+                Assert.False(true, ex.Message);
+            }
+           
         }
 
         [Fact]
