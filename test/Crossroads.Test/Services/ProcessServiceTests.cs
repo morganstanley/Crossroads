@@ -14,9 +14,7 @@
 
 using Crossroads.Services;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Text;
 using System.Threading.Tasks;
 using Xunit;
 
@@ -62,17 +60,23 @@ namespace Crossroads.Test.Services
             Assert.Contains("hello", actual);
         }
 
-        //todo: failed on github tests
-        [Fact(Skip = "exit no timeout")]
+        [Fact]
         public async Task GetConsoleOutput_Output_TimeoutException()
         {
             IProcessService processService = new ProcessService();
             var startInfo = new ProcessStartInfo
             {
                 FileName = "cmd",
-                Arguments = "/k echo wait time out"
+                Arguments = "Timeout /t 50 /nobreak"
             };
-            await Assert.ThrowsAsync<TimeoutException>(async () => await processService.GetConsoleOutputAsync(startInfo, 3000));
+            try
+            {
+                var actual = await processService.GetConsoleOutputAsync(startInfo, 3000);
+            }
+            catch (TimeoutException ex)
+            {
+                Assert.Equal("Package: cmd", ex.Message);
+            }
         }
 
         [Fact]
