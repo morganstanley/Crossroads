@@ -12,6 +12,7 @@
  * and limitations under the License.
  */
 
+using Crossroads.Commands;
 using Crossroads.Services;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -24,7 +25,7 @@ using System.IO;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace Crossroads.Commands.Test
+namespace Crossroads.Test.Commands
 {
     public class InspectCommandTests
     {
