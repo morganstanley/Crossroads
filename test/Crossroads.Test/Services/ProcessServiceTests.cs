@@ -67,7 +67,7 @@ namespace Crossroads.Test.Services
             var startInfo = new ProcessStartInfo
             {
                 FileName = "cmd",
-                Arguments = "/c timeout /t 50 /nobreak"
+                Arguments = "/c \"timeout /t 50 /nobreak\""
             };
             await Assert.ThrowsAsync<TimeoutException>(async () => await processService.GetConsoleOutputAsync(startInfo, 3000));
         }
