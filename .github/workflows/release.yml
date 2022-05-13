@@ -19,4 +19,4 @@ jobs:
           name: package
 
       - name: Publish to nuget
-        run: echo "Publishing to nuget simulation..."
+        run: dotnet nuget push "./package/*.nupkg" --no-symbols true --source "https://api.nuget.org/v3/index.json" --api-key ${{ secrets.NUGET_KEY }}
