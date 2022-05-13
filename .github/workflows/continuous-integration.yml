@@ -31,7 +31,7 @@ jobs:
     - name: Current directory
       run: dir
     - name: Upload Test Report to Codecov
-      uses: codecov/codecov-action@v1
+      uses: codecov/codecov-action@v3
       with:
         file: .\test\Crossroads.Test\coverage.opencover.xml
         flags: unittests
