@@ -36,9 +36,18 @@ namespace Crossroads.Commands
             var logger = host.Services.GetRequiredService<ILogger<LauncherRootCommand>>();
             try
             {
-                var launcherService = host.Services.GetRequiredService<ILaunchApplicationService>();
-                return await launcherService.RunAsync(args);
-
+                var detectService = host.Services.GetRequiredService<IQueryRunningModeService>();
+                switch (detectService.Query())
+                {
+                    case RunningMode.Package:
+                        throw new NotImplementedException();
+                        break;
+                    case RunningMode.Launch:
+                        var launcherService = host.Services.GetRequiredService<ILaunchApplicationService>();
+                        return await launcherService.RunAsync(args);
+                    default:
+                        throw new InvalidOperationException();
+                }
             }
             catch (Exception e)
             {
