@@ -34,7 +34,6 @@ namespace Crossroads
         static async Task<int> Main(string[] args)
         {
             var parser = new CommandLineBuilder(new LauncherRootCommand())
-                   .AddCommand(new LauncherInspectCommand())
                    .UseDefaults()
                    .UseHost(_ => Host.CreateDefaultBuilder(args),
                        hostBuilder =>
@@ -55,8 +54,10 @@ namespace Crossroads
                                    services.AddTransient<IAppHostService, AppHostService>();
                                    services.AddTransient<IResourcesAssemblyBuilder, ResourcesAssemblyBuilder>();
                                    services.AddTransient<IProcessService, ProcessService>();
+                                   services.AddTransient<IQueryRunningModeService, QueryRunningModeService>();
                                });
                        })
+                   .AddCommand(new LauncherInspectCommand())
                    .AddCommand(new PackageCommand())
                    .AddCommand(new InspectCommand())
                    .Build();
