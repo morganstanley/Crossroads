@@ -19,17 +19,22 @@ using Xunit;
 
 namespace Crossroads.Test.Services
 {
-    public class LauncherInspectServiceTests
+    public class QueryRunningModeServiceTests
     {
-        [Fact]
-        public void DisplayOption_Success()
+        [Theory]
+        [InlineData("my-command", RunningMode.Launch)]
+        [InlineData("", RunningMode.Package)]
+        public void QueryRunningMode_Get_Package(string command, RunningMode mode)
         {
-            IConfiguration configuration = Mock.Of<IConfiguration>(x => x["Launcher:Name"] == "testapp"
-                && x["Launcher:Location"] == "");
+            IQueryRunningModeService query = GetQueryRunningModeService(command);
+            var actual = query.Query();
+            Assert.Equal(mode, actual);
+        }
 
-            ILauncherInspectService service = new LauncherInspectService(configuration);
-
-            service.DisplayOption();
+        private IQueryRunningModeService GetQueryRunningModeService(string command)
+        {
+            IConfiguration configuration = Mock.Of<IConfiguration>(x => x["Launcher:Command"] == command);
+            return new QueryRunningModeService(configuration);
         }
     }
 }
