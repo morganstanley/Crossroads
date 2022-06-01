@@ -16,8 +16,14 @@ using Crossroads.Commands;
 using Crossroads.Services;
 using Crossroads.Test.Utility;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Moq;
 using System;
+using System.CommandLine;
+using System.CommandLine.Builder;
+using System.CommandLine.Hosting;
+using System.CommandLine.Parsing;
+using System.IO;
 using System.Threading.Tasks;
 using Xunit;
 
@@ -25,55 +31,133 @@ namespace Crossroads.Test.Commands
 {
     public class LauncherRootCommandTests
     {
-        [Fact(Skip = "todo")]
-        public async Task RootCommand_Run_Success()
+        [Fact]
+        public async Task CrossroadsRootCommand_Run_WhenModeIsLaunch_Success()
         {
             var launchApp = new Mock<ILaunchApplicationService>();
+            var queryRunningModeService = new Mock<IQueryRunningModeService>();
+            var displayHelpPage = new Mock<IDisplayHelpPage>();
+
             launchApp.Setup(x => x.RunAsync(It.IsAny<string>()))
                 .ReturnsAsync(0)
                 .Verifiable();
-            var command = new LauncherRootCommand();
-            var actual = await command.ExecuteSystemCommand(null, (_, services) =>
-            {
-                services.AddSingleton<ILaunchApplicationService>(launchApp.Object);
-            });
 
-            Assert.Equal(0, actual);
+            queryRunningModeService.Setup(x => x.Query())
+                .Returns(RunningMode.Launch)
+                .Verifiable();
+
+            var parser = new CommandLineBuilder(new CrossroadsRootCommand())
+               .UseHost(_ => Host.CreateDefaultBuilder(),
+               hostBuilder =>
+               {
+                   hostBuilder.ConfigureServices(services =>
+                   {
+                       services.AddSingleton(queryRunningModeService.Object);
+                       services.AddSingleton(launchApp.Object);
+                   });
+               }).Build();
+
+            var parserResult = parser.Parse("chris.exe");
+            var action = await parserResult.InvokeAsync();
+
+            Assert.Equal(0, action);
             launchApp.Verify();
         }
 
-        [Fact(Skip = "todo")]
-        public async Task RootCommand_Run_WhenArgs_Success()
+        [Fact]
+        public async Task CrossroadsRootCommand_Run_WhenModeIsLaunch_FailedWithException()
         {
             var launchApp = new Mock<ILaunchApplicationService>();
+            var queryRunningModeService = new Mock<IQueryRunningModeService>();
+            var displayHelpPage = new Mock<IDisplayHelpPage>();
+
             launchApp.Setup(x => x.RunAsync(It.IsAny<string>()))
+                .ThrowsAsync(Mock.Of<ArgumentNullException>())
+                .Verifiable();
+
+            queryRunningModeService.Setup(x => x.Query())
+                .Returns(RunningMode.Launch)
+                .Verifiable();
+
+            var parser = new CommandLineBuilder(new CrossroadsRootCommand())
+               .UseHost(_ => Host.CreateDefaultBuilder(),
+               hostBuilder =>
+               {
+                   hostBuilder.ConfigureServices(services =>
+                   {
+                       services.AddSingleton(queryRunningModeService.Object);
+                       services.AddSingleton(launchApp.Object);
+                   });
+               }).Build();
+
+            var parserResult = parser.Parse(null);
+            var action = await parserResult.InvokeAsync();
+
+            Assert.Equal(1,action);
+            launchApp.Verify();
+        }
+
+        [Fact]
+        public async Task CrossroadsRootCommand_Run_WhenModeIsPackage_Success()
+        {
+            var queryRunningModeService = new Mock<IQueryRunningModeService>();
+            var displayHelpPage = new Mock<IDisplayHelpPage>();
+
+            queryRunningModeService.Setup(x => x.Query())
+                .Returns(RunningMode.Package)
+                .Verifiable();
+
+            displayHelpPage.Setup(x => x.GetHelpPage(It.IsAny<RootCommand>()))
                 .ReturnsAsync(0)
                 .Verifiable();
-            var command = new LauncherRootCommand();
-            var actual = await command.ExecuteSystemCommand("/c echo withargs", (_, services) =>
-            {
-                services.AddSingleton<ILaunchApplicationService>(launchApp.Object);
-            });
 
-            Assert.Equal(0, actual);
-            launchApp.Verify();
+            var parser = new CommandLineBuilder(new CrossroadsRootCommand())
+               .UseHost(_ => Host.CreateDefaultBuilder(),
+               hostBuilder =>
+               {
+                   hostBuilder.ConfigureServices(services =>
+                   {
+                       services.AddSingleton(queryRunningModeService.Object);
+                       services.AddSingleton(displayHelpPage.Object);
+                   });
+               }).Build();
+
+            var parserResult = parser.Parse(@".\Crossroads.exe");
+            var exitCode = await parserResult.InvokeAsync();
+
+            Assert.Equal(0,exitCode);
+            displayHelpPage.Verify();
         }
 
-        [Fact(Skip = "todo")]
-        public async Task RootCommand_Run_FailedLaunch_Exception()
+        [Fact]
+        public async Task CrossroadsRootCommand_Run_WhenModeIsPackage_Fail()
         {
-            var launchApp = new Mock<ILaunchApplicationService>();
-            launchApp.Setup(x => x.RunAsync(It.IsAny<string>()))
-                .ThrowsAsync(Mock.Of<Exception>())
-                .Verifiable();
-            var command = new LauncherRootCommand();
-            var actual = await command.ExecuteSystemCommand(null, (_, services) =>
-            {
-                services.AddSingleton<ILaunchApplicationService>(launchApp.Object);
-            });
+            var queryRunningModeService = new Mock<IQueryRunningModeService>();
+            var displayHelpPage = new Mock<IDisplayHelpPage>();
 
-            Assert.Equal(1, actual);
-            launchApp.Verify();
+            queryRunningModeService.Setup(x => x.Query())
+                .Returns(RunningMode.Package)
+                .Verifiable();
+
+            displayHelpPage.Setup(x => x.GetHelpPage(It.IsAny<RootCommand>()))
+                .ReturnsAsync(1)
+                .Verifiable();
+
+            var parser = new CommandLineBuilder(new CrossroadsRootCommand())
+               .UseHost(_ => Host.CreateDefaultBuilder(),
+               hostBuilder =>
+               {
+                   hostBuilder.ConfigureServices(services =>
+                   {
+                       services.AddSingleton(queryRunningModeService.Object);
+                       services.AddSingleton(displayHelpPage.Object);
+                   });
+               }).Build();
+
+            var parserResult = parser.Parse("randomfile");
+            var exitCode = await parserResult.InvokeAsync();
+
+            Assert.Equal(1, exitCode);
         }
     }
 }

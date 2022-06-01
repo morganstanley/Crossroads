@@ -23,9 +23,9 @@ using System.Threading.Tasks;
 
 namespace Crossroads.Commands
 {
-    public class LauncherRootCommand : RootCommand
+    public class CrossroadsRootCommand : RootCommand
     {
-        public LauncherRootCommand()
+        public CrossroadsRootCommand()
         {
             AddOption(argsOption);
             Handler = CommandHandler.Create<IHost, string>(LauncherApplicationHandler);
@@ -33,18 +33,20 @@ namespace Crossroads.Commands
 
         private async Task<int> LauncherApplicationHandler(IHost host, string args)
         {
-            var logger = host.Services.GetRequiredService<ILogger<LauncherRootCommand>>();
+            var logger = host.Services.GetRequiredService<ILogger<CrossroadsRootCommand>>();
             try
             {
                 var detectService = host.Services.GetRequiredService<IQueryRunningModeService>();
                 switch (detectService.Query())
                 {
                     case RunningMode.Package:
-                        throw new NotImplementedException();
-                        break;
+                        var helpPage = host.Services.GetRequiredService<IDisplayHelpPage>();
+                        return await helpPage.GetHelpPage(this);
+
                     case RunningMode.Launch:
                         var launcherService = host.Services.GetRequiredService<ILaunchApplicationService>();
                         return await launcherService.RunAsync(args);
+
                     default:
                         throw new InvalidOperationException();
                 }
