@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Crossroads.Services
 {
-    public class HelpPageProxy : IDisplayHelpPage
+    public class DisplayHelpPage : IDisplayHelpPage
     {
         public async Task<int> GetHelpPage(RootCommand command)
         {
