@@ -55,7 +55,7 @@ namespace Crossroads
                                    services.AddTransient<IResourcesAssemblyBuilder, ResourcesAssemblyBuilder>();
                                    services.AddTransient<IProcessService, ProcessService>();
                                    services.AddTransient<IQueryRunningModeService, QueryRunningModeService>();
-                                   services.AddTransient<IDisplayHelpPage, HelpPageProxy>();
+                                   services.AddTransient<IDisplayHelpPage, DisplayHelpPage>();
                                });
                        })
                    .AddCommand(new LauncherInspectCommand())
