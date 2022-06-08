@@ -31,16 +31,6 @@ namespace Crossroads.Services
 
             var bundler = new Bundler(bundleName, bundleDirectory);
 
-            //appHostDirectory = Path.GetFullPath(appHostDirectory);
-            //string[] files = Directory.GetFiles(appHostDirectory, "*", SearchOption.AllDirectories);
-            //Array.Sort(files, (IComparer<string>?)StringComparer.Ordinal);
-            //List<FileSpec> list = new List<FileSpec>(files.Length);
-            //string[] array = files;
-            //foreach (string text in array)
-            //{
-            //    list.Add(new FileSpec(text, RelativePath(appHostDirectory, text)));
-            //}
-
             var dirFiles = GetFileSpecs(appHostDirectory);
             await Task.Run(() => bundler.GenerateBundle(dirFiles));
         }
