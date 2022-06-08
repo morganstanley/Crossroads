@@ -30,55 +30,35 @@ namespace Crossroads.Services
                 appBinaryFilePath, assemblyToCopyResorcesFrom: resourceassemblyPathResult));
 
             var bundler = new Bundler(bundleName, bundleDirectory);
-            //IReadOnlyList<FileSpec> fee = new List<FileSpec> {
-            //    new FileSpec(appHostDirectory, bundleDirectory)
-            //};
 
+            //appHostDirectory = Path.GetFullPath(appHostDirectory);
+            //string[] files = Directory.GetFiles(appHostDirectory, "*", SearchOption.AllDirectories);
+            //Array.Sort(files, (IComparer<string>?)StringComparer.Ordinal);
             //List<FileSpec> list = new List<FileSpec>(files.Length);
             //string[] array = files;
             //foreach (string text in array)
             //{
-            //    list.Add(new FileSpec(text, RelativePath(sourceDir, text)));
+            //    list.Add(new FileSpec(text, RelativePath(appHostDirectory, text)));
             //}
 
-            appHostDirectory = Path.GetFullPath(appHostDirectory);
-            string[] files = Directory.GetFiles(appHostDirectory, "*", SearchOption.AllDirectories);
+            var dirFiles = GetFileSpecs(appHostDirectory);
+            await Task.Run(() => bundler.GenerateBundle(dirFiles));
+        }
+
+        private List<FileSpec> GetFileSpecs(string sourceDir)
+        {
+            sourceDir = Path.GetFullPath(sourceDir);
+            string[] files = Directory.GetFiles(sourceDir, "*", SearchOption.AllDirectories);
             Array.Sort(files, (IComparer<string>?)StringComparer.Ordinal);
             List<FileSpec> list = new List<FileSpec>(files.Length);
             string[] array = files;
             foreach (string text in array)
             {
-                list.Add(new FileSpec(text, RelativePath(appHostDirectory, text)));
+                list.Add(new FileSpec(text, RelativePath(sourceDir, text)));
             }
 
-            await Task.Run(() => bundler.GenerateBundle(list));
-
-
-            //bundleDirectory - null
-            //appHostDirectory - "C:\\Users\\User\\AppData\\Local\\Temp\\crossroads\\hdp2i4h0.neh\\AppDirectory"
-            //appBinaryFilePath - Crossroads.dll
-            //bundleName - "newnotepad.exe"
-            //appHostDestinationFilePath - "C:\\Users\\User\\AppData\\Local\\Temp\\crossroads\\hdp2i4h0.neh\\AppDirectory\\newnotepad.exe"
-            //appHostSourceFilePath - C:\Users\User\Downloads\dev\Crossroads\src\Crossroads\bin\Debug\net6.0\win-x64\AppHost\apphost.exe
-
-            //await Task.Run(() => bundler.GenerateBundle(appHostDirectory));
-
+            return list;
         }
-
-        //public string GenerateBundle2(string sourceDir)
-        //{
-        //    sourceDir = Path.GetFullPath(sourceDir);
-        //    string[] files = Directory.GetFiles(sourceDir, "*", SearchOption.AllDirectories);
-        //    Array.Sort(files, (IComparer<string>?)StringComparer.Ordinal);
-        //    List<FileSpec> list = new List<FileSpec>(files.Length);
-        //    string[] array = files;
-        //    foreach (string text in array)
-        //    {
-        //        list.Add(new FileSpec(text, RelativePath(sourceDir, text)));
-        //    }
-        //    return GenerateBundle2(list);
-        //}
-
         private string RelativePath(string dirFullPath, string fileFullPath)
         {
             return fileFullPath.Substring(dirFullPath.TrimEnd(new char[1]
