@@ -26,10 +26,9 @@ namespace Crossroads.Services
         public async Task ConvertLauncherToBundle(string bundleName, string bundleDirectory, string appHostDirectory, string resourceassemblyPathResult)
         {
             var appHostDestinationFilePath = Path.Combine(appHostDirectory, bundleName);
-            await Task.Run(() => HostWriter.CreateAppHost(appHostSourceFilePath, appHostDestinationFilePath, 
-                appBinaryFilePath, assemblyToCopyResorcesFrom: resourceassemblyPathResult));
+            await Task.Run(() => HostWriter.CreateAppHost(appHostSourceFilePath, appHostDestinationFilePath, appBinaryFilePath, assemblyToCopyResorcesFrom: resourceassemblyPathResult));
 
-            var bundler = new Bundler(bundleName, bundleDirectory);
+            var bundler = new Bundler(bundleName, bundleDirectory, targetFrameworkVersion: new Version(6, 0));
 
             var dirFiles = GetFileSpecs(appHostDirectory);
             await Task.Run(() => bundler.GenerateBundle(dirFiles));
