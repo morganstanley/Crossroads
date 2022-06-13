@@ -9,6 +9,9 @@ on:
     branches: [ main, migrate-dotnet-tool ]
   workflow_call:
 
+env:
+  nuget_feed_source: 'https://pkgs.dev.azure.com/dnceng/9ee6d478-d288-47f7-aacc-f6e6d082ae6d/_packaging/c9f8ac11-6bd8-4926-8306-f075241547f7/nuget/v2/'
+
 jobs:
   build:
 
@@ -24,6 +27,8 @@ jobs:
         dotnet-version: |
           3.1.x
           6.0.x
+    - name: Add Nuget Transport Feed
+      run: dotnet nuget add source ${{ env.nuget_feed_source }}
     - name: Restore dependencies
       run: dotnet restore --locked-mode
     - name: Build
