@@ -4,7 +4,6 @@
 		<PublishReadyToRun>true</PublishReadyToRun>
 		<RootNamespace>Crossroads</RootNamespace>
 		<AssemblyName>Crossroads</AssemblyName>
-		<Configuration>Debug</Configuration>
 		<VersionPrefix>1.0.0-preview</VersionPrefix>
 		<PackageId>MorganStanley.Crossroads</PackageId>
 		<Company>MorganStanley</Company>
@@ -64,7 +63,7 @@
 </Target>
  
  	<ItemGroup Label="Packaging">
-      <Content Include=".\$(OutDir)LauncherFiles/*">
+      <Content Include=".\$(OutDir)LauncherFiles\*">
 		  <Pack>true</Pack>
 		  <PackagePath>.\$(OutDir)LauncherFiles</PackagePath>
 		  <IncludeInPackage>true</IncludeInPackage>
