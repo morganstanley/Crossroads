@@ -56,21 +56,17 @@
 		</ItemGroup>
 	</Target>
 
-	<Target Name="CopyLauncher" BeforeTargets="CopyAdditionalFiles">
-		<ItemGroup>
-			<LauncherFile Include=".\$(OutDir)**"></LauncherFile>
-			<None Include="@(LauncherFile)">
-				<Link>LauncherFiles\%(LauncherFile.FileName)%(LauncherFile.Extension)</Link>
-				<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-			</None>
-		</ItemGroup>
-	</Target>
-
-	<ItemGroup Label="Packaging">
-		
-      <Content Include="src/Crossroads/bin/Debug/netcoreapp3.1/win-x64/LauncherFiles/*">
+<Target Name="CopyBuildFiles" AfterTargets="Build">
+    <ItemGroup>
+      <BuildFiles Include=".\$(OutDir)*.*"/>
+    </ItemGroup>
+    <Copy SourceFiles="@(BuildFiles)" DestinationFolder=".\$(OutDir)LauncherFiles"/>
+</Target>
+ 
+ 	<ItemGroup Label="Packaging">
+      <Content Include=".\$(OutDir)LauncherFiles/*">
 		  <Pack>true</Pack>
-		  <PackagePath>src/Crossroads/bin/Debug/netcoreapp3.1/win-x64/LauncherFiles</PackagePath>
+		  <PackagePath>.\$(OutDir)LauncherFiles</PackagePath>
 		  <IncludeInPackage>true</IncludeInPackage>
 		  <PackageCopyToOutput>true</PackageCopyToOutput>
 		  <BuildAction>Content</BuildAction>
@@ -78,9 +74,9 @@
 		  <CopyToPublishDirectory>Always</CopyToPublishDirectory>
 	  </Content>
 	
-	  <Content Include="src/Crossroads/bin/Debug/netcoreapp3.1/win-x64/apphost/*">
+	  <Content Include=".\$(OutDir)apphost\*">
 		  <Pack>true</Pack>
-		  <PackagePath>src/Crossroads/bin/Debug/netcoreapp3.1/win-x64/apphost</PackagePath>
+		  <PackagePath>.\$(OutDir)apphost</PackagePath>
 		  <IncludeInPackage>true</IncludeInPackage>
 		  <PackageCopyToOutput>true</PackageCopyToOutput>
 		  <BuildAction>Content</BuildAction>
@@ -88,5 +84,8 @@
 		  <CopyToPublishDirectory>Always</CopyToPublishDirectory>
 	  </Content>
 	</ItemGroup>
-
+  
+  <Target Name="CleanLauncherDirectory" AfterTargets="Clean">
+    <RemoveDir Directories=".\$(OutDir)LauncherFiles"  />
+  </Target>
 </Project>
