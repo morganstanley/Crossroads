@@ -1,48 +1,45 @@
-# Morgan Stanley makes this available to you under the Apache License, Version 2.0 (the "License"). You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0. See the NOTICE file distributed with this work for additional information regarding copyright ownership. Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.  
+# Morgan Stanley makes this available to you under the Apache License, Version 2.0 (the "License"). You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0. See the NOTICE file distributed with this work for additional information regarding copyright ownership. Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
 
 name: CI
 
 on:
   push:
-    branches: [ main, migrate-dotnet-tool ]
+    branches: [main, migrate-dotnet-tool]
   pull_request:
-    branches: [ main, migrate-dotnet-tool ]
+    branches: [main, migrate-dotnet-tool]
   workflow_call:
 
 jobs:
   build:
-
     runs-on: windows-2022
 
     steps:
-    - uses: actions/checkout@v2
-      with: 
-        fetch-depth: 0
-    - name: Setup .NET
-      uses: actions/setup-dotnet@v1
-      with:
-        dotnet-version: |
-          3.1.x
-          6.0.x
-    - name: Restore dependencies
-      run: dotnet restore --locked-mode
-    - name: Build
-      run: dotnet build --no-restore --configuration Release
-    - name: Test
-      run: dotnet test --verbosity normal -p:CollectCoverage=true -p:CoverletOutputFormat=opencover
-    - name: Current directory
-      run: dir
-    - name: Upload Test Report to Codecov
-      uses: codecov/codecov-action@v3
-      with:
-        file: .\test\Crossroads.Test\coverage.opencover.xml
-        flags: unittests
-        fail_ci_if_error: true
-    - name: Pack
-      run: dotnet pack --no-build --configuration Release --output package
-    - name: Package published artifact
-      uses: actions/upload-artifact@v2
-      with:
-        name: package
-        path: package/*.nupkg
-        if-no-files-found: error   
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: |
+            3.1.x
+            6.0.x
+      - name: Restore dependencies
+        run: dotnet restore --locked-mode
+      - name: Build
+        run: dotnet build --no-restore --configuration Release
+      - name: Test
+        run: dotnet test --verbosity normal -p:CollectCoverage=true -p:CoverletOutputFormat=opencover
+      - name: Upload Test Report to Codecov
+        uses: codecov/codecov-action@v3
+        with:
+          file: .\test\Crossroads.Test\coverage.opencover.xml
+          flags: unittests
+          fail_ci_if_error: true
+      - name: Pack
+        run: dotnet pack --no-build --configuration Release --output package
+      - name: Package published artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: package
+          path: package/*.nupkg
+          if-no-files-found: error
