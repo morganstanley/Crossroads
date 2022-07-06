@@ -161,14 +161,14 @@ namespace Crossroads.Services
             }
 
             // If copying subdirectories, copy them and their contents to new location.
-            //if (copySubDirs)
-            //{
-            //    foreach (DirectoryInfoBase subdir in dirs)
-            //    {
-            //        string tempPath = Path.Combine(destDirName, subdir.Name);
-            //        CopyDirectory(subdir.FullName, tempPath, copySubDirs);
-            //    }
-            //}
+            if (copySubDirs)
+            {
+                foreach (DirectoryInfoBase subdir in dirs)
+                {
+                    string tempPath = Path.Combine(destDirName, subdir.Name);
+                    CopyDirectory(subdir.FullName, tempPath, copySubDirs);
+                }
+            }
         }
     }
 }
