@@ -12,6 +12,19 @@ Crossroads allows you to:
 - customise your package with a name, icon, version and other attributes
 - run applications through crossroads generated package
 
+## Installation
+
+To install crossroads as a global dotnet tool:
+
+```powershell
+dotnet tool install -g MorganStanley.Crossroads
+```
+To get the list of available commands:
+
+```powershell
+crossroads --help
+```
+
 ## How to use
 
 ### Package Notepad
