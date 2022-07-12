@@ -43,7 +43,7 @@ namespace Crossroads.Test.Services
             {
                 Command = "Notepad",
                 Version = "3.0.1.0",
-                Include = new[] { @".\assets\include1" }
+                Include = new[] { @".\assets\" }
             };
             await packageApplicationBuilder.Build(option);
         }
