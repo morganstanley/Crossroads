@@ -11,18 +11,19 @@
 		<Description>Crossroads is a dotnet core commandline tool packager for developers. This is a generic solution to host any application within Crossroads package executable and further launches application's executable. Developers will specify arguments such as name, icon, version etc for branding during the package generation. The specified argument name will be used to rebrand the internal application.</Description>
 		<RepositoryUrl>https://github.com/morganstanley/Crossroads</RepositoryUrl>
 		<Authors>MorganStanley</Authors>
-		
 		<SelfContained>false</SelfContained>
 		<UseAppHost>true</UseAppHost>
-	
 		<PackAsTool>true</PackAsTool>
 		<ToolCommandName>crossroads</ToolCommandName>
-		<PackageOutputPath>./nupkg</PackageOutputPath>
-	
 		<ErrorOnDuplicatePublishOutputFiles>false</ErrorOnDuplicatePublishOutputFiles>
-	
+    <PackageReadmeFile>README.md</PackageReadmeFile>
 		<TargetFramework>netcoreapp3.1</TargetFramework>
 	</PropertyGroup>
+  
+  <ItemGroup>
+    <None Include="../../README.md" Pack="true" PackagePath="/" />
+  </ItemGroup>
+  
 	<ItemGroup>
 		<PackageReference Include="Microsoft.Extensions.Hosting" Version="3.1.5" />
 		<PackageReference Include="Microsoft.Extensions.Configuration" Version="3.1.7" />
@@ -40,6 +41,7 @@
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
 	</ItemGroup>
+  
 	<ItemGroup>
 		<None Update="appsettings.json">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
