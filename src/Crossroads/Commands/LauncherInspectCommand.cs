@@ -24,7 +24,7 @@ namespace Crossroads.Commands
     public class LauncherInspectCommand : Command
     {
         public LauncherInspectCommand()
-            :base("LauncherInspect")
+            :base("info", "view metadata using packaged application")
         {
             Handler = CommandHandler.Create<IHost>((host) =>
             {
