@@ -12,14 +12,14 @@
  * and limitations under the License.
  */
 
-using Crossroads.Core;
+using Crossroads.Services;
 using Moq;
 using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace Crossroads.Services.Test
+namespace Crossroads.Test.Services
 {
     public class InspectServiceTests
     {
@@ -40,11 +40,11 @@ namespace Crossroads.Services.Test
 
 
         [Theory]
-        [InlineData(@".\Crossroads.Launcher\Crossroads.Launcher.exe")]
+        [InlineData(@".\Crossroads\Crossroads.exe")]
         public async Task Inspect_Success(string packagePath)
         {
             var processService = new Mock<IProcessService>();
-            processService.Setup(x => x.GetConsoleOutputAsync(It.Is<ProcessStartInfo>(x => x.Arguments == "inspect"), It.IsAny<int>()))
+            processService.Setup(x => x.GetConsoleOutputAsync(It.Is<ProcessStartInfo>(x => x.Arguments == "LauncherInspect"), It.IsAny<int>()))
                 .ReturnsAsync("Crossroads Inspect")
                 .Verifiable();
 

@@ -12,7 +12,7 @@
  * and limitations under the License.
  */
 
-using Crossroads.Core;
+using Crossroads.Services;
 using Microsoft.Extensions.Configuration;
 using Moq;
 using System;
@@ -24,7 +24,7 @@ using System.IO.Abstractions.TestingHelpers;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace Crossroads.Launcher.Services.Test
+namespace Crossroads.Test.Services
 {
     public class LaunchApplicationServiceTests
     {

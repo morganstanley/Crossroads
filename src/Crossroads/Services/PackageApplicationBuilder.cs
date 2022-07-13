@@ -12,7 +12,6 @@
  * and limitations under the License.
  */
 
-using Crossroads.Core;
 using System;
 using System.IO;
 using System.IO.Abstractions;
@@ -51,7 +50,6 @@ namespace Crossroads.Services
             {
                 throw new ArgumentException(nameof(Option.Name));
             }
-
             await Task.Run(() => CopyDirectory(launcherSourceDirectory, appHostDirectory, true));
 
             await launcherAppsettingsFileService.SetOption(appSettingsFilePath, option);
@@ -131,11 +129,17 @@ namespace Crossroads.Services
         }
 
         private string workingDirectory;
+        //WorkingDirectory contains path to temp/crossroads/random/'AppDirectory'
         private string appHostDirectory => Path.Combine(WorkingDirectory, "AppDirectory");
-        private string launcherSourceDirectory => Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Crossroads.Launcher");
+        private string launcherSourceDirectory => Path.Combine(AppDomain.CurrentDomain.BaseDirectory);
+
+        //appsettings creates new appsettings.json file in path to temp/crossroads/random/'AppDirectory'
         private string appSettingsFilePath => Path.Combine(appHostDirectory, "appsettings.json");
-        private string resourceassemblyPath => Path.Combine(appHostDirectory, "crossraods.resourceassembly.dll");
+
+        //creates resource .dll inside temp
+        private string resourceassemblyPath => Path.Combine(appHostDirectory, "crossroads.resourceassembly.dll");
         private string assetsDirectory => Path.Combine(appHostDirectory, "assets");
+
 
         private void CopyDirectory(string sourceDirName, string destDirName, bool copySubDirs)
         {
@@ -143,7 +147,8 @@ namespace Crossroads.Services
             DirectoryInfoBase dir = fileSystem.DirectoryInfo.FromDirectoryName(sourceDirName);
 
             DirectoryInfoBase[] dirs = dir.GetDirectories();
-
+            //FileInfoBase[] dirs = dir.GetFiles();
+                                        
             // If the destination directory doesn't exist, create it.       
             fileSystem.Directory.CreateDirectory(destDirName);
 

@@ -12,7 +12,8 @@
  * and limitations under the License.
  */
 
-using Crossroads.Launcher.Services;
+using Crossroads.Commands;
+using Crossroads.Services;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Moq;
@@ -24,7 +25,7 @@ using System.CommandLine.Parsing;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace Crossroads.Launcher.Commands.Test
+namespace Crossroads.Test.Commands
 {
     public class LauncherInspectCommandTests
     {
@@ -39,7 +40,7 @@ namespace Crossroads.Launcher.Commands.Test
 
             var exitCode = await ExecuteSystemCommand(command, "inspect", (_, services) =>
             {
-                services.AddSingleton<ILauncherInspectService>(launcherInspectService.Object);
+                services.AddSingleton(launcherInspectService.Object);
             });
 
             launcherInspectService.Verify();

@@ -19,7 +19,7 @@ using System.IO.Abstractions.TestingHelpers;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace Crossroads.Services.Test
+namespace Crossroads.Test.Services
 {
     public class ResorcesAssemblyBuilderTests
     {

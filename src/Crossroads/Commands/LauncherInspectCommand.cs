@@ -18,32 +18,20 @@ using Microsoft.Extensions.Hosting;
 using System;
 using System.CommandLine;
 using System.CommandLine.Invocation;
-using System.Threading.Tasks;
 
 namespace Crossroads.Commands
 {
-    public class InspectCommand : Command
+    public class LauncherInspectCommand : Command
     {
-        public InspectCommand() :
-            base("inspect", "View metadata of a generated package")
+        public LauncherInspectCommand()
+            :base("LauncherInspect")
         {
-            AddOption(PackageOption);
-
-            Handler = CommandHandler.Create<IHost, string, IConsole>(async (host, package, console) =>
-             {
-                var inspectService = host.Services.GetRequiredService<IInspectService>();
-                var consoleOutput = await inspectService.InspectLauncherPackage(package);
-                Console.WriteLine(consoleOutput);
+            Handler = CommandHandler.Create<IHost>((host) =>
+            {
+                var service = host.Services.GetRequiredService<ILauncherInspectService>();
+                service.DisplayOption();
+                return 0;
             });
         }
-
-        private Option PackageOption = new Option<string>(
-                   new[] { "--package" },
-                    description: "Specify path to the generated package"
-                 )
-        {
-            IsRequired = true
-        };
     }
-
 }

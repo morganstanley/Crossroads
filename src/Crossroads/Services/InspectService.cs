@@ -12,7 +12,6 @@
  * and limitations under the License.
  */
 
-using Crossroads.Core;
 using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
@@ -36,9 +35,8 @@ namespace Crossroads.Services
                 ProcessStartInfo startInfo = new ProcessStartInfo
                 {
                     FileName = packagePath,
-                    Arguments = "inspect"
+                    Arguments = "LauncherInspect"
                 };
-
                 result = await processService.GetConsoleOutputAsync(startInfo, 3000);
             }
             catch(Exception)

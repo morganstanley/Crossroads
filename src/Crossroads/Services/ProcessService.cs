@@ -16,7 +16,7 @@ using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
 
-namespace Crossroads.Core
+namespace Crossroads.Services
 {
     public class ProcessService : IProcessService
     {
@@ -30,7 +30,6 @@ namespace Crossroads.Core
             return await Task.Run(() =>
             {
                 var process = Process.Start(startInfo);
-
                 if (process.WaitForExit(milliseconds))
                 {
                     var exitCode = process.ExitCode;
