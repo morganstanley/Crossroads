@@ -18,7 +18,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Crossroads.Launcher.Services
+namespace Crossroads.Services
 {
     public class LauncherInspectService : ILauncherInspectService
     {

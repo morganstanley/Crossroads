@@ -12,12 +12,10 @@
  * and limitations under the License.
  */
 
-using System.Threading.Tasks;
-
 namespace Crossroads.Services
 {
-    public interface ILauncherAppsettingsFileService
+    public interface ILauncherInspectService
     {
-        Task SetOption(string filePath, PackageOption option);
+        void DisplayOption();
     }
 }

@@ -12,7 +12,7 @@
  * and limitations under the License.
  */
 
-using Crossroads.Core;
+using Crossroads.Services;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Diagnostics;
@@ -20,7 +20,7 @@ using System.IO;
 using System.IO.Abstractions;
 using System.Threading.Tasks;
 
-namespace Crossroads.Launcher.Services
+namespace Crossroads.Services
 {
     public class LaunchApplicationService : ILaunchApplicationService
     {

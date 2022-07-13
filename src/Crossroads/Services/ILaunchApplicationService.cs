@@ -12,10 +12,12 @@
  * and limitations under the License.
  */
 
-namespace Crossroads.Launcher.Services
+using System.Threading.Tasks;
+
+namespace Crossroads.Services
 {
-    public interface ILauncherInspectService
+    public interface ILaunchApplicationService
     {
-        void DisplayOption();
+        Task<int> RunAsync(string arguments = null);
     }
 }

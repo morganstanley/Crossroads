@@ -25,7 +25,7 @@ using System.IO;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace Crossroads.Commands.Test
+namespace Crossroads.Test.Commands
 {
     public class InspectCommandTests
     {

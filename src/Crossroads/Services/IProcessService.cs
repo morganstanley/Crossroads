@@ -12,12 +12,14 @@
  * and limitations under the License.
  */
 
+using System.Diagnostics;
 using System.Threading.Tasks;
 
 namespace Crossroads.Services
 {
-    public interface ILauncherAppsettingsFileService
+    public interface IProcessService
     {
-        Task SetOption(string filePath, PackageOption option);
+        Task<int> RunAsync(ProcessStartInfo startInfo);
+        Task<string> GetConsoleOutputAsync(ProcessStartInfo startInfo, int milliseconds);
     }
 }

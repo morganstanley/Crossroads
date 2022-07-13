@@ -12,12 +12,14 @@
  * and limitations under the License.
  */
 
-using System.Threading.Tasks;
+using System;
+using System.Collections.Generic;
+using System.Text;
 
 namespace Crossroads.Services
 {
-    public interface ILauncherAppsettingsFileService
+    public interface IQueryRunningModeService
     {
-        Task SetOption(string filePath, PackageOption option);
+        RunningMode Query();
     }
 }
