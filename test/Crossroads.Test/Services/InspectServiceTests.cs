@@ -44,7 +44,7 @@ namespace Crossroads.Test.Services
         public async Task Inspect_Success(string packagePath)
         {
             var processService = new Mock<IProcessService>();
-            processService.Setup(x => x.GetConsoleOutputAsync(It.Is<ProcessStartInfo>(x => x.Arguments == "LauncherInspect"), It.IsAny<int>()))
+            processService.Setup(x => x.GetConsoleOutputAsync(It.Is<ProcessStartInfo>(x => x.Arguments == "info"), It.IsAny<int>()))
                 .ReturnsAsync("Crossroads Inspect")
                 .Verifiable();
 
