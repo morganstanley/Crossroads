@@ -21,3 +21,4 @@ jobs:
 
       - name: Publish to nuget
         run: dotnet nuget push ".\package\*.nupkg" --no-symbols true --source "https://api.nuget.org/v3/index.json" --api-key ${{ secrets.NUGET_KEY }}
+        working-directory: '.\Crossroads\Crossroads\'
