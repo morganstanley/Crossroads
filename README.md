@@ -1,5 +1,7 @@
 # Crossroads (Packaging tool)
 
+![Lifecycle Active](https://badgen.net/badge/Lifecycle/Active/green)  
+
 ## Description
 
 Crossroads is a dotnet core commandline tool packager for developers. This is a generic solution to host any application within Crossroads package executable and further launches application's executable. Developers will specify arguments such as name, icon, version etc for branding during the package generation. The specified argument name will be used to rebrand the internal application.
