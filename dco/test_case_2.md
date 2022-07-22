@@ -79,8 +79,9 @@ To spin a packaged application, run `<appname>.exe` command. In this case:
 ```
 mychrome.exe
 ```
+This launches the packaged application and runs the `Chrome` as a child process passing in the specified arguments automatically.
 
-Result:
+In this case, the argument passed becomes the URL in the address bar as shown below:
 
 <img src="./assets/mychrome_output.jpg">   
 
