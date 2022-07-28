@@ -44,10 +44,8 @@ namespace Crossroads.Services
 
         public async Task<int> RunAsync(string arguments = null)
         {
-            //string command = launcherOption.Command;
             string command = getCommand(launcherOption.Command);
-
-            Console.WriteLine("commanddddddddddd");
+            Console.WriteLine("command");
             Console.WriteLine(command);
 
             if (string.IsNullOrWhiteSpace(command))
@@ -58,15 +56,23 @@ namespace Crossroads.Services
             string workingDirectory;
             if (fileSystem.Directory.Exists(assetsDirectory))
             {
-                string tmpCommand = Path.Combine(hasSingleIncludeDirectory ? singleAssetsDirectory : assetsDirectory, command);
+                string tmpCommand = Path.Combine(assetsSourceDirectory, command);
+                Console.WriteLine("tmpCommand");
+                Console.WriteLine(tmpCommand);
+                Console.WriteLine("assetsSourceDirectory");
+                Console.WriteLine(assetsSourceDirectory);
+                Console.WriteLine("assetsDirectory");
+                Console.WriteLine(assetsDirectory);
+                Console.WriteLine("singleassetDirectory");
+                Console.WriteLine(singleAssetDirectory);
+                
+
+
+
                 if (fileSystem.File.Exists(tmpCommand))
                 {
                     command = tmpCommand;
                 }
-
-                var res = Path.GetFileName(tmpCommand);
-                Console.WriteLine("filename");
-                Console.WriteLine(res);
 
                 workingDirectory = assetsDirectory;
             }
@@ -86,15 +92,28 @@ namespace Crossroads.Services
         }
 
         private string assetsDirectory => Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "assets");
-        private string singleAssetsDirectory => Directory.GetDirectories(assetsDirectory).FirstOrDefault();
-        private bool hasSingleIncludeDirectory => launcherOption.Include.Count() == 1;
+        private string singleAssetDirectory => Directory.GetDirectories(assetsDirectory).FirstOrDefault();
+        private string assetsSourceDirectory => hasSingleAssetsDirectory ? singleAssetDirectory : assetsDirectory;
+        private bool hasSingleAssetsDirectory => launcherOption.Include.Count() == 1;
         private string getCommand(string command)
         {
-            if (command.Contains(Path.DirectorySeparatorChar) || command.Contains(Path.AltDirectorySeparatorChar))
+            if (hasSingleAssetsDirectory)
             {
-                return Path.GetFileName(command);
+                if (command.Contains(Path.DirectorySeparatorChar) || command.Contains(Path.AltDirectorySeparatorChar))
+                {
+                    return Path.GetFileName(command);
+                }
+                return command;
+            } 
+            else
+            {
+                if (command.Contains(Path.DirectorySeparatorChar) || command.Contains(Path.AltDirectorySeparatorChar))
+                {
+                    var a = Directory.GetParent(command).Name;
+                    return Path.Combine(a, Path.GetFileName(command));
+                }
+                throw new Exception($"Command is not configured correctly. {command}");
             }
-            return command;
         }
     }
 }
