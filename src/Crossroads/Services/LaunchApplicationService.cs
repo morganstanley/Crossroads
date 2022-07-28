@@ -12,7 +12,6 @@
  * and limitations under the License.
  */
 
-using Crossroads.Services;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
@@ -45,8 +44,6 @@ namespace Crossroads.Services
         public async Task<int> RunAsync(string arguments = null)
         {
             string command = getCommand(launcherOption.Command);
-            Console.WriteLine("command");
-            Console.WriteLine(command);
 
             if (string.IsNullOrWhiteSpace(command))
             {
@@ -57,17 +54,6 @@ namespace Crossroads.Services
             if (fileSystem.Directory.Exists(assetsDirectory))
             {
                 string tmpCommand = Path.Combine(assetsSourceDirectory, command);
-                Console.WriteLine("tmpCommand");
-                Console.WriteLine(tmpCommand);
-                Console.WriteLine("assetsSourceDirectory");
-                Console.WriteLine(assetsSourceDirectory);
-                Console.WriteLine("assetsDirectory");
-                Console.WriteLine(assetsDirectory);
-                Console.WriteLine("singleassetDirectory");
-                Console.WriteLine(singleAssetDirectory);
-                
-
-
 
                 if (fileSystem.File.Exists(tmpCommand))
                 {
@@ -112,7 +98,7 @@ namespace Crossroads.Services
                     var a = Directory.GetParent(command).Name;
                     return Path.Combine(a, Path.GetFileName(command));
                 }
-                throw new Exception($"Command is not configured correctly. {command}");
+                throw new Exception($"Command is not configured correctly: {command}");
             }
         }
     }
