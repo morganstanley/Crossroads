@@ -1,6 +1,6 @@
 ## Test Case - Customizing an Existing Application
 
-Assuming we have an existing executable application. Using Crossroads you can customize an existing app for unique identification. This makes it easier to be distributed to other users. When then end users launches the packaged application they will have the same features and properties of the appliatication. 
+Assuming we have an existing executable application. Using <code>Crossroads</code> tool, you can customize the existing app for unique identification. This makes it easier to be distributed to other users. When the end user launches the packaged application they will have the same features and properties of the appliatication. 
 
 In this scenario, we will use the `Chrome` application to demonstrate how any generic executable application can be customized.
 
@@ -39,6 +39,10 @@ Usually, an existing application like `Chrome` has its resources on drive lookin
 To generate a custom chrome with the <code>crossroads</code> tool, run the command;
 ```
 crossroads package --name mychrome --command "chrome.exe" --args "https://www.morganstanley.com/" --location "C:\Users\User\Desktop\Destination" --icon "C:\Users\User\Desktop\myicon.ico" --version 1.0 --include "C:\Program Files\Google\Chrome\Application"
+```
+Alternatively, relative path to the `.exe` can be specified like this;
+```
+crossroads package --name mychrome --command *.\Application\chrome.exe" --args "https://www.morganstanley.com/" --location "C:\Users\User\Desktop\Destination" --icon "C:\Users\User\Desktop\myicon.ico" --version 1.0 --include "C:\Program Files\Google\Chrome\Application"
 ```
 
 - `--name`: the final name for the packaged application
