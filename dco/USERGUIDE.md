@@ -1,78 +1,84 @@
-# This is the official user guide for the Crossroads (Packaging tool)
-# Why a user will use crossroads.
+# Tutorial - Package a java console application using the Crossroads tool packager
 
-Crossroads is a dotnet core commandline tool packager used specifically in cases where huge applications are to be shipped for deployment purposes. Instead of having different componentes shipped differently, our crossroads packages all theses into one executable file to be distributed.
+This tutorial teaches you how to use the crossroads tool packaging manager even though built with the .net framework to package a simple java console application. The <code>crossroads </code> tool generates a self-contained executable, making sure that others can install and run your package without having to install any dependencies. The <code>crossroads</code> tool is a NuGet package that is installed from the .NET CLI.
 
-# In this documentation the visual studio code application is used for demo purposes.
+The console application that we will package is a simple application that displays the  "Hello world!" message.
 
-# Basic usage
+## Pre-requisites
+<li>Java 17 or later version</li>
+<li>Any java console applicaton</li>
+<br>
+Note:
+You don't need to install .Net in order to use the crossroads package. 
 
-## Consolidate all additional files in the application into one executable file:
+## Usage
+``` dotnet tool install --global MorganStanley.Crossroads --version 1.0.0 ```
 
-In the deployment of a huge application where several dependencies are stored in different files,distribition of these files become difficult. some teams would like to consolidate their solution into one executable  file hence the crossroads comes becomes useful:
+The above command installs the crossroads as a global tool. This will enable you to run the tool from anywhere on your machine.
 
-## Package Application.
+## Testing our console application
+Firstly, let's see the output of the console application:
+<br>
+<img alt="#" src =".\assets\java_output.png">
+<br>
 
-```powershell
-crossroads package --name <packagename> --command ""
-```
-The output indicates successful packaging of the application.
+let's see the current folder structure of the JavaCrossroads console application
 
-<img src="./assets/crossroads_package.png">
+<img alt="#" src=".\assets\folder_structure.png">
 
-## Inspect metadata of packaged application
-Assuming a user wants to investigate which metadata their package has: 
+## Packaging our console application
+We now head straight to packaging our application and generating the single executable
 
-```powershell
-crossroads inspect --package <appname>.exe
-```
-<img src="./assets/crossroads_inspect.png">
+## Command to package the javacroassroads console application
+``` crossroads package --name javacrossroads-test --command "openjdk-18.0.2\bin\java.exe" --location "C:\OurJavaCrossroadsOutput"  --include "C:\Users\User\.jdks\openjdk-18.0.2" --include "C:\Users\User\Documents\JavaCrossroads\src"  --args "src\Main.java" ```
 
-## Launch packaged application
+<img alt="#" src=".\assets\package_success.png">
 
-```powershell
-<appname>.exe 
-```
-<img src="./assets/crossroads_launch_app.png">
+now let's take a look into what each command represents:
 
-## Customise your package with a name, icon, version and other attributes
-### Customize with icon only:
-Asssuming a user would want to customize an application with an icon only inorder to uniquely identify launched applications:
+<hr>
+<code>crossroads</code> is the tool that we installed globally at the beginning of this tutorial and that is the base command we'll use whenever we want to use crossroads to package an application.
 
-```powershell
- crossroads package --name <package_name> --command "<path_to_executable_application>" --icon <icon_name>
-```
-<img src="./assets/crossroads_package_with_Icon.png">
+<code>package</code> is a sub-command on the crossroads tool. The package sub-command is used to create an executable package. Upon successfully packaging the console application this should generate an executable with a given name, `javacrossroads-test` in our case.
+We can see a list of commands and options on the crossroads tool by typing `crossroads -h` or just `crossroads`
+`--name`: It allows us to specify a name for the executable that will be generated.
+`--include`: Include internal resource application to be packaged
+`--command`:This command can have the alias `-c ` option on the crossroads tool. It allows us to specify the command to run the internal application, which in our case is the `java.exe` executable.
+`--location`: This option allows us to set the output file location of the package.
 
-### Specify a custom location for your package:
+These are just a few of the options we have on the crossroads tool. There are others available for customizing your app with an icon, default args, etc.
 
-Assuming a user would want to specify a custom location to store the package use:
+## Help Pages for <code>crossroads -h</code> and <code>crossroads package -h</code> respectively <br>
 
- ```powershell
- crossroads package --name <package_name> --command "<path_to_executable_application>" --loaction <location_name>
-```
-<img src="./assets/crossroads_package_custom_output.png">
+<img alt ="#" src =".\assets\help.png"> <br>
 
-### Launch an application with arguments:
-Assuming a user would want to package and launch an application say  "chrome" and the chrome should open "google.com" when launched:
+The above shows the different commands and options on the `crossroads` tool.
+<br>
+<img alt ="#" src =".\assets\help.png">
+This above image also shows the help page for the <code>package</code> sub-command of the crossroads tool. We can actually do the same for the other sub-commands on the crossroads tool. <br>
+<br>
+# Result 
 
-```powershell
- crossroads package --name <package_name> --command "<path_to_executable_application>" --location <location_name>
-```
-<img src="./assets/crossroads_launchapp_args.png">
+After successfully packaging an application, we get success feedback, otherwise the necessary error message.
 
-### To show help options:
+<img alt ="#" src = ".\assets\package_success.png"> <br>
+Our custom location which has the packaged application <br>
+<img alt = "#" src =".\assets\package_output.png"> <br>
 
-```powershell
- crossroads -h
-```
-The output is shown below:
-
-<img src="./assets/crossroads_help.png">
-
-
-
-
+## Launching the application
+Having packaged our java console app , let's try running the created executable by using the command below:
+```.\javacrossroads-test.exe```  <br>
+we navigate to the output directory and run the above command in the terminal. Below is the expected output: <br>
+<img alt = "#" src = ".\assets\test-javacrossroads.png">
+<br>
+Voila! There we have it! Same behavior from the original console application.
+<br><br>
+## Package Inspection
+To see the metadata and or additional information in our packaged application, run the command below:
+```crossroads inspect --package "javacrossroads-test.exe"```
+<br><br>
+And the corresponding output below: <br><br>
+<img alt = "#" src = ".\assets\javacrossroads-inspect.png">
 
 
 
