@@ -97,11 +97,10 @@ namespace Crossroads.Services
             } 
             else
             {
-                Console.WriteLine("error....");
                 if (command.Contains(Path.DirectorySeparatorChar) || command.Contains(Path.AltDirectorySeparatorChar))
                 {
-                    var a = Directory.GetParent(command).Name;
-                    return Path.Combine(a, Path.GetFileName(command));
+                    var dir = Directory.GetParent(command).Name;
+                    return Path.Combine(dir, Path.GetFileName(command));
                 }
                 throw new Exception($"Command is not configured correctly: {command}");
             }
