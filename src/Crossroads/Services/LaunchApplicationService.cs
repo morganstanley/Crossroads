@@ -33,8 +33,8 @@ namespace Crossroads.Services
         {
             this.launcherOption = new PackageOption
             {
-                Command = configuration["Launcher:Command"],
-                Args = configuration["Launcher:Args"],
+                Command = configuration.GetSection("Launcher:Command")?.Get<string>(),
+                Args = configuration.GetSection("Launcher:Args")?.Get<string>(),
                 Include = configuration.GetSection("Launcher:Include")?.Get<IEnumerable<string>>()
             };
             this.fileSystem = fileSystem;
@@ -80,9 +80,13 @@ namespace Crossroads.Services
         private string assetsDirectory => Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "assets");
         private string singleAssetDirectory => Directory.GetDirectories(assetsDirectory).FirstOrDefault();
         private string assetsSourceDirectory => hasSingleAssetsDirectory ? singleAssetDirectory : assetsDirectory;
-        private bool hasSingleAssetsDirectory => launcherOption.Include.Count() == 1;
+        private bool hasSingleAssetsDirectory => launcherOption.Include?.Count() == 1;
         private string getCommand(string command)
         {
+            if(launcherOption.Include == null)
+            {
+                return command;
+            }
             if (hasSingleAssetsDirectory)
             {
                 if (command.Contains(Path.DirectorySeparatorChar) || command.Contains(Path.AltDirectorySeparatorChar))
@@ -93,6 +97,7 @@ namespace Crossroads.Services
             } 
             else
             {
+                Console.WriteLine("error....");
                 if (command.Contains(Path.DirectorySeparatorChar) || command.Contains(Path.AltDirectorySeparatorChar))
                 {
                     var a = Directory.GetParent(command).Name;
