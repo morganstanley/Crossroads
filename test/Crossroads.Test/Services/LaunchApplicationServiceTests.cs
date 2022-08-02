@@ -157,7 +157,9 @@ namespace Crossroads.Test.Services
         [Fact]
         public async Task Launch_Cmd_WithSingleInclude_WithNonRelativeCmdConfig_Success()
         {
-            IFileSystem fileSystem = new MockFileSystem();
+            MockFileSystem fileSystem = new MockFileSystem();
+            fileSystem.AddFile(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "assets", "include1", "1.txt"), new MockFileData("abc"));
+
             var processService = new Mock<IProcessService>();
             processService.Setup(x => x.RunAsync(It.IsAny<ProcessStartInfo>()))
                 .Callback<ProcessStartInfo>(x => Assert.Equal("/c echo abc", x.Arguments))
@@ -186,7 +188,9 @@ namespace Crossroads.Test.Services
         [Fact]
         public async Task Launch_Cmd_WithSingleInclude_WithRelativeCmdConfig_Success()
         {
-            IFileSystem fileSystem = new MockFileSystem();
+            MockFileSystem fileSystem = new MockFileSystem();
+            fileSystem.AddFile(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "assets", "include1", "1.txt"), new MockFileData("abc"));
+
             var processService = new Mock<IProcessService>();
             processService.Setup(x => x.RunAsync(It.IsAny<ProcessStartInfo>()))
                 .Callback<ProcessStartInfo>(x => Assert.Equal("/c echo abc", x.Arguments))
