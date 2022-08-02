@@ -16,6 +16,7 @@ using Crossroads.Services;
 using Microsoft.Extensions.Configuration;
 using Moq;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
@@ -151,6 +152,120 @@ namespace Crossroads.Test.Services
             ILaunchApplicationService launchApplicationService = new LaunchApplicationService(configuration.Object, fileSystem, processService.Object);
             var actual = await launchApplicationService.RunAsync();
             Assert.Equal(0, actual);
+        }
+
+        [Fact]
+        public async Task Launch_Cmd_WithSingleInclude_WithNonRelativeCmdConfig_Success()
+        {
+            IFileSystem fileSystem = new MockFileSystem();
+            var processService = new Mock<IProcessService>();
+            processService.Setup(x => x.RunAsync(It.IsAny<ProcessStartInfo>()))
+                .Callback<ProcessStartInfo>(x => Assert.Equal("/c echo abc", x.Arguments))
+                .ReturnsAsync(0)
+                .Verifiable();
+
+            var configuration = new Mock<IConfiguration>();
+            var comandSectionMock = new Mock<IConfigurationSection>();
+            comandSectionMock.Setup(s => s.Value).Returns("cmd");
+            var argsSectionMock = new Mock<IConfigurationSection>();
+            argsSectionMock.Setup(s => s.Value).Returns("/c echo abc");
+            var include1SectionMock = new Mock<IConfigurationSection>();
+            include1SectionMock.Setup(s => s.Value).Returns("include1");
+            var includeSectionMock = new Mock<IConfigurationSection>();
+            includeSectionMock.Setup(s => s.GetChildren()).Returns(new List<IConfigurationSection> { include1SectionMock.Object });
+            configuration.Setup(c => c.GetSection("Launcher:Command")).Returns(comandSectionMock.Object);
+            configuration.Setup(c => c.GetSection("Launcher:Args")).Returns(argsSectionMock.Object);
+            configuration.Setup(c => c.GetSection("Launcher:Include")).Returns(includeSectionMock.Object);
+
+            ILaunchApplicationService launchApplicationService = new LaunchApplicationService(configuration.Object, fileSystem, processService.Object);
+            var actual = await launchApplicationService.RunAsync();
+            Assert.Equal(0, actual);
+            processService.Verify();
+        }
+
+        [Fact]
+        public async Task Launch_Cmd_WithSingleInclude_WithRelativeCmdConfig_Success()
+        {
+            IFileSystem fileSystem = new MockFileSystem();
+            var processService = new Mock<IProcessService>();
+            processService.Setup(x => x.RunAsync(It.IsAny<ProcessStartInfo>()))
+                .Callback<ProcessStartInfo>(x => Assert.Equal("/c echo abc", x.Arguments))
+                .ReturnsAsync(0)
+                .Verifiable();
+
+            var configuration = new Mock<IConfiguration>();
+            var comandSectionMock = new Mock<IConfigurationSection>();
+            comandSectionMock.Setup(s => s.Value).Returns("./include/cmd");
+            var argsSectionMock = new Mock<IConfigurationSection>();
+            argsSectionMock.Setup(s => s.Value).Returns("/c echo abc");
+            var include1SectionMock = new Mock<IConfigurationSection>();
+            include1SectionMock.Setup(s => s.Value).Returns("include1");
+            var includeSectionMock = new Mock<IConfigurationSection>();
+            includeSectionMock.Setup(s => s.GetChildren()).Returns(new List<IConfigurationSection> { include1SectionMock.Object });
+            configuration.Setup(c => c.GetSection("Launcher:Command")).Returns(comandSectionMock.Object);
+            configuration.Setup(c => c.GetSection("Launcher:Args")).Returns(argsSectionMock.Object);
+            configuration.Setup(c => c.GetSection("Launcher:Include")).Returns(includeSectionMock.Object);
+
+            ILaunchApplicationService launchApplicationService = new LaunchApplicationService(configuration.Object, fileSystem, processService.Object);
+            var actual = await launchApplicationService.RunAsync();
+            Assert.Equal(0, actual);
+            processService.Verify();
+        }
+
+        [Fact]
+        public async Task Launch_Cmd_WithMultipleIncludes_WithRelativeCmdConfig_Success()
+        {
+            IFileSystem fileSystem = new MockFileSystem();
+            var processService = new Mock<IProcessService>();
+            processService.Setup(x => x.RunAsync(It.IsAny<ProcessStartInfo>()))
+                .Callback<ProcessStartInfo>(x => Assert.Equal("/c echo abc", x.Arguments))
+                .ReturnsAsync(0)
+                .Verifiable();
+
+            var configuration = new Mock<IConfiguration>();
+            var comandSectionMock = new Mock<IConfigurationSection>();
+            comandSectionMock.Setup(s => s.Value).Returns("./include1/cmd");
+            var argsSectionMock = new Mock<IConfigurationSection>();
+            argsSectionMock.Setup(s => s.Value).Returns("/c echo abc");
+            var include1SectionMock = new Mock<IConfigurationSection>();
+            include1SectionMock.Setup(s => s.Value).Returns("include1");
+            var include2SectionMock = new Mock<IConfigurationSection>();
+            include2SectionMock.Setup(s => s.Value).Returns("include2");
+            var includeSectionMock = new Mock<IConfigurationSection>();
+            includeSectionMock.Setup(s => s.GetChildren()).Returns(new List<IConfigurationSection> { include1SectionMock.Object, include2SectionMock.Object });
+            configuration.Setup(c => c.GetSection("Launcher:Command")).Returns(comandSectionMock.Object);
+            configuration.Setup(c => c.GetSection("Launcher:Args")).Returns(argsSectionMock.Object);
+            configuration.Setup(c => c.GetSection("Launcher:Include")).Returns(includeSectionMock.Object);
+
+            ILaunchApplicationService launchApplicationService = new LaunchApplicationService(configuration.Object, fileSystem, processService.Object);
+            var actual = await launchApplicationService.RunAsync();
+            Assert.Equal(0, actual);
+            processService.Verify();
+        }
+
+        [Fact]
+        public async Task Launch_Cmd_WithMultipleIncludes_NonRelativeCmdConfig_Exception()
+        {
+            IFileSystem fileSystem = new MockFileSystem();
+            var processService = new Mock<IProcessService>();
+
+            var configuration = new Mock<IConfiguration>();
+            var comandSectionMock = new Mock<IConfigurationSection>();
+            comandSectionMock.Setup(s => s.Value).Returns("cmd");
+            var argsSectionMock = new Mock<IConfigurationSection>();
+            argsSectionMock.Setup(s => s.Value).Returns("/c echo abc");
+            var include1SectionMock = new Mock<IConfigurationSection>();
+            include1SectionMock.Setup(s => s.Value).Returns("include1");
+            var include2SectionMock = new Mock<IConfigurationSection>();
+            include2SectionMock.Setup(s => s.Value).Returns("include2");
+            var includeSectionMock = new Mock<IConfigurationSection>();
+            includeSectionMock.Setup(s => s.GetChildren()).Returns(new List<IConfigurationSection> { include1SectionMock.Object, include2SectionMock.Object });
+            configuration.Setup(c => c.GetSection("Launcher:Command")).Returns(comandSectionMock.Object);
+            configuration.Setup(c => c.GetSection("Launcher:Args")).Returns(argsSectionMock.Object);
+            configuration.Setup(c => c.GetSection("Launcher:Include")).Returns(includeSectionMock.Object);
+
+            ILaunchApplicationService launchApplicationService = new LaunchApplicationService(configuration.Object, fileSystem, processService.Object);
+            await Assert.ThrowsAsync<Exception>(async () => await launchApplicationService.RunAsync());
         }
 
     }
