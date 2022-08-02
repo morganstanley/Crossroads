@@ -15,10 +15,7 @@
 using Crossroads.Services;
 using Microsoft.Extensions.Configuration;
 using Moq;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
@@ -31,23 +28,14 @@ namespace Crossroads.Test.Services
 {
     public class LaunchApplicationServiceTests
     {
-
-         [Fact]
-        public async Task Luanch_BadCommand_Win32Exception()
+        [Fact]
+        public async Task Launch_BadCommand_Win32Exception()
         {
             IFileSystem fileSystem = new MockFileSystem();
             var configuration = new Mock<IConfiguration>();
-
             var comandSectionMock = new Mock<IConfigurationSection>();
             comandSectionMock.Setup(s => s.Value).Returns("badCommand");
-
-            var include1SectionMock = new Mock<IConfigurationSection>();
-            include1SectionMock.Setup(s => s.Value).Returns("include1");
-            var includeSectionMock = new Mock<IConfigurationSection>();
-            includeSectionMock.Setup(s => s.GetChildren()).Returns(new List<IConfigurationSection> { include1SectionMock.Object });
-
             configuration.Setup(c => c.GetSection("Launcher:Command")).Returns(comandSectionMock.Object);
-            configuration.Setup(c => c.GetSection("Launcher:Include")).Returns(includeSectionMock.Object);
 
             var processService = new Mock<IProcessService>();
             processService.Setup(x => x.RunAsync(It.IsAny<ProcessStartInfo>()))
@@ -70,20 +58,10 @@ namespace Crossroads.Test.Services
                 .Verifiable();
 
             var configuration = new Mock<IConfiguration>();
-            var include1SectionMock = new Mock<IConfigurationSection>();
-            include1SectionMock.Setup(s => s.Value).Returns("include1");
-            var include2SectionMock = new Mock<IConfigurationSection>();
-            include2SectionMock.Setup(s => s.Value).Returns("include2");
             var comandSectionMock = new Mock<IConfigurationSection>();
             comandSectionMock.Setup(s => s.Value).Returns("cmd");
             var argsSectionMock = new Mock<IConfigurationSection>();
             argsSectionMock.Setup(s => s.Value).Returns("/c echo abc");
-
-            var includeSectionMock = new Mock<IConfigurationSection>();
-            includeSectionMock.Setup(s => s.GetChildren()).Returns(new List<IConfigurationSection> { include1SectionMock.Object });
-            //includeSectionMock.Setup(s => s.GetChildren()).Returns(new List<IConfigurationSection> { include1SectionMock.Object, include2SectionMock.Object });
-
-            configuration.Setup(c => c.GetSection("Launcher:Include")).Returns(includeSectionMock.Object);
             configuration.Setup(c => c.GetSection("Launcher:Command")).Returns(comandSectionMock.Object);
             configuration.Setup(c => c.GetSection("Launcher:Args")).Returns(argsSectionMock.Object);
 
@@ -94,66 +72,83 @@ namespace Crossroads.Test.Services
         }
 
         [Fact]
-        public async Task Luanch_Cmd_WithOverideArgs_Success()
+        public async Task Launch_Cmd_WithOverideArgs_Success()
         {
             IFileSystem fileSystem = new MockFileSystem();
-            IConfiguration configuration = Mock.Of<IConfiguration>(
-                x => x["Launcher:Command"] == "cmd"
-                && x["Launcher:Args"] == "/c echo abc"
-                );
+            var configuration = new Mock<IConfiguration>();
+            var comandSectionMock = new Mock<IConfigurationSection>();
+            comandSectionMock.Setup(s => s.Value).Returns("cmd");
+            var argsSectionMock = new Mock<IConfigurationSection>();
+            argsSectionMock.Setup(s => s.Value).Returns("/c echo abc");
+            configuration.Setup(c => c.GetSection("Launcher:Command")).Returns(comandSectionMock.Object);
+            configuration.Setup(c => c.GetSection("Launcher:Args")).Returns(argsSectionMock.Object);
+
             var processService = new Mock<IProcessService>();
             processService.Setup(x => x.RunAsync(It.IsAny<ProcessStartInfo>()))
                 .Callback<ProcessStartInfo>(x => Assert.Equal("/c echo def", x.Arguments))
                 .ReturnsAsync(0)
                 .Verifiable();
-            ILaunchApplicationService launchApplicationService = new LaunchApplicationService(configuration, fileSystem, processService.Object);
+
+            ILaunchApplicationService launchApplicationService = new LaunchApplicationService(configuration.Object, fileSystem, processService.Object);
             var actual = await launchApplicationService.RunAsync("/c echo def");
             Assert.Equal(0, actual);
             processService.Verify();
         }
 
         [Fact]
-        public async Task Luanch_CommandNull_Exception()
+        public async Task Launch_CommandNull_Exception()
         {
             IFileSystem fileSystem = new MockFileSystem();
-            IConfiguration configuration = Mock.Of<IConfiguration>();
-            ILaunchApplicationService launchApplicationService = new LaunchApplicationService(configuration, fileSystem, Mock.Of<IProcessService>());
+            Mock<IConfiguration> configuration = new Mock<IConfiguration>();
+            ILaunchApplicationService launchApplicationService = new LaunchApplicationService(configuration.Object, fileSystem, Mock.Of<IProcessService>());
             await Assert.ThrowsAsync<Exception>(async () => await launchApplicationService.RunAsync());
         }
 
         [Fact]
-        public async Task Luanch_ArgsInAssets_Success()
+        public async Task Launch_ArgsInAssets_Success()
         {
             MockFileSystem fileSystem = new MockFileSystem();
             fileSystem.AddFile(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "assets", "include1", "1.txt"), new MockFileData("abc"));
-            IConfiguration configuration = Mock.Of<IConfiguration>(
-                x => x["Launcher:Command"] == "cmd"
-                && x["Launcher:Args"] == @"/c type .\include1\1.txt"
-                );
+
+            var configuration = new Mock<IConfiguration>();
+            var comandSectionMock = new Mock<IConfigurationSection>();
+            comandSectionMock.Setup(s => s.Value).Returns("cmd");
+            var argsSectionMock = new Mock<IConfigurationSection>();
+            argsSectionMock.Setup(s => s.Value).Returns(@"/c type .\include1\1.txt");
+            configuration.Setup(c => c.GetSection("Launcher:Command")).Returns(comandSectionMock.Object);
+            configuration.Setup(c => c.GetSection("Launcher:Args")).Returns(argsSectionMock.Object);
+
             var processService = new Mock<IProcessService>();
             processService.Setup(x => x.RunAsync(It.IsAny<ProcessStartInfo>()))
                 .ReturnsAsync(0)
                 .Verifiable();
-            ILaunchApplicationService launchApplicationService = new LaunchApplicationService(configuration, fileSystem, processService.Object);
+
+            ILaunchApplicationService launchApplicationService = new LaunchApplicationService(configuration.Object, fileSystem, processService.Object);
             var actual = await launchApplicationService.RunAsync();
             Assert.Equal(0, actual);
         }
 
         [Fact]
-        public async Task Luanch_AppInAssets_Success()
+        public async Task Launch_AppInAssets_Success()
         {
             MockFileSystem fileSystem = new MockFileSystem();
             fileSystem.AddFile(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "assets", "include1", "1.txt"), new MockFileData("abc"));
             fileSystem.AddFile(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "assets", "include1", "app.txt"), new MockFileData("abc"));
-            IConfiguration configuration = Mock.Of<IConfiguration>(
-                x => x["Launcher:Command"] == @".\include\app.exe"
-                && x["Launcher:Args"] == @"/c type .\include1\1.txt"
-                );
+            
+            var configuration = new Mock<IConfiguration>();
+            var comandSectionMock = new Mock<IConfigurationSection>();
+            comandSectionMock.Setup(s => s.Value).Returns(@".\include\app.exe");
+            var argsSectionMock = new Mock<IConfigurationSection>();
+            argsSectionMock.Setup(s => s.Value).Returns(@"/c type .\include1\1.txt");
+            configuration.Setup(c => c.GetSection("Launcher:Command")).Returns(comandSectionMock.Object);
+            configuration.Setup(c => c.GetSection("Launcher:Args")).Returns(argsSectionMock.Object);
+
             var processService = new Mock<IProcessService>();
             processService.Setup(x => x.RunAsync(It.IsAny<ProcessStartInfo>()))
                 .ReturnsAsync(0)
                 .Verifiable();
-            ILaunchApplicationService launchApplicationService = new LaunchApplicationService(configuration, fileSystem, processService.Object);
+
+            ILaunchApplicationService launchApplicationService = new LaunchApplicationService(configuration.Object, fileSystem, processService.Object);
             var actual = await launchApplicationService.RunAsync();
             Assert.Equal(0, actual);
         }

@@ -83,7 +83,7 @@ namespace Crossroads.Services
         private bool hasSingleAssetsDirectory => launcherOption.Include?.Count() == 1;
         private string getCommand(string command)
         {
-            if(launcherOption.Include == null)
+            if (launcherOption.Include == null)
             {
                 return command;
             }
