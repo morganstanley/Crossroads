@@ -32,6 +32,7 @@ namespace Crossroads.Commands
                 service.DisplayOption();
                 return 0;
             });
+            IsHidden = true;
         }
     }
 }

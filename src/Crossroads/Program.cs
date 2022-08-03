@@ -58,6 +58,7 @@ namespace Crossroads
                                    services.AddTransient<IDisplayHelpPage, DisplayHelpPage>();
                                });
                        })
+                   .AddCommand(new LauncherInspectCommand())
                    .AddCommand(new PackageCommand())
                    .AddCommand(new InspectCommand())
                    .Build();
