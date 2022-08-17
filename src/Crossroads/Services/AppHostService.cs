@@ -12,13 +12,10 @@
  * and limitations under the License.
  */
 
-//using Microsoft.NET.HostModel.AppHost;
-//using Microsoft.NET.HostModel.Bundle;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
-using Microsoft.NET.HostModel;
 using Microsoft.NET.HostModel.AppHost;
 using Microsoft.NET.HostModel.Bundle;
 
@@ -31,15 +28,10 @@ namespace Crossroads.Services
             var appHostDestinationFilePath = Path.Combine(appHostDirectory, bundleName);
             await Task.Run(() => HostWriter.CreateAppHost(appHostSourceFilePath, appHostDestinationFilePath, appBinaryFilePath, assemblyToCopyResorcesFrom: resourceassemblyPathResult));
 
-            var bundler = new Bundler(bundleName, bundleDirectory, BundleOptions.BundleAllContent, diagnosticOutput: true, targetFrameworkVersion: new Version(6, 0), appAssemblyName: "Crossroads");
+            var bundler = new Bundler(bundleName, bundleDirectory, BundleOptions.BundleAllContent, diagnosticOutput: true, targetFrameworkVersion: new Version(6, 0));
 
-            var dirFiles = GetFileSpecs(appHostDirectory);
-            var link = await Task.Run(() => bundler.GenerateBundle(dirFiles));
-            Console.WriteLine("link");
-            Console.WriteLine(link);
-
-            //var bundler = new Bundler(bundleName, bundleDirectory);
-            //await Task.Run(() => bundler.GenerateBundle(appHostDirectory));
+            var fileSpecs = GetFileSpecs(appHostDirectory);
+            var link = await Task.Run(() => bundler.GenerateBundle(fileSpecs));
         }
 
         private List<FileSpec> GetFileSpecs(string sourceDir)
@@ -53,7 +45,6 @@ namespace Crossroads.Services
             {
                 list.Add(new FileSpec(text, RelativePath(sourceDir, text)));
             }
-
             return list;
         }
 
