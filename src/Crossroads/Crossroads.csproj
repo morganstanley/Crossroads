@@ -62,28 +62,28 @@
     </ItemGroup>
     <Copy SourceFiles="@(BuildFiles)" DestinationFolder=".\$(OutDir)LauncherFiles" />
 </Target>
- 
- 	<ItemGroup Label="Packaging">
+
+  <Target Name="Package" AfterTargets="Build">
+    <ItemGroup Label="Packaging">
       <Content Include=".\$(OutDir)LauncherFiles\*">
-		  <Pack>true</Pack>
-		  <PackagePath>.\$(OutDir)LauncherFiles</PackagePath>
-		  <IncludeInPackage>true</IncludeInPackage>
-		  <PackageCopyToOutput>true</PackageCopyToOutput>
-		  <BuildAction>Content</BuildAction>
-		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-		  <CopyToPublishDirectory>Always</CopyToPublishDirectory>
-	  </Content>
-	
-	  <Content Include=".\$(OutDir)apphost\*">
-		  <Pack>true</Pack>
-		  <PackagePath>.\$(OutDir)apphost</PackagePath>
-		  <IncludeInPackage>true</IncludeInPackage>
-		  <PackageCopyToOutput>true</PackageCopyToOutput>
-		  <BuildAction>Content</BuildAction>
-		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-		  <CopyToPublishDirectory>Always</CopyToPublishDirectory>
-	  </Content>
-	</ItemGroup>
+        <Pack>true</Pack>
+        <PackagePath>.\$(OutDir)LauncherFiles</PackagePath>
+        <IncludeInPackage>true</IncludeInPackage>
+        <PackageCopyToOutput>true</PackageCopyToOutput>
+        <BuildAction>Content</BuildAction>
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        <CopyToPublishDirectory>Always</CopyToPublishDirectory>
+      </Content><Content Include=".\$(OutDir)apphost\*">
+        <Pack>true</Pack>
+        <PackagePath>.\$(OutDir)apphost</PackagePath>
+        <IncludeInPackage>true</IncludeInPackage>
+        <PackageCopyToOutput>true</PackageCopyToOutput>
+        <BuildAction>Content</BuildAction>
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        <CopyToPublishDirectory>Always</CopyToPublishDirectory>
+      </Content>
+    </ItemGroup>
+  </Target>
  
  	<ItemGroup>
  	  <Reference Include="Microsoft.NET.HostModel">
