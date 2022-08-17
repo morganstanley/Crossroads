@@ -17,7 +17,7 @@
 		<ToolCommandName>crossroads</ToolCommandName>
 		<ErrorOnDuplicatePublishOutputFiles>false</ErrorOnDuplicatePublishOutputFiles>
     <PackageReadmeFile>README.md</PackageReadmeFile>
-		<TargetFramework>netcoreapp3.1</TargetFramework>
+		<TargetFramework>net6.0</TargetFramework>
 	</PropertyGroup>
   
   <ItemGroup>
@@ -35,7 +35,6 @@
 		<PackageReference Include="System.CommandLine.Hosting" Version="0.3.0-alpha.20574.7" />
 		<PackageReference Include="System.IO.Abstractions" Version="3.0.2" />
 		<PackageReference Include="Microsoft.Extensions.DependencyModel" Version="2.1.0" />
-		<PackageReference Include="Microsoft.NET.HostModel" Version="3.1.6" />
 		<PackageReference Include="GitVersion.MsBuild" Version="5.8.1">
 			<PrivateAssets>all</PrivateAssets>
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -59,9 +58,9 @@
 
 <Target Name="CopyBuildFiles" AfterTargets="Build">
     <ItemGroup>
-      <BuildFiles Include=".\$(OutDir)*.*"/>
+      <BuildFiles Include=".\$(OutDir)*.*" />
     </ItemGroup>
-    <Copy SourceFiles="@(BuildFiles)" DestinationFolder=".\$(OutDir)LauncherFiles"/>
+    <Copy SourceFiles="@(BuildFiles)" DestinationFolder=".\$(OutDir)LauncherFiles" />
 </Target>
  
  	<ItemGroup Label="Packaging">
@@ -85,8 +84,14 @@
 		  <CopyToPublishDirectory>Always</CopyToPublishDirectory>
 	  </Content>
 	</ItemGroup>
+ 
+ 	<ItemGroup>
+ 	  <Reference Include="Microsoft.NET.HostModel">
+ 	    <HintPath>..\..\..\..\..\..\..\Program Files\dotnet\sdk\6.0.201\Microsoft.NET.HostModel.dll</HintPath>
+ 	  </Reference>
+ 	</ItemGroup>
   
   <Target Name="CleanLauncherDirectory" AfterTargets="Clean">
-    <RemoveDir Directories=".\$(OutDir)LauncherFiles"  />
+    <RemoveDir Directories=".\$(OutDir)LauncherFiles" />
   </Target>
 </Project>

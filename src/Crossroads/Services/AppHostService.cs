@@ -12,11 +12,15 @@
  * and limitations under the License.
  */
 
-using Microsoft.NET.HostModel.AppHost;
-using Microsoft.NET.HostModel.Bundle;
+//using Microsoft.NET.HostModel.AppHost;
+//using Microsoft.NET.HostModel.Bundle;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
+using Microsoft.NET.HostModel;
+using Microsoft.NET.HostModel.AppHost;
+using Microsoft.NET.HostModel.Bundle;
 
 namespace Crossroads.Services
 {
@@ -27,8 +31,41 @@ namespace Crossroads.Services
             var appHostDestinationFilePath = Path.Combine(appHostDirectory, bundleName);
             await Task.Run(() => HostWriter.CreateAppHost(appHostSourceFilePath, appHostDestinationFilePath, appBinaryFilePath, assemblyToCopyResorcesFrom: resourceassemblyPathResult));
 
-            var bundler = new Bundler(bundleName, bundleDirectory);
-            await Task.Run(() => bundler.GenerateBundle(appHostDirectory));
+            var bundler = new Bundler(bundleName, bundleDirectory, BundleOptions.BundleAllContent, diagnosticOutput: true, targetFrameworkVersion: new Version(6, 0), appAssemblyName: "Crossroads");
+
+            var dirFiles = GetFileSpecs(appHostDirectory);
+            var link = await Task.Run(() => bundler.GenerateBundle(dirFiles));
+            Console.WriteLine("link");
+            Console.WriteLine(link);
+
+            //var bundler = new Bundler(bundleName, bundleDirectory);
+            //await Task.Run(() => bundler.GenerateBundle(appHostDirectory));
+        }
+
+        private List<FileSpec> GetFileSpecs(string sourceDir)
+        {
+            sourceDir = Path.GetFullPath(sourceDir);
+            string[] files = Directory.GetFiles(sourceDir, "*", SearchOption.AllDirectories);
+            Array.Sort(files, (IComparer<string>)StringComparer.Ordinal);
+            List<FileSpec> list = new List<FileSpec>(files.Length);
+            string[] array = files;
+            foreach (string text in array)
+            {
+                list.Add(new FileSpec(text, RelativePath(sourceDir, text)));
+            }
+
+            return list;
+        }
+
+        private string RelativePath(string dirFullPath, string fileFullPath)
+        {
+            return fileFullPath.Substring(dirFullPath.TrimEnd(new char[1]
+            {
+                Path.DirectorySeparatorChar
+            }).Length).TrimStart(new char[1]
+            {
+                Path.DirectorySeparatorChar
+            });
         }
 
         // path to bin win64
