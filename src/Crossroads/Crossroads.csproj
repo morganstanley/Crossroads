@@ -17,7 +17,6 @@
 		<ToolCommandName>crossroads</ToolCommandName>
 		<ErrorOnDuplicatePublishOutputFiles>false</ErrorOnDuplicatePublishOutputFiles>
     <PackageReadmeFile>README.md</PackageReadmeFile>
-		<TargetFramework>net6.0</TargetFramework>
 	</PropertyGroup>
   
   <ItemGroup>
