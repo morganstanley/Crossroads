@@ -35,7 +35,7 @@ namespace Crossroads.Services
                 ProcessStartInfo startInfo = new ProcessStartInfo
                 {
                     FileName = packagePath,
-                    Arguments = "LauncherInspect"
+                    Arguments = "inspect"
                 };
                 result = await processService.GetConsoleOutputAsync(startInfo, 3000);
             }
