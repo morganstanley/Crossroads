@@ -12,7 +12,7 @@
  * and limitations under the License.
  */
 
-using Crossroads.Services;
+using Crossroads.Launcher.Services;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
@@ -21,37 +21,26 @@ using System.CommandLine;
 using System.CommandLine.Invocation;
 using System.Threading.Tasks;
 
-namespace Crossroads.Commands
+namespace Crossroads.Launcher.Commands
 {
-    public class CrossroadsRootCommand : RootCommand
+    public class LauncherRootCommand: RootCommand
     {
-        public CrossroadsRootCommand()
+        public LauncherRootCommand()
         {
             AddOption(argsOption);
-            Handler = CommandHandler.Create<IHost, string>(LauncherApplicationHandler);
+            this.Handler = CommandHandler.Create<IHost, string>(LauncherApplicationHandler);
         }
 
         private async Task<int> LauncherApplicationHandler(IHost host, string args)
         {
-            var logger = host.Services.GetRequiredService<ILogger<CrossroadsRootCommand>>();
+            var logger = host.Services.GetRequiredService<ILogger<LauncherRootCommand>>();
             try
             {
-                var detectService = host.Services.GetRequiredService<IQueryRunningModeService>();
-                switch (detectService.Query())
-                {
-                    case RunningMode.Package:
-                        var helpPage = host.Services.GetRequiredService<IDisplayHelpPage>();
-                        return await helpPage.GetHelpPage(this);
+                var launcherService = host.Services.GetRequiredService<ILaunchApplicationService>();
+                return await launcherService.RunAsync(args);
 
-                    case RunningMode.Launch:
-                        var launcherService = host.Services.GetRequiredService<ILaunchApplicationService>();
-                        return await launcherService.RunAsync(args);
-
-                    default:
-                        throw new InvalidOperationException();
-                }
             }
-            catch (Exception e)
+            catch(Exception e)
             {
                 logger.LogError(e.Message);
             }
