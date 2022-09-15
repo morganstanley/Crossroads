@@ -12,28 +12,26 @@
  * and limitations under the License.
  */
 
-using Microsoft.Extensions.Configuration;
+using Crossroads.Launcher.Services;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using System.CommandLine;
+using System.CommandLine.Invocation;
 
-namespace Crossroads.Services
+namespace Crossroads.Launcher.Commands
 {
-    public class QueryRunningModeService : IQueryRunningModeService
+    public class LauncherInspectCommand : Command
     {
-        private readonly IConfiguration configuration;
-
-        public QueryRunningModeService(IConfiguration configuration)
+        public LauncherInspectCommand()
+            :base("inspect")
         {
-            this.configuration = configuration;
-        }
-        public RunningMode Query()
-        {
-            if (string.IsNullOrWhiteSpace(this.configuration["Launcher:Command"]))
+            // Handler = CommandHandler.Create<IHost>((host) =>
+            Handler = CommandHandler.Create<IHost>((host) =>
             {
-                return RunningMode.Package;
-            }
-            else
-            {
-                return RunningMode.Launch;
-            }
+                var service = host.Services.GetRequiredService<ILauncherInspectService>();
+                service.DisplayOption();
+                return 0;
+            });
         }
     }
 }

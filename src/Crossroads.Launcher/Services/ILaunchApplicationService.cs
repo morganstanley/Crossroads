@@ -12,27 +12,12 @@
  * and limitations under the License.
  */
 
-using Crossroads.Services;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using System;
-using System.CommandLine;
-using System.CommandLine.Invocation;
+using System.Threading.Tasks;
 
-namespace Crossroads.Commands
+namespace Crossroads.Launcher.Services
 {
-    public class LauncherInspectCommand : Command
+    public interface ILaunchApplicationService
     {
-        public LauncherInspectCommand()
-            :base("LauncherInspect")
-        {
-            Handler = CommandHandler.Create<IHost>((host) =>
-            {
-                var service = host.Services.GetRequiredService<ILauncherInspectService>();
-                service.DisplayOption();
-                return 0;
-            });
-            IsHidden = true;
-        }
+        Task<int> RunAsync(string arguments = null);
     }
 }
