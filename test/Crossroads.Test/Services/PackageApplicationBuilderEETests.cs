@@ -13,6 +13,7 @@
  */
 
 using Crossroads.Services;
+using Microsoft.Extensions.Logging;
 using System;
 using System.IO;
 using System.IO.Abstractions;
@@ -89,9 +90,11 @@ namespace Crossroads.Test.Services
             var resource = new ResourcesAssemblyBuilder(fileSystem);
             ILauncherAppsettingsFileService launcherAppsettingsFileService = new LauncherAppsettingsFileService(fileSystem);
             IAppHostService appHostService = new AppHostService();
-            return new PackageApplicationBuilder(fileSystem, resource, launcherAppsettingsFileService, appHostService);
-        }
+            ILoggerFactory loggerFactory = new LoggerFactory();
+            ILogger<PackageApplicationBuilder> logger = loggerFactory.CreateLogger<PackageApplicationBuilder>();
 
+            return new PackageApplicationBuilder(fileSystem, resource, launcherAppsettingsFileService, appHostService, logger);
+        }
 
         private class DefaultOption : PackageOption
         {

@@ -12,6 +12,7 @@
  * and limitations under the License.
  */
 
+using Crossroads.Launcher.Services;
 using Crossroads.Services;
 using Microsoft.Extensions.Configuration;
 using Moq;
@@ -19,22 +20,17 @@ using Xunit;
 
 namespace Crossroads.Test.Services
 {
-    public class QueryRunningModeServiceTests
+    public class LauncherInspectServiceTests
     {
-        [Theory]
-        [InlineData("my-command", RunningMode.Launch)]
-        [InlineData("", RunningMode.Package)]
-        public void QueryRunningMode_Get_Package(string command, RunningMode mode)
+        [Fact]
+        public void DisplayOption_Success()
         {
-            IQueryRunningModeService query = GetQueryRunningModeService(command);
-            var actual = query.Query();
-            Assert.Equal(mode, actual);
-        }
+            IConfiguration configuration = Mock.Of<IConfiguration>(x => x["Launcher:Name"] == "testapp"
+                && x["Launcher:Location"] == "");
 
-        private IQueryRunningModeService GetQueryRunningModeService(string command)
-        {
-            IConfiguration configuration = Mock.Of<IConfiguration>(x => x["Launcher:Command"] == command);
-            return new QueryRunningModeService(configuration);
+            ILauncherInspectService service = new LauncherInspectService(configuration);
+
+            service.DisplayOption();
         }
     }
 }

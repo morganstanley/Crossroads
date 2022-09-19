@@ -13,9 +13,13 @@
  */
 
 using Crossroads.Services;
+using Microsoft.Extensions.Logging;
 using Moq;
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.IO;
+using System.IO.Abstractions;
 using System.IO.Abstractions.TestingHelpers;
 using System.Threading.Tasks;
 using Xunit;
@@ -81,6 +85,34 @@ namespace Crossroads.Test.Services
             await packageApplicationBuilder.Build(option);
         }
 
+        [Fact]
+        public async Task Build_Success_Exception()
+        {
+            var fileSystem = new Mock<IFileSystem>();
+            fileSystem.Setup(x => x.DirectoryInfo.FromDirectoryName(It.IsAny<string>())).Returns(It.IsAny<DirectoryInfoBase>());
+            fileSystem.Setup(x => x.DirectoryInfo.FromDirectoryName(It.IsAny<string>()).GetDirectories()).Returns(It.IsAny<DirectoryInfoBase[]>());
+            fileSystem.Setup(x => x.DirectoryInfo.FromDirectoryName(It.IsAny<string>()).GetFiles()).Returns(Array.Empty<FileInfoBase>);
+            fileSystem.Setup(x => x.DirectoryInfo.FromDirectoryName(It.IsAny<string>()).GetDirectories()).Returns(Array.Empty<DirectoryInfoBase>);
+            fileSystem.Setup(x => x.Directory.Exists(It.IsAny<string>())).Returns(true);
+            fileSystem.Setup(x => x.Directory.Delete(It.IsAny<string>(), It.IsAny<bool>())).Throws(new Exception());
+            var resource = new Mock<IResourcesAssemblyBuilder>();
+            var appsettingsFile = new Mock<ILauncherAppsettingsFileService>();
+            var appHostService = new Mock<IAppHostService>();
+            var logger = new Mock<ILogger<PackageApplicationBuilder>>();
+            var packageApp = new PackageApplicationBuilder(fileSystem.Object, resource.Object, appsettingsFile.Object, appHostService.Object, logger.Object);
+
+            var option = new PackageOption
+            {
+                Name = "testapp",
+                Command = "Notepad",
+                Version = "3.0.1.0",
+                Include = null,
+            };
+
+            await packageApp.Build(option);
+            packageApp.Dispose();
+        }
+
         private PackageApplicationBuilder GetPackageApplicationBuilder()
         {
             var fileSystem = new MockFileSystem();
@@ -89,7 +121,10 @@ namespace Crossroads.Test.Services
             var resource = new Mock<IResourcesAssemblyBuilder>();
             var appsettingsFile = new Mock<ILauncherAppsettingsFileService>();
             var appHostService = new Mock<IAppHostService>();
-            return new PackageApplicationBuilder(fileSystem, resource.Object, appsettingsFile.Object, appHostService.Object);
+            var logger = new Mock<ILogger<PackageApplicationBuilder>>();
+
+            return new PackageApplicationBuilder(fileSystem, resource.Object, appsettingsFile.Object, appHostService.Object, logger.Object);
         }
+
     }
 }
