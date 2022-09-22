@@ -12,6 +12,7 @@
  * and limitations under the License.
  */
 
+using Microsoft.Extensions.Logging;
 using System;
 using System.IO;
 using System.IO.Abstractions;
@@ -26,13 +27,15 @@ namespace Crossroads.Services
         private readonly IResourcesAssemblyBuilder resourcesAssemblyBuilder;
         private readonly ILauncherAppsettingsFileService launcherAppsettingsFileService;
         private readonly IAppHostService appHostService;
+        private readonly ILogger<PackageApplicationBuilder> _logger;
 
-        public PackageApplicationBuilder(IFileSystem fileSystem, IResourcesAssemblyBuilder resourcesAssemblyBuilder, ILauncherAppsettingsFileService launcherAppsettingsFileService, IAppHostService appHostService)
+        public PackageApplicationBuilder(IFileSystem fileSystem, IResourcesAssemblyBuilder resourcesAssemblyBuilder, ILauncherAppsettingsFileService launcherAppsettingsFileService, IAppHostService appHostService, ILogger<PackageApplicationBuilder> logger)
         {
             this.fileSystem = fileSystem;
             this.resourcesAssemblyBuilder = resourcesAssemblyBuilder;
             this.launcherAppsettingsFileService = launcherAppsettingsFileService;
             this.appHostService = appHostService;
+            _logger = logger;
         }
 
         private bool disposed = false;
@@ -82,9 +85,16 @@ namespace Crossroads.Services
 
         private void cleanWorkingDirectory()
         {
-            if (fileSystem.Directory.Exists(workingDirectory))
+            try
             {
-                fileSystem.Directory.Delete(workingDirectory, true);
+                if (fileSystem.Directory.Exists(workingDirectory))
+                {
+                    fileSystem.Directory.Delete(workingDirectory, true);
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogWarning("Optionally delete file in working directory", ex.Message);
             }
         }
 
@@ -129,9 +139,11 @@ namespace Crossroads.Services
         }
 
         private string workingDirectory;
+        private ResourcesAssemblyBuilder resource;
+
         //WorkingDirectory contains path to temp/crossroads/random/'AppDirectory'
         private string appHostDirectory => Path.Combine(WorkingDirectory, "AppDirectory");
-        private string launcherSourceDirectory => Path.Combine(AppDomain.CurrentDomain.BaseDirectory);
+        private string launcherSourceDirectory => Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Crossroads.Launcher");
 
         //appsettings creates new appsettings.json file in path to temp/crossroads/random/'AppDirectory'
         private string appSettingsFilePath => Path.Combine(appHostDirectory, "appsettings.json");

@@ -1,0 +1,23 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+		<OutputType>Exe</OutputType>
+		<TargetFramework>netcoreapp3.1</TargetFramework>
+		<SelfContained>true</SelfContained>
+	</PropertyGroup>
+	<ItemGroup>
+	  <Compile Include="..\Crossroads\Services\IProcessService.cs" Link="Services\IProcessService.cs" />
+	  <Compile Include="..\Crossroads\Services\PackageOption.cs" Link="Services\PackageOption.cs" />
+	  <Compile Include="..\Crossroads\Services\ProcessService.cs" Link="Services\ProcessService.cs" />
+	</ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="Microsoft.Extensions.Hosting" Version="3.1.5" />
+		<PackageReference Include="Microsoft.Extensions.Configuration" Version="3.1.7" />
+		<PackageReference Include="System.CommandLine.Hosting" Version="0.3.0-alpha.20574.7" />
+		<PackageReference Include="System.IO.Abstractions" Version="3.0.2" />
+	</ItemGroup>
+	<ItemGroup>
+		<None Update="appsettings.json">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+	</ItemGroup>
+</Project>

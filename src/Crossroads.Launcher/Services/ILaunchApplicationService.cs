@@ -12,28 +12,12 @@
  * and limitations under the License.
  */
 
-using Microsoft.Extensions.Configuration;
+using System.Threading.Tasks;
 
-namespace Crossroads.Services
+namespace Crossroads.Launcher.Services
 {
-    public class QueryRunningModeService : IQueryRunningModeService
+    public interface ILaunchApplicationService
     {
-        private readonly IConfiguration configuration;
-
-        public QueryRunningModeService(IConfiguration configuration)
-        {
-            this.configuration = configuration;
-        }
-        public RunningMode Query()
-        {
-            if (string.IsNullOrWhiteSpace(this.configuration["Launcher:Command"]))
-            {
-                return RunningMode.Package;
-            }
-            else
-            {
-                return RunningMode.Launch;
-            }
-        }
+        Task<int> RunAsync(string arguments = null);
     }
 }
