@@ -12,8 +12,8 @@
  * and limitations under the License.
  */
 
-using Crossroads.Commands;
-using Crossroads.Services;
+using Crossroads.Launcher.Commands;
+using Crossroads.Launcher.Services;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Moq;
