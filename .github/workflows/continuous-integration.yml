@@ -33,6 +33,7 @@ jobs:
         uses: codecov/codecov-action@v3
         with:
           file: .\test\Crossroads.Test\coverage.opencover.xml
+          file: .\test\Crossroads.Launcher.Test\coverage.opencover.xml
           flags: unittests
           fail_ci_if_error: true
       - name: Pack
