@@ -32,7 +32,7 @@ jobs:
       - name: Upload Test Report to Codecov
         uses: codecov/codecov-action@v3
         with:
-          file: .\test\Crossroads.Test\coverage.opencover.xml, .\test\Crossroads.Launcher.Test\coverage.opencover.xml
+          files: .\test\Crossroads.Test\coverage.opencover.xml, .\test\Crossroads.Launcher.Test\coverage.opencover.xml
           flags: unittests
           fail_ci_if_error: true
       - name: Pack
