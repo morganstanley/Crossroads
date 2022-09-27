@@ -4,7 +4,6 @@
 	</ItemGroup>
 	<ItemGroup>
 		<ProjectReference Include="..\..\src\Crossroads.Launcher\Crossroads.Launcher.csproj" />
-		<!--<ProjectReference Include="..\..\src\Crossroads\Crossroads.csproj" />-->
 	</ItemGroup>
 
 	<ItemGroup>
