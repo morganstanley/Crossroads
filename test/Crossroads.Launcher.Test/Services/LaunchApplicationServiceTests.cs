@@ -26,7 +26,7 @@ using System.IO.Abstractions.TestingHelpers;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace Crossroads.Test.Services
+namespace Crossroads.Launcher.Test.Services
 {
     public class LaunchApplicationServiceTests
     {

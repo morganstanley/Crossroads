@@ -25,7 +25,7 @@ using System.CommandLine.Parsing;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace Crossroads.Test.Commands
+namespace Crossroads.Launcher.Test.Commands
 {
     public class LauncherInspectCommandTests
     {
