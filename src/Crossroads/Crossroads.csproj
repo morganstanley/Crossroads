@@ -12,8 +12,8 @@
 		<RepositoryUrl>https://github.com/morganstanley/Crossroads</RepositoryUrl>
 		<Authors>MorganStanley</Authors>
 		<PackAsTool>true</PackAsTool>
+		<SelfContained>false</SelfContained>
 		<ToolCommandName>crossroads</ToolCommandName>
-		<ErrorOnDuplicatePublishOutputFiles>false</ErrorOnDuplicatePublishOutputFiles>
     <PackageReadmeFile>README.md</PackageReadmeFile>
 		<TargetFramework>netcoreapp3.1</TargetFramework>
 	</PropertyGroup>
