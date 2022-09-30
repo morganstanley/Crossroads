@@ -3,7 +3,11 @@
 		<OutputType>Exe</OutputType>
 		<TargetFramework>netcoreapp3.1</TargetFramework>
 		<SelfContained>true</SelfContained>
+		<RuntimeIdentifier>win-x64</RuntimeIdentifier>
 	</PropertyGroup>
+	<!--<Target Name="Build">
+		<Exec Command= "Crossroads.bat" />
+	</Target>-->
 	<ItemGroup>
 	  <Compile Include="..\Crossroads\Services\IProcessService.cs" Link="Services\IProcessService.cs" />
 	  <Compile Include="..\Crossroads\Services\PackageOption.cs" Link="Services\PackageOption.cs" />
