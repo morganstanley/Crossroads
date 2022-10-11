@@ -143,7 +143,7 @@ namespace Crossroads.Services
 
         //WorkingDirectory contains path to temp/crossroads/random/'AppDirectory'
         private string appHostDirectory => Path.Combine(WorkingDirectory, "AppDirectory");
-        private string launcherSourceDirectory => Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Crossroads.Launcher");
+        private string launcherSourceDirectory => Path.Combine(AppDomain.CurrentDomain.BaseDirectory);
 
         //appsettings creates new appsettings.json file in path to temp/crossroads/random/'AppDirectory'
         private string appSettingsFilePath => Path.Combine(appHostDirectory, "appsettings.json");
