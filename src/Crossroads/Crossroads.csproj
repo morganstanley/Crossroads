@@ -14,6 +14,9 @@
 		<PackAsTool>true</PackAsTool>
 		<SelfContained>false</SelfContained>
 		<ToolCommandName>crossroads</ToolCommandName>
+		<!--<files>
+			<file src="bin\Debug\*.*" target="lib\netcoreapp3.1" />
+		</files>-->
     <PackageReadmeFile>README.md</PackageReadmeFile>
 		<TargetFramework>netcoreapp3.1</TargetFramework>
 	</PropertyGroup>
@@ -21,7 +24,11 @@
   <ItemGroup>
     <None Include="../../README.md" Pack="true" PackagePath="/" />
   </ItemGroup>
-  
+
+	<!--<Target Name="PublishCrossroads" BeforeTargets="BeforeBuild">
+		<Exec Command=""/>
+	</Target>-->
+	
 	<ItemGroup>
 		<PackageReference Include="Microsoft.Extensions.Hosting" Version="3.1.5" />
 		<PackageReference Include="Microsoft.Extensions.Configuration" Version="3.1.7" />
@@ -50,7 +57,7 @@
 		<ItemGroup>
 			<LauncherFile Include="..\Crossroads.Launcher\$(OutDir)**"></LauncherFile>
 			<None Include="@(LauncherFile)">
-				<Link>Crossroads.Launcher\%(LauncherFile.FileName)%(LauncherFile.Extension)</Link>
+				<Link>.\%(LauncherFile.FileName)%(LauncherFile.Extension)</Link>
 				<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 			</None>
 		</ItemGroup>
@@ -64,6 +71,30 @@
 			</None>
 		</ItemGroup>
 	</Target>
+
+	<ItemGroup Label="Packaging">
+		<Content Include=".\$(OutDir)\*">
+			<Pack>true</Pack>
+			<!--<PackagePath>.\</PackagePath>-->
+			<PackagePath>$(BuildOutputTargetFolder)\$(TargetFramework)</PackagePath>
+			<IncludeInPackage>true</IncludeInPackage>
+			<PackageCopyToOutput>true</PackageCopyToOutput>
+			<BuildAction>Content</BuildAction>
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+			<CopyToPublishDirectory>Always</CopyToPublishDirectory>
+		</Content>
+
+		<Content Include=".\$(OutDir)apphost\*">
+			<Pack>true</Pack>
+			<PackagePath>.\</PackagePath>
+			<PackagePath>$(BuildOutputTargetFolder)\$(TargetFramework)</PackagePath>
+			<IncludeInPackage>true</IncludeInPackage>
+			<PackageCopyToOutput>true</PackageCopyToOutput>
+			<BuildAction>Content</BuildAction>
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+			<CopyToPublishDirectory>Always</CopyToPublishDirectory>
+		</Content>
+	</ItemGroup>
 	
   <Target Name="CleanLauncherDirectory" AfterTargets="Clean">
     <RemoveDir Directories=".\$(OutDir)LauncherFiles" />
