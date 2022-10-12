@@ -55,7 +55,7 @@
 	
 	<!--<Target Name="CopyLauncher" BeforeTargets="CopyAdditionalFiles">
 
-	<Target Name="CopyLauncher" BeforeTargets="CopyAdditionalFiles">
+	<Target Name="CopyLauncher"  BeforeTargets="CopyAdditionalFiles">
 
 		<ItemGroup>
 			<LauncherFile Include="..\Crossroads.Launcher\$(OutDir)**"></LauncherFile>
@@ -67,7 +67,7 @@
 		</ItemGroup>
 	</Target>
 	
-	<Target Name="CopyLauncherLinux" BeforeTargets="CopyAdditionalFiles">
+	<Target Name="CopyLauncherLinux" Condition="'$(RuntimeIdentifier)' == 'linux-x64'" BeforeTargets="CopyAdditionalFiles">
 		<ItemGroup>
 			<LauncherFileLinux Include="..\Crossroads.Launcher\bin\Debug\netcoreapp3.1\linux-x64\**"></LauncherFileLinux>
 			<None Include="@(LauncherFileLinux)" >
@@ -87,10 +87,19 @@
 		</ItemGroup>
 	</Target>
 
-	<Target Name="CopyAppHost" BeforeTargets="CopyAdditionalFiles" DependsOnTargets="ResolveFrameworkReferences">
+	<Target Name="CopyAppHost" Condition="'$(RuntimeIdentifier)' == 'win-x64'" BeforeTargets="CopyAdditionalFiles" DependsOnTargets="ResolveFrameworkReferences">
 		<ItemGroup>
 			<None Include="$(AppHostSourcePath)">
-				<Link>apphost\apphost.exe</Link>
+				<Link>Crossroads.Launcher\apphost\apphost.exe</Link>
+				<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+			</None>
+		</ItemGroup>
+	</Target>
+	
+	<Target Name="CopyAppHostLinux" BeforeTargets="CopyAdditionalFiles" DependsOnTargets="ResolveFrameworkReferences">
+		<ItemGroup>
+			<None Include="$(AppHostSourcePath)">
+				<Link>Crossroads.LauncherLinux\apphost\apphost.exe</Link>
 				<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 			</None>
 		</ItemGroup>
