@@ -15,16 +15,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		Directory.Build.props = Directory.Build.props
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Crossroads", "src\Crossroads\Crossroads.csproj", "{861457E3-0BBE-4AD1-8C20-1C52D9045534}"
-	ProjectSection(ProjectDependencies) = postProject
-		{71387D9F-8B55-440F-A736-1C8849374E89} = {71387D9F-8B55-440F-A736-1C8849374E89}
-	EndProjectSection
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Crossroads.Test", "test\Crossroads.Test\Crossroads.Test.csproj", "{207E512B-88F2-4BD5-96C5-2809928043C3}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Crossroads.Launcher", "src\Crossroads.Launcher\Crossroads.Launcher.csproj", "{71387D9F-8B55-440F-A736-1C8849374E89}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Crossroads.Launcher.Test", "test\Crossroads.Launcher.Test\Crossroads.Launcher.Test.csproj", "{0D30CF3F-C262-41CC-AC03-3803313951E5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Crossroads.Launcher.Test", "test\Crossroads.Launcher.Test\Crossroads.Launcher.Test.csproj", "{0D30CF3F-C262-41CC-AC03-3803313951E5}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Crossroads", "src\Crossroads\Crossroads.csproj", "{C2382F85-9937-47B3-82D0-6F4FA29A8D42}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -32,10 +29,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{861457E3-0BBE-4AD1-8C20-1C52D9045534}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{861457E3-0BBE-4AD1-8C20-1C52D9045534}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{861457E3-0BBE-4AD1-8C20-1C52D9045534}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{861457E3-0BBE-4AD1-8C20-1C52D9045534}.Release|Any CPU.Build.0 = Release|Any CPU
 		{207E512B-88F2-4BD5-96C5-2809928043C3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{207E512B-88F2-4BD5-96C5-2809928043C3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{207E512B-88F2-4BD5-96C5-2809928043C3}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -48,15 +41,19 @@ Global
 		{0D30CF3F-C262-41CC-AC03-3803313951E5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0D30CF3F-C262-41CC-AC03-3803313951E5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0D30CF3F-C262-41CC-AC03-3803313951E5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C2382F85-9937-47B3-82D0-6F4FA29A8D42}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C2382F85-9937-47B3-82D0-6F4FA29A8D42}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C2382F85-9937-47B3-82D0-6F4FA29A8D42}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C2382F85-9937-47B3-82D0-6F4FA29A8D42}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{861457E3-0BBE-4AD1-8C20-1C52D9045534} = {25BC40E7-F8F5-4CBB-BB93-6FEBB82A27CB}
 		{207E512B-88F2-4BD5-96C5-2809928043C3} = {59C1FECC-EF9E-49DF-AB1A-A483FEE8CEF4}
 		{71387D9F-8B55-440F-A736-1C8849374E89} = {25BC40E7-F8F5-4CBB-BB93-6FEBB82A27CB}
 		{0D30CF3F-C262-41CC-AC03-3803313951E5} = {59C1FECC-EF9E-49DF-AB1A-A483FEE8CEF4}
+		{C2382F85-9937-47B3-82D0-6F4FA29A8D42} = {25BC40E7-F8F5-4CBB-BB93-6FEBB82A27CB}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {A33F4766-4A4F-4B84-821E-ECD6B428A449}
