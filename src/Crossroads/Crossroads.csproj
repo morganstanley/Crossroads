@@ -30,9 +30,7 @@
 	</Target>-->
 	
 	<ItemGroup>
-		<PackageReference Include="Microsoft.Extensions.Hosting" Version="3.1.5" />
 		<PackageReference Include="Microsoft.Extensions.Configuration" Version="3.1.7" />
-		<PackageReference Include="System.CommandLine.Hosting" Version="0.3.0-alpha.20574.7" />
 		<PackageReference Include="System.IO.Abstractions" Version="3.0.2" />
 		<PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="3.5.0" />
 		<PackageReference Include="Microsoft.CodeAnalysis.Analyzers" Version="3.0.0" />
@@ -40,7 +38,6 @@
 		<PackageReference Include="System.CommandLine.Hosting" Version="0.3.0-alpha.20574.7" />
 		<PackageReference Include="System.IO.Abstractions" Version="3.0.2" />
 		<PackageReference Include="Microsoft.Extensions.DependencyModel" Version="2.1.0" />
-		<PackageReference Include="Microsoft.NET.HostModel" Version="3.1.6" />
 		<PackageReference Include="GitVersion.MsBuild" Version="5.8.1">
 			<PrivateAssets>all</PrivateAssets>
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -94,6 +91,19 @@
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 			<CopyToPublishDirectory>Always</CopyToPublishDirectory>
 		</Content>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Compile Remove="bin\**" />
+	  <Content Remove="bin\**" />
+	  <EmbeddedResource Remove="bin\**" />
+	  <None Remove="bin\**" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Reference Include="Microsoft.NET.HostModel">
+	    <HintPath>..\..\..\..\..\..\..\Program Files\dotnet\sdk\6.0.201\Microsoft.NET.HostModel.dll</HintPath>
+	  </Reference>
 	</ItemGroup>
 	
   <Target Name="CleanLauncherDirectory" AfterTargets="Clean">
