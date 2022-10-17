@@ -18,7 +18,7 @@
 			<file src="bin\Debug\*.*" target="lib\netcoreapp3.1" />
 		</files>-->
     <PackageReadmeFile>README.md</PackageReadmeFile>
-		<TargetFramework>netcoreapp3.1</TargetFramework>
+		<TargetFramework>net6.0</TargetFramework>
 	</PropertyGroup>
   
   <ItemGroup>
@@ -100,3 +100,4 @@
     <RemoveDir Directories=".\$(OutDir)LauncherFiles" />
   </Target>
 </Project>
+	
