@@ -12,24 +12,26 @@
  * and limitations under the License.
  */
 
-using Crossroads.Services;
-using Microsoft.Extensions.Configuration;
-using Moq;
-using Xunit;
+using Crossroads.Launcher.Services;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using System.CommandLine;
+using System.CommandLine.Invocation;
 
-namespace Crossroads.Test.Services
+namespace Crossroads.Launcher.Commands
 {
-    public class LauncherInspectServiceTests
+    public class LauncherInspectCommand : Command
     {
-        [Fact]
-        public void DisplayOption_Success()
+        public LauncherInspectCommand()
+            :base("inspect")
         {
-            IConfiguration configuration = Mock.Of<IConfiguration>(x => x["Launcher:Name"] == "testapp"
-                && x["Launcher:Location"] == "");
-
-            ILauncherInspectService service = new LauncherInspectService(configuration);
-
-            service.DisplayOption();
+            // Handler = CommandHandler.Create<IHost>((host) =>
+            Handler = CommandHandler.Create<IHost>((host) =>
+            {
+                var service = host.Services.GetRequiredService<ILauncherInspectService>();
+                service.DisplayOption();
+                return 0;
+            });
         }
     }
 }

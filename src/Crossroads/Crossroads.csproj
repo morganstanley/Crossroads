@@ -11,11 +11,12 @@
 		<Description>Crossroads is a dotnet core commandline tool packager for developers. This is a generic solution to host any application within Crossroads package executable and further launches application's executable. Developers will specify arguments such as name, icon, version etc for branding during the package generation. The specified argument name will be used to rebrand the internal application.</Description>
 		<RepositoryUrl>https://github.com/morganstanley/Crossroads</RepositoryUrl>
 		<Authors>MorganStanley</Authors>
-		<SelfContained>false</SelfContained>
-		<UseAppHost>true</UseAppHost>
 		<PackAsTool>true</PackAsTool>
+		<SelfContained>false</SelfContained>
 		<ToolCommandName>crossroads</ToolCommandName>
-		<ErrorOnDuplicatePublishOutputFiles>false</ErrorOnDuplicatePublishOutputFiles>
+		<!--<files>
+			<file src="bin\Debug\*.*" target="lib\netcoreapp3.1" />
+		</files>-->
     <PackageReadmeFile>README.md</PackageReadmeFile>
 		<TargetFramework>netcoreapp3.1</TargetFramework>
 	</PropertyGroup>
@@ -23,7 +24,11 @@
   <ItemGroup>
     <None Include="../../README.md" Pack="true" PackagePath="/" />
   </ItemGroup>
-  
+
+	<!--<Target Name="PublishCrossroads" BeforeTargets="BeforeBuild">
+		<Exec Command=""/>
+	</Target>-->
+	
 	<ItemGroup>
 		<PackageReference Include="Microsoft.Extensions.Hosting" Version="3.1.5" />
 		<PackageReference Include="Microsoft.Extensions.Configuration" Version="3.1.7" />
@@ -47,6 +52,16 @@
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</None>
 	</ItemGroup>
+	
+	<Target Name="CopyLauncher" BeforeTargets="CopyAdditionalFiles">
+		<ItemGroup>
+			<LauncherFile Include="..\Crossroads.Launcher\$(OutDir)**"></LauncherFile>
+			<None Include="@(LauncherFile)">
+				<Link>.\%(LauncherFile.FileName)%(LauncherFile.Extension)</Link>
+				<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+			</None>
+		</ItemGroup>
+	</Target>
 
 	<Target Name="CopyAppHost" BeforeTargets="CopyAdditionalFiles" DependsOnTargets="ResolveFrameworkReferences">
 		<ItemGroup>
@@ -57,36 +72,31 @@
 		</ItemGroup>
 	</Target>
 
-<Target Name="CopyBuildFiles" AfterTargets="Build">
-    <ItemGroup>
-      <BuildFiles Include=".\$(OutDir)*.*"/>
-    </ItemGroup>
-    <Copy SourceFiles="@(BuildFiles)" DestinationFolder=".\$(OutDir)LauncherFiles"/>
-</Target>
- 
- 	<ItemGroup Label="Packaging">
-      <Content Include=".\$(OutDir)LauncherFiles\*">
-		  <Pack>true</Pack>
-		  <PackagePath>.\$(OutDir)LauncherFiles</PackagePath>
-		  <IncludeInPackage>true</IncludeInPackage>
-		  <PackageCopyToOutput>true</PackageCopyToOutput>
-		  <BuildAction>Content</BuildAction>
-		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-		  <CopyToPublishDirectory>Always</CopyToPublishDirectory>
-	  </Content>
-	
-	  <Content Include=".\$(OutDir)apphost\*">
-		  <Pack>true</Pack>
-		  <PackagePath>.\$(OutDir)apphost</PackagePath>
-		  <IncludeInPackage>true</IncludeInPackage>
-		  <PackageCopyToOutput>true</PackageCopyToOutput>
-		  <BuildAction>Content</BuildAction>
-		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-		  <CopyToPublishDirectory>Always</CopyToPublishDirectory>
-	  </Content>
+	<ItemGroup Label="Packaging">
+		<Content Include=".\$(OutDir)\*">
+			<Pack>true</Pack>
+			<!--<PackagePath>.\</PackagePath>-->
+			<PackagePath>$(BuildOutputTargetFolder)\$(TargetFramework)</PackagePath>
+			<IncludeInPackage>true</IncludeInPackage>
+			<PackageCopyToOutput>true</PackageCopyToOutput>
+			<BuildAction>Content</BuildAction>
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+			<CopyToPublishDirectory>Always</CopyToPublishDirectory>
+		</Content>
+
+		<Content Include=".\$(OutDir)apphost\*">
+			<Pack>true</Pack>
+			<PackagePath>.\</PackagePath>
+			<PackagePath>$(BuildOutputTargetFolder)\$(TargetFramework)</PackagePath>
+			<IncludeInPackage>true</IncludeInPackage>
+			<PackageCopyToOutput>true</PackageCopyToOutput>
+			<BuildAction>Content</BuildAction>
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+			<CopyToPublishDirectory>Always</CopyToPublishDirectory>
+		</Content>
 	</ItemGroup>
-  
+	
   <Target Name="CleanLauncherDirectory" AfterTargets="Clean">
-    <RemoveDir Directories=".\$(OutDir)LauncherFiles"  />
+    <RemoveDir Directories=".\$(OutDir)LauncherFiles" />
   </Target>
 </Project>

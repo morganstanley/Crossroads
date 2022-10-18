@@ -12,6 +12,7 @@
  * and limitations under the License.
  */
 
+using Crossroads.Services;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
@@ -21,7 +22,7 @@ using System.IO.Abstractions;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Crossroads.Services
+namespace Crossroads.Launcher.Services
 {
     public class LaunchApplicationService : ILaunchApplicationService
     {
@@ -44,7 +45,6 @@ namespace Crossroads.Services
         public async Task<int> RunAsync(string arguments = null)
         {
             string command = getCommand(launcherOption.Command);
-
             if (string.IsNullOrWhiteSpace(command))
             {
                 throw new Exception("Command is not configured correctly.");
@@ -54,12 +54,10 @@ namespace Crossroads.Services
             if (fileSystem.Directory.Exists(assetsDirectory))
             {
                 string tmpCommand = Path.Combine(assetsSourceDirectory, command);
-
                 if (fileSystem.File.Exists(tmpCommand))
                 {
                     command = tmpCommand;
                 }
-
                 workingDirectory = assetsDirectory;
             }
             else
@@ -75,12 +73,14 @@ namespace Crossroads.Services
                 WorkingDirectory = workingDirectory
             };
             return await processService.RunAsync(startInfo);
+
         }
 
         private string assetsDirectory => Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "assets");
         private string singleAssetDirectory => Directory.GetDirectories(assetsDirectory).FirstOrDefault();
         private string assetsSourceDirectory => hasSingleAssetsDirectory ? singleAssetDirectory : assetsDirectory;
         private bool hasSingleAssetsDirectory => launcherOption.Include?.Count() == 1;
+
         private string getCommand(string command)
         {
             if (launcherOption.Include == null)
@@ -94,7 +94,7 @@ namespace Crossroads.Services
                     return Path.GetFileName(command);
                 }
                 return command;
-            } 
+            }
             else
             {
                 if (command.Contains(Path.DirectorySeparatorChar) || command.Contains(Path.AltDirectorySeparatorChar))
