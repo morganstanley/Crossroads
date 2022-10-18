@@ -85,24 +85,6 @@
 		</ItemGroup>
 	</Target>
 
-	<Target Name="CopyAppHost" Condition="'$(RuntimeIdentifier)' == 'win-x64'" BeforeTargets="CopyAdditionalFiles" DependsOnTargets="ResolveFrameworkReferences">
-		<ItemGroup>
-			<None Include="$(AppHostSourcePath)">
-				<Link>Crossroads.Launcher\apphost\apphost.exe</Link>
-				<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-			</None>
-		</ItemGroup>
-	</Target>
-	
-	<Target Name="CopyAppHostLinux" BeforeTargets="CopyAdditionalFiles" DependsOnTargets="ResolveFrameworkReferences">
-		<ItemGroup>
-			<None Include="$(AppHostSourcePath)">
-				<Link>Crossroads.LauncherLinux\apphost\apphost.exe</Link>
-				<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-			</None>
-		</ItemGroup>
-	</Target>
-
 	<ItemGroup Label="Packaging">
 		<Content Include=".\$(OutDir)\*">
 			<Pack>true</Pack>
