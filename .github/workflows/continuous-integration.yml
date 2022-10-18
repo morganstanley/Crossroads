@@ -19,12 +19,31 @@ jobs:
           fetch-depth: 0
       - name: Setup .NET
         uses: actions/setup-dotnet@v1
+        id: cp310
         with:
           dotnet-version: |
             3.1.x
             6.0.x
       - name: Restore dependencies
         run: dotnet restore --locked-mode
+      - name: LOG PATHS
+        run: |
+          echo 'VERSION: ${{ steps.cp310.outputs.dotnet-version }}'
+          echo 'DOTNET_INSTALL_DIR: ${{ github.DOTNET_INSTALL_DIR }}'
+          echo 'DOTNET_INSTALL_DIR: ${{ DOTNET_INSTALL_DIR }}'
+          echo 'DOTNET_ROOT: ${{ DOTNET_ROOT }}' 
+          echo "::group::My title:: ${{ github.repository }}"
+          echo "::home:: ${{ github.HOME }}"
+          dir .
+          dir ..
+          dir ../..
+          dir ../../..
+      - name: Dump GitHub context
+        id: github_context_step
+        run:  |
+          echo '${{ toJSON(github) }}'
+          echo ":Action path ${{ github.action_path }}"
+          
       - name: Build
         run: dotnet build --no-restore --configuration Release
       - name: Test
