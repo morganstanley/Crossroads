@@ -3,7 +3,7 @@
 		<OutputType>Exe</OutputType>
 		<TargetFramework>netcoreapp3.1</TargetFramework>
 		<SelfContained>true</SelfContained>
-		<RuntimeIdentifier>linux-x64</RuntimeIdentifier>
+		<!--<RuntimeIdentifier>linux-x64</RuntimeIdentifier>-->
 	</PropertyGroup>
 	<ItemGroup>
 	  <Compile Include="..\Crossroads\Services\IProcessService.cs" Link="Services\IProcessService.cs" />
@@ -21,4 +21,22 @@
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</None>
 	</ItemGroup>
+	
+	<Target Name="CopyAppHost" Condition="'$(RuntimeIdentifier)' == 'win-x64'" BeforeTargets="CopyAdditionalFiles" DependsOnTargets="ResolveFrameworkReferences">
+		<ItemGroup>
+			<None Include="$(AppHostSourcePath)">
+				<Link>apphost\apphost.exe</Link>
+				<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+			</None>
+		</ItemGroup>
+	</Target>
+
+	<Target Name="CopyAppHostLinux" BeforeTargets="CopyAdditionalFiles" DependsOnTargets="ResolveFrameworkReferences">
+		<ItemGroup>
+			<None Include="$(AppHostSourcePath)">
+				<Link>apphost\apphost.exe</Link>
+				<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+			</None>
+		</ItemGroup>
+	</Target>
 </Project>
