@@ -3,7 +3,8 @@
 		<OutputType>Exe</OutputType>
 		<TargetFramework>net6.0</TargetFramework>
 		<SelfContained>true</SelfContained>
-	</PropertyGroup>
+    <ProduceReferenceAssembly>false</ProduceReferenceAssembly>
+  </PropertyGroup>
 	<ItemGroup>
 	  <Compile Include="..\Crossroads\Services\IProcessService.cs" Link="Services\IProcessService.cs" />
 	  <Compile Include="..\Crossroads\Services\PackageOption.cs" Link="Services\PackageOption.cs" />

@@ -18,7 +18,6 @@ using System.Threading.Tasks;
 
 namespace Crossroads.Services
 {
-    // todo: reuse process service
     public class InspectService : IInspectService
     {
         private readonly IProcessService processService;

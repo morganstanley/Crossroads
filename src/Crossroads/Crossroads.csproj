@@ -50,7 +50,7 @@
 		</None>
 	</ItemGroup>
 	
-	<Target Name="CopyLauncher" BeforeTargets="CopyAdditionalFiles">
+	<Target Name="CopyLauncherToBase" BeforeTargets="CopyAdditionalFiles">
 		<ItemGroup>
 			<LauncherFile Include="..\Crossroads.Launcher\$(OutDir)**"></LauncherFile>
 			<None Include="@(LauncherFile)">
@@ -59,6 +59,16 @@
 			</None>
 		</ItemGroup>
 	</Target>
+
+  <Target Name="CopyLauncherToFolder" BeforeTargets="CopyAdditionalFiles">
+    <ItemGroup>
+      <LauncherFile Include="..\Crossroads.Launcher\$(OutDir)**"></LauncherFile>
+      <None Include="@(LauncherFile)">
+        <Link>Crossroads.Launcher\%(LauncherFile.FileName)%(LauncherFile.Extension)</Link>
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </None>
+    </ItemGroup>
+  </Target>
 
 	<Target Name="CopyAppHost" BeforeTargets="CopyAdditionalFiles" DependsOnTargets="ResolveFrameworkReferences">
 		<ItemGroup>
@@ -71,6 +81,7 @@
 
 	<ItemGroup Label="Packaging">
 		<Content Include=".\$(OutDir)\*">
+      <!--<Content Include=".\$(OutDir)Crossroads.Launcher\*">-->
 			<Pack>true</Pack>
 			<!--<PackagePath>.\</PackagePath>-->
 			<PackagePath>$(BuildOutputTargetFolder)\$(TargetFramework)</PackagePath>
@@ -83,8 +94,9 @@
 
 		<Content Include=".\$(OutDir)apphost\*">
 			<Pack>true</Pack>
-			<PackagePath>.\</PackagePath>
-			<PackagePath>$(BuildOutputTargetFolder)\$(TargetFramework)</PackagePath>
+			<!--<PackagePath>$(BuildOutputTargetFolder)\$(TargetFramework)</PackagePath>-->
+      <PackagePath>.\</PackagePath>
+      <!--<PackagePath>.\$(OutDir)apphost</PackagePath>-->
 			<IncludeInPackage>true</IncludeInPackage>
 			<PackageCopyToOutput>true</PackageCopyToOutput>
 			<BuildAction>Content</BuildAction>
