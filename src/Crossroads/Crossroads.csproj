@@ -81,7 +81,6 @@
 
 	<ItemGroup Label="Packaging">
 		<Content Include=".\$(OutDir)\*">
-      <!--<Content Include=".\$(OutDir)Crossroads.Launcher\*">-->
 			<Pack>true</Pack>
 			<!--<PackagePath>.\</PackagePath>-->
 			<PackagePath>$(BuildOutputTargetFolder)\$(TargetFramework)</PackagePath>
@@ -94,9 +93,8 @@
 
 		<Content Include=".\$(OutDir)apphost\*">
 			<Pack>true</Pack>
-			<!--<PackagePath>$(BuildOutputTargetFolder)\$(TargetFramework)</PackagePath>-->
       <PackagePath>.\</PackagePath>
-      <!--<PackagePath>.\$(OutDir)apphost</PackagePath>-->
+      <PackagePath>$(BuildOutputTargetFolder)\$(TargetFramework)</PackagePath>
 			<IncludeInPackage>true</IncludeInPackage>
 			<PackageCopyToOutput>true</PackageCopyToOutput>
 			<BuildAction>Content</BuildAction>
