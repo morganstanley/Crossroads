@@ -25,7 +25,6 @@ namespace Crossroads.Launcher.Commands
         public LauncherInspectCommand()
             :base("inspect")
         {
-            // Handler = CommandHandler.Create<IHost>((host) =>
             Handler = CommandHandler.Create<IHost>((host) =>
             {
                 var service = host.Services.GetRequiredService<ILauncherInspectService>();
