@@ -28,7 +28,7 @@ namespace Crossroads.Launcher.Commands
         public LauncherRootCommand()
         {
             AddOption(argsOption);
-            this.Handler = CommandHandler.Create<IHost, string>(LauncherApplicationHandler);
+            Handler = CommandHandler.Create<IHost, string>(LauncherApplicationHandler);
         }
 
         private async Task<int> LauncherApplicationHandler(IHost host, string args)
