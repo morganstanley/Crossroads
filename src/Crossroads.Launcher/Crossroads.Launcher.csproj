@@ -3,7 +3,6 @@
 		<OutputType>Exe</OutputType>
 		<TargetFramework>netcoreapp3.1</TargetFramework>
 		<SelfContained>true</SelfContained>
-		<!--<RuntimeIdentifier>linux-x64</RuntimeIdentifier>-->
 	</PropertyGroup>
 	<ItemGroup>
 	  <Compile Include="..\Crossroads\Services\IProcessService.cs" Link="Services\IProcessService.cs" />
@@ -16,11 +15,16 @@
 		<PackageReference Include="System.CommandLine.Hosting" Version="0.3.0-alpha.20574.7" />
 		<PackageReference Include="System.IO.Abstractions" Version="3.0.2" />
 	</ItemGroup>
+	
 	<ItemGroup>
 		<None Update="appsettings.json">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</None>
 	</ItemGroup>
+	
+	<!--<Target Name="BuildOrder" AfterTargets="Build">
+		<Exec Command=".\crossroads"/>
+	</Target>-->
 	
 	<Target Name="CopyAppHost" Condition="'$(RuntimeIdentifier)' == 'win-x64'" BeforeTargets="CopyAdditionalFiles" DependsOnTargets="ResolveFrameworkReferences">
 		<ItemGroup>
@@ -39,4 +43,5 @@
 			</None>
 		</ItemGroup>
 	</Target>
+	
 </Project>

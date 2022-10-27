@@ -57,7 +57,7 @@
 
 	<Target Name="CopyLauncher" BeforeTargets="CopyAdditionalFiles">
 		<ItemGroup>
-			<LauncherFile Include="..\Crossroads.Launcher\bin\Debug\netcoreapp3.1\win-x64\**"></LauncherFile>
+			<LauncherFile Include="..\Crossroads.Launcher\$(OutDir)**"></LauncherFile>
 			<None Include="@(LauncherFile)">
 				<Link>Crossroads.Launcher\%(LauncherFile.FileName)%(LauncherFile.Extension)</Link>
 				<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
