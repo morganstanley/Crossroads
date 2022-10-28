@@ -96,7 +96,6 @@
 
 		<Content Include=".\$(OutDir)apphost\*">
 			<Pack>true</Pack>
-			<PackagePath>.\</PackagePath>
 			<PackagePath>$(BuildOutputTargetFolder)\$(TargetFramework)</PackagePath>
 			<IncludeInPackage>true</IncludeInPackage>
 			<PackageCopyToOutput>true</PackageCopyToOutput>
