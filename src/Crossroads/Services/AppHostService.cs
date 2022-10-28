@@ -28,7 +28,14 @@ namespace Crossroads.Services
             var appHostDestinationFilePath = Path.Combine(appHostDirectory, bundleName);
             await Task.Run(() => HostWriter.CreateAppHost(appHostSourceFilePath, appHostDestinationFilePath, appBinaryFilePath, assemblyToCopyResorcesFrom: resourceassemblyPathResult));
 
-            var bundler = new Bundler(bundleName, bundleDirectory);
+            var bundler = new Bundler(bundleName, bundleDirectory, BundleOptions.BundleAllContent,
+                targetOS: System.Runtime.InteropServices.OSPlatform.Windows,
+                targetArch: System.Runtime.InteropServices.Architecture.X64,
+                targetFrameworkVersion: Version.Parse("6.0.1"),
+                diagnosticOutput: true,
+                appAssemblyName: appBinaryFilePath,
+                macosCodesign: false
+                ) ;
 
             var fileSpecs = GenerateFileSpecs(appHostDirectory);
             await Task.Run(() => bundler.GenerateBundle(fileSpecs));
@@ -59,7 +66,7 @@ namespace Crossroads.Services
             });
         }
 
-        private string appHostSourceFilePath => Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "AppHost", "apphost.exe");
+        private string appHostSourceFilePath => Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "apphost", "apphost.exe");
         private string appBinaryFilePath => "Crossroads.Launcher.dll";
 
     }

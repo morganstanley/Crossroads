@@ -1,7 +1,8 @@
 {
   "profiles": {
     "Crossroads": {
-      "commandName": "Project"
+      "commandName": "Project",
+      "commandLineArgs": "package --name note6_28_11 --command \"notepad\" -l C:\\Users\\User\\Desktop\\Destination"
     }
   }
 }

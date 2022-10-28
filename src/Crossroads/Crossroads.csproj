@@ -19,7 +19,7 @@
 		</files>-->
     <PackageReadmeFile>README.md</PackageReadmeFile>
 		<TargetFramework>net6.0</TargetFramework>
-	</PropertyGroup>
+  </PropertyGroup>
   
   <ItemGroup>
     <None Include="../../README.md" Pack="true" PackagePath="/" />
@@ -30,15 +30,18 @@
 	</Target>-->
 	
 	<ItemGroup>
-		<PackageReference Include="Microsoft.Extensions.Configuration" Version="3.1.7" />
+		<PackageReference Include="Microsoft.Extensions.Configuration" Version="6.0.1" />
 		<PackageReference Include="System.IO.Abstractions" Version="3.0.2" />
-		<PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="3.5.0" />
-		<PackageReference Include="Microsoft.CodeAnalysis.Analyzers" Version="3.0.0" />
+		<PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.3.1" />
+		<PackageReference Include="Microsoft.CodeAnalysis.Analyzers" Version="3.3.3">
+		  <PrivateAssets>all</PrivateAssets>
+		  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
 		<PackageReference Include="System.CommandLine.Hosting" Version="0.3.0-alpha.20574.7" />
-		<PackageReference Include="System.IO.Abstractions" Version="3.0.2" />
-		<PackageReference Include="Microsoft.Extensions.DependencyModel" Version="2.1.0" />
-		<PackageReference Include="GitVersion.MsBuild" Version="5.8.1">
+		<PackageReference Include="System.IO.Abstractions" Version="17.2.3" />
+		<PackageReference Include="Microsoft.Extensions.DependencyModel" Version="6.0.0" />
+		<PackageReference Include="GitVersion.MsBuild" Version="5.10.3">
 			<PrivateAssets>all</PrivateAssets>
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
@@ -50,17 +53,7 @@
 		</None>
 	</ItemGroup>
 	
-	<Target Name="CopyLauncherToBase" BeforeTargets="CopyAdditionalFiles">
-		<ItemGroup>
-			<LauncherFile Include="..\Crossroads.Launcher\$(OutDir)**"></LauncherFile>
-			<None Include="@(LauncherFile)">
-				<Link>.\%(LauncherFile.FileName)%(LauncherFile.Extension)</Link>
-				<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-			</None>
-		</ItemGroup>
-	</Target>
-
-  <Target Name="CopyLauncherToFolder" BeforeTargets="CopyAdditionalFiles">
+  <Target Name="CopyLauncher" BeforeTargets="CopyAdditionalFiles">
     <ItemGroup>
       <LauncherFile Include="..\Crossroads.Launcher\$(OutDir)**"></LauncherFile>
       <None Include="@(LauncherFile)">

@@ -133,7 +133,7 @@ namespace Crossroads.Services
 
             foreach (var includeDirectory in Option.Include)
             {
-                DirectoryInfoBase dirInfo = fileSystem.DirectoryInfo.FromDirectoryName(includeDirectory);
+                DirectoryInfoBase dirInfo = (DirectoryInfoBase)fileSystem.DirectoryInfo.FromDirectoryName(includeDirectory);
                 CopyDirectory(includeDirectory, Path.Combine(assetsDirectory, dirInfo.Name), true);
             }
         }
@@ -142,7 +142,7 @@ namespace Crossroads.Services
 
         //WorkingDirectory contains path to temp/crossroads/random/'AppDirectory'
         private string appHostDirectory => Path.Combine(WorkingDirectory, "AppDirectory");
-        private string launcherSourceDirectory => Path.Combine(AppDomain.CurrentDomain.BaseDirectory);
+        private string launcherSourceDirectory => Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Crossroads.Launcher");
 
         //appsettings creates new appsettings.json file in path to temp/crossroads/random/'AppDirectory'
         private string appSettingsFilePath => Path.Combine(appHostDirectory, "appsettings.json");
@@ -155,16 +155,16 @@ namespace Crossroads.Services
         private void CopyDirectory(string sourceDirName, string destDirName, bool copySubDirs)
         {
             // Get the subdirectories for the specified directory.
-            DirectoryInfoBase dir = fileSystem.DirectoryInfo.FromDirectoryName(sourceDirName);
+            DirectoryInfoBase dir = (DirectoryInfoBase)fileSystem.DirectoryInfo.FromDirectoryName(sourceDirName);
 
-            DirectoryInfoBase[] dirs = dir.GetDirectories();
+            DirectoryInfoBase[] dirs = (DirectoryInfoBase[])dir.GetDirectories();
             //FileInfoBase[] dirs = dir.GetFiles();
                                         
             // If the destination directory doesn't exist, create it.       
             fileSystem.Directory.CreateDirectory(destDirName);
 
             // Get the files in the directory and copy them to the new location.
-            FileInfoBase[] files = dir.GetFiles();
+            FileInfoBase[] files = (FileInfoBase[])dir.GetFiles();
             foreach (FileInfoBase file in files)
             {
                 string tempPath = Path.Combine(destDirName, file.Name);

@@ -64,7 +64,6 @@ namespace Crossroads.Launcher.Services
             {
                 workingDirectory = null;
             }
-
             var startInfo = new ProcessStartInfo
             {
                 FileName = command,
