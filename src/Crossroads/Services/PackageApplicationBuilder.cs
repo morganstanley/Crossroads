@@ -139,7 +139,6 @@ namespace Crossroads.Services
         }
 
         private string workingDirectory;
-        private ResourcesAssemblyBuilder resource;
 
         //WorkingDirectory contains path to temp/crossroads/random/'AppDirectory'
         private string appHostDirectory => Path.Combine(WorkingDirectory, "AppDirectory");
