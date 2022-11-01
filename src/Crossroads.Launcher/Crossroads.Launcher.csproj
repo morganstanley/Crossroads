@@ -3,6 +3,7 @@
 		<OutputType>Exe</OutputType>
 		<RuntimeIdentifier>win-x64</RuntimeIdentifier>
 		<SelfContained>true</SelfContained>
+		<IsPackable>false</IsPackable>
 	</PropertyGroup>
 	<ItemGroup>
 	  <Compile Include="..\Crossroads\Services\IProcessService.cs" Link="Services\IProcessService.cs" />

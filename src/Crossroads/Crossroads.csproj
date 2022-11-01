@@ -1,7 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
 		<OutputType>Exe</OutputType>
-		<PublishReadyToRun>true</PublishReadyToRun>
 		<RootNamespace>Crossroads</RootNamespace>
 		<AssemblyName>Crossroads</AssemblyName>
 		<VersionPrefix>1.0.0-preview</VersionPrefix>
@@ -14,19 +13,15 @@
 		<PackAsTool>true</PackAsTool>
 		<SelfContained>false</SelfContained>
 		<ToolCommandName>crossroads</ToolCommandName>
-		<!--<files>
-			<file src="bin\Debug\*.*" target="lib\netcoreapp3.1" />
-		</files>-->
 		<PackageReadmeFile>README.md</PackageReadmeFile>
+		<PackageLicenseFile>LICENSE</PackageLicenseFile>
+		<ErrorOnDuplicatePublishOutputFiles>false</ErrorOnDuplicatePublishOutputFiles>
 	</PropertyGroup>
 
 	<ItemGroup>
-		<None Include="../../README.md" Pack="true" PackagePath="/" />
+		<None Include="..\..\README.md" Pack="true" PackagePath="\" />
+		<None Include="..\..\LICENSE" Link="LICENSE" Pack="true" PackagePath="\" />
 	</ItemGroup>
-
-	<!--<Target Name="PublishCrossroads" BeforeTargets="BeforeBuild">
-		<Exec Command=""/>
-	</Target>-->
 
 	<ItemGroup>
 		<PackageReference Include="Microsoft.Extensions.Hosting" Version="3.1.5" />
@@ -79,10 +74,10 @@
 		</ItemGroup>
 	</Target>
 
-	<ItemGroup Label="Packaging">
+	<!--<ItemGroup Label="Packaging">
 		<Content Include=".\$(OutDir)\*">
 			<Pack>true</Pack>
-			<!--<PackagePath>.\</PackagePath>-->
+			--><!--<PackagePath>.\</PackagePath>--><!--
 			<PackagePath>$(BuildOutputTargetFolder)\$(TargetFramework)</PackagePath>
 			<IncludeInPackage>true</IncludeInPackage>
 			<PackageCopyToOutput>true</PackageCopyToOutput>
@@ -100,7 +95,7 @@
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 			<CopyToPublishDirectory>Always</CopyToPublishDirectory>
 		</Content>
-	</ItemGroup>
+	</ItemGroup>-->
 
 	<Target Name="CleanLauncherDirectory" AfterTargets="Clean">
 		<RemoveDir Directories=".\$(OutDir)LauncherFiles" />
