@@ -4,6 +4,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 17.0.32014.148
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{25BC40E7-F8F5-4CBB-BB93-6FEBB82A27CB}"
+	ProjectSection(SolutionItems) = preProject
+		src\Directory.Build.props = src\Directory.Build.props
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{59C1FECC-EF9E-49DF-AB1A-A483FEE8CEF4}"
 	ProjectSection(SolutionItems) = preProject
@@ -24,7 +27,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Crossroads.Test", "test\Cro
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Crossroads.Launcher", "src\Crossroads.Launcher\Crossroads.Launcher.csproj", "{71387D9F-8B55-440F-A736-1C8849374E89}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Crossroads.Launcher.Test", "test\Crossroads.Launcher.Test\Crossroads.Launcher.Test.csproj", "{0D30CF3F-C262-41CC-AC03-3803313951E5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Crossroads.Launcher.Test", "test\Crossroads.Launcher.Test\Crossroads.Launcher.Test.csproj", "{0D30CF3F-C262-41CC-AC03-3803313951E5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
