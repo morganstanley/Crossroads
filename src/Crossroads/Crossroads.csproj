@@ -35,11 +35,18 @@
 		</PackageReference>
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
 		<PackageReference Include="Microsoft.Extensions.DependencyModel" Version="6.0.0" />
-		<PackageReference Include="Microsoft.NET.HostModel" Version="3.1.16" />
+		<!--<PackageReference Include="Microsoft.NET.HostModel" Version="3.1.16" />-->
 		<PackageReference Include="GitVersion.MsBuild" Version="5.10.3">
 			<PrivateAssets>all</PrivateAssets>
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Reference Include="Microsoft.NET.HostModel">
+	    <HintPath>..\..\libraryreference\Microsoft.NET.HostModel.dll</HintPath>
+	    <Private>True</Private>
+	  </Reference>
 	</ItemGroup>
 
 	<ItemGroup>

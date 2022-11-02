@@ -61,7 +61,9 @@ namespace Crossroads.Services
             CopyIncludeDirectories();
 
             string resourceassemblyPathResult = await resourcesAssemblyBuilder.Build(resourceassemblyPath, Option.Version, Option.Icon);
-            await appHostService.ConvertLauncherToBundle(Path.ChangeExtension(Option.Name, "exe"), Option.Location, appHostDirectory, resourceassemblyPathResult);
+
+            var fileName = (string.Compare(Path.GetExtension(Option.Name), ".exe", true) == 0) ? Option.Name : $"{Option.Name}.exe";
+            await appHostService.ConvertLauncherToBundle(fileName, Option.Location, appHostDirectory, resourceassemblyPathResult);
         }
 
         public void Dispose()

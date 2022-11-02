@@ -15,7 +15,9 @@
 using Microsoft.NET.HostModel.AppHost;
 using Microsoft.NET.HostModel.Bundle;
 using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 
 namespace Crossroads.Services
@@ -27,8 +29,35 @@ namespace Crossroads.Services
             var appHostDestinationFilePath = Path.Combine(appHostDirectory, bundleName);
             await Task.Run(() => HostWriter.CreateAppHost(appHostSourceFilePath, appHostDestinationFilePath, appBinaryFilePath, assemblyToCopyResorcesFrom: resourceassemblyPathResult));
 
-            var bundler = new Bundler(bundleName, bundleDirectory);
-            await Task.Run(() => bundler.GenerateBundle(appHostDirectory));
+            var bundler = new Bundler(bundleName, bundleDirectory, BundleOptions.BundleAllContent | BundleOptions.BundleSymbolFiles,
+                OSPlatform.Windows, Architecture.X64, Version.Parse("6.0.10"), true, "Crossroads.Launcher", false);
+            var fileSpects = GenerateFileSpecs(appHostDirectory);
+            await Task.Run(() => bundler.GenerateBundle(fileSpects));
+        }
+
+        private List<FileSpec> GenerateFileSpecs(string sourceDir)
+        {
+            sourceDir = Path.GetFullPath(sourceDir);
+            string[] files = Directory.GetFiles(sourceDir, "*", SearchOption.AllDirectories);
+            Array.Sort(files, (IComparer<string>)StringComparer.Ordinal);
+            List<FileSpec> fileList = new List<FileSpec>(files.Length);
+            string[] array = files;
+            foreach (string path in array)
+            {
+                fileList.Add(new FileSpec(path, RelativePath(sourceDir, path)));
+            }
+            return fileList;
+        }
+
+        private string RelativePath(string dirFullPath, string fileFullPath)
+        {
+            return fileFullPath.Substring(dirFullPath.TrimEnd(new char[1]
+            {
+                Path.DirectorySeparatorChar
+            }).Length).TrimStart(new char[1]
+            {
+                Path.DirectorySeparatorChar
+            });
         }
 
         // path to bin win64
