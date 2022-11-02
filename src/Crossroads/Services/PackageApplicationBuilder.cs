@@ -61,7 +61,9 @@ namespace Crossroads.Services
             CopyIncludeDirectories();
 
             string resourceassemblyPathResult = await resourcesAssemblyBuilder.Build(resourceassemblyPath, Option.Version, Option.Icon);
-            await appHostService.ConvertLauncherToBundle(Path.ChangeExtension(Option.Name, "exe"), Option.Location, appHostDirectory, resourceassemblyPathResult);
+
+            var fileName = (string.Compare(Path.GetExtension(Option.Name), ".exe", true) == 0) ? Option.Name : $"{Option.Name}.exe";
+            await appHostService.ConvertLauncherToBundle(fileName, Option.Location, appHostDirectory, resourceassemblyPathResult);
         }
 
         public void Dispose()
@@ -133,7 +135,7 @@ namespace Crossroads.Services
 
             foreach (var includeDirectory in Option.Include)
             {
-                DirectoryInfoBase dirInfo = fileSystem.DirectoryInfo.FromDirectoryName(includeDirectory);
+                IDirectoryInfo dirInfo = fileSystem.DirectoryInfo.FromDirectoryName(includeDirectory);
                 CopyDirectory(includeDirectory, Path.Combine(assetsDirectory, dirInfo.Name), true);
             }
         }
@@ -156,16 +158,16 @@ namespace Crossroads.Services
         private void CopyDirectory(string sourceDirName, string destDirName, bool copySubDirs)
         {
             // Get the subdirectories for the specified directory.
-            DirectoryInfoBase dir = fileSystem.DirectoryInfo.FromDirectoryName(sourceDirName);
+            IDirectoryInfo dir = fileSystem.DirectoryInfo.FromDirectoryName(sourceDirName);
 
-            DirectoryInfoBase[] dirs = dir.GetDirectories();
+            IDirectoryInfo[] dirs = dir.GetDirectories();
             //FileInfoBase[] dirs = dir.GetFiles();
                                         
             // If the destination directory doesn't exist, create it.       
             fileSystem.Directory.CreateDirectory(destDirName);
 
             // Get the files in the directory and copy them to the new location.
-            FileInfoBase[] files = dir.GetFiles();
+            IFileInfo[] files = dir.GetFiles();
             foreach (FileInfoBase file in files)
             {
                 string tempPath = Path.Combine(destDirName, file.Name);

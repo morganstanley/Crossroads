@@ -15,24 +15,63 @@
 using Microsoft.NET.HostModel.AppHost;
 using Microsoft.NET.HostModel.Bundle;
 using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 
 namespace Crossroads.Services
 {
     public class AppHostService : IAppHostService
     {
-        public async Task ConvertLauncherToBundle(string bundleName, string bundleDirectory, string appHostDirectory, string resourceassemblyPathResult)
+        public async Task ConvertLauncherToBundle(string hostName, string outputDir, string appHostDirectory, string resourceassemblyPathResult)
         {
-            var appHostDestinationFilePath = Path.Combine(appHostDirectory, bundleName);
-            await Task.Run(() => HostWriter.CreateAppHost(appHostSourceFilePath, appHostDestinationFilePath, appBinaryFilePath, assemblyToCopyResorcesFrom: resourceassemblyPathResult));
+            var appHostDestinationFilePath = Path.Combine(appHostDirectory, hostName);
+            await Task.Run(() => HostWriter.CreateAppHost(GetAppHostSourceFilePath(appHostDirectory), appHostDestinationFilePath, appBinaryFilePath, assemblyToCopyResorcesFrom: resourceassemblyPathResult));
 
-            var bundler = new Bundler(bundleName, bundleDirectory);
-            await Task.Run(() => bundler.GenerateBundle(appHostDirectory));
+            var bundler = new Bundler(hostName, outputDir, BundleOptions.BundleAllContent | BundleOptions.BundleSymbolFiles,
+                OSPlatform.Windows, Architecture.X64, Version.Parse("6.0.10"), false, "Crossroads.Launcher", false);
+            var fileSpects = GenerateFileSpecs(appHostDirectory);
+            await Task.Run(() => bundler.GenerateBundle(fileSpects));
+        }
+
+        private List<FileSpec> GenerateFileSpecs(string sourceDir)
+        {
+            sourceDir = Path.GetFullPath(sourceDir);
+            string[] files = Directory.GetFiles(sourceDir, "*", SearchOption.AllDirectories);
+            Array.Sort(files, (IComparer<string>)StringComparer.Ordinal);
+            List<FileSpec> fileList = new List<FileSpec>(files.Length);
+            string[] array = files;
+            foreach (string path in array)
+            {
+                fileList.Add(new FileSpec(path, RelativePath(sourceDir, path)));
+            }
+            return fileList;
+        }
+
+        private string RelativePath(string dirFullPath, string fileFullPath)
+        {
+            return fileFullPath.Substring(dirFullPath.TrimEnd(new char[1]
+            {
+                Path.DirectorySeparatorChar
+            }).Length).TrimStart(new char[1]
+            {
+                Path.DirectorySeparatorChar
+            });
         }
 
         // path to bin win64
-        private string appHostSourceFilePath => Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "AppHost", "apphost.exe");
+        private string GetAppHostSourceFilePath(string appHostDirectory)
+        {
+
+            string path = Path.Combine(appHostDirectory, "singlefilehost.exe");
+            if (! File.Exists(path))
+            {
+                throw new ApplicationException($"Host file {path} does not exist.");
+            }
+            return path;
+
+        }
         private string appBinaryFilePath => "Crossroads.Launcher.dll";
 
     }
