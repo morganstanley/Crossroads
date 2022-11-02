@@ -24,12 +24,12 @@ namespace Crossroads.Services
 {
     public class AppHostService : IAppHostService
     {
-        public async Task ConvertLauncherToBundle(string bundleName, string bundleDirectory, string appHostDirectory, string resourceassemblyPathResult)
+        public async Task ConvertLauncherToBundle(string hostName, string outputDir, string appHostDirectory, string resourceassemblyPathResult)
         {
-            var appHostDestinationFilePath = Path.Combine(appHostDirectory, bundleName);
-            await Task.Run(() => HostWriter.CreateAppHost(appHostSourceFilePath, appHostDestinationFilePath, appBinaryFilePath, assemblyToCopyResorcesFrom: resourceassemblyPathResult));
+            var appHostDestinationFilePath = Path.Combine(appHostDirectory, hostName);
+            await Task.Run(() => HostWriter.CreateAppHost(GetAppHostSourceFilePath(appHostDirectory), appHostDestinationFilePath, appBinaryFilePath, assemblyToCopyResorcesFrom: resourceassemblyPathResult));
 
-            var bundler = new Bundler(bundleName, bundleDirectory, BundleOptions.BundleAllContent | BundleOptions.BundleSymbolFiles,
+            var bundler = new Bundler(hostName, outputDir, BundleOptions.BundleAllContent | BundleOptions.BundleSymbolFiles,
                 OSPlatform.Windows, Architecture.X64, Version.Parse("6.0.10"), true, "Crossroads.Launcher", false);
             var fileSpects = GenerateFileSpecs(appHostDirectory);
             await Task.Run(() => bundler.GenerateBundle(fileSpects));
@@ -61,7 +61,17 @@ namespace Crossroads.Services
         }
 
         // path to bin win64
-        private string appHostSourceFilePath => Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "AppHost", "apphost.exe");
+        private string GetAppHostSourceFilePath(string appHostDirectory)
+        {
+
+            string path = Path.Combine(appHostDirectory, "singlefilehost.exe");
+            if (! File.Exists(path))
+            {
+                throw new ApplicationException($"Host file {path} does not exist.");
+            }
+            return path;
+
+        }
         private string appBinaryFilePath => "Crossroads.Launcher.dll";
 
     }

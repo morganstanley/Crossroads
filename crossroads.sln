@@ -24,6 +24,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Crossroads", "src\Crossroad
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Crossroads.Test", "test\Crossroads.Test\Crossroads.Test.csproj", "{207E512B-88F2-4BD5-96C5-2809928043C3}"
+	ProjectSection(ProjectDependencies) = postProject
+		{71387D9F-8B55-440F-A736-1C8849374E89} = {71387D9F-8B55-440F-A736-1C8849374E89}
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Crossroads.Launcher", "src\Crossroads.Launcher\Crossroads.Launcher.csproj", "{71387D9F-8B55-440F-A736-1C8849374E89}"
 EndProject
