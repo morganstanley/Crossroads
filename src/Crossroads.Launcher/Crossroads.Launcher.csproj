@@ -2,6 +2,7 @@
 	<PropertyGroup>
 		<OutputType>Exe</OutputType>
 		<RuntimeIdentifier>win-x64</RuntimeIdentifier>
+		<RuntimeIdentifiers>win-x64;linux-x64</RuntimeIdentifiers>
 		<SelfContained>true</SelfContained>
 		<IsPackable>false</IsPackable>
 	</PropertyGroup>
@@ -22,12 +23,20 @@
 		</None>
 	</ItemGroup>
 
-	<Target Name="CopyAppHost" BeforeTargets="CopyAdditionalFiles" DependsOnTargets="ResolveFrameworkReferences">
+	<Target Name="CopySingleFileHost" BeforeTargets="CopyAdditionalFiles" DependsOnTargets="ResolveFrameworkReferences">
 		<ItemGroup>
 			<None Include="$(SingleFileHostSourcePath)">
 				<Link>%(SingleFileHostSourcePath.FileName)%(SingleFileHostSourcePath.Extension)</Link>
 				<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 			</None>
 		</ItemGroup>
+	</Target>
+
+	<Target Name="BuildLinux" AfterTargets="AfterBuild" Condition="'$(RuntimeIdentifier)' == 'win-x64'">
+		<ItemGroup>
+			<LauncherLinux Include="$(ProjectPath)" />
+		</ItemGroup>
+
+		<MSBuild Projects="@(LauncherLinux)" Properties="RuntimeIdentifier=linux-x64" />
 	</Target>
 </Project>

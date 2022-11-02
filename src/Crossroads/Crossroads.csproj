@@ -30,12 +30,11 @@
 		<PackageReference Include="System.IO.Abstractions" Version="17.2.3" />
 		<PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.3.1" />
 		<PackageReference Include="Microsoft.CodeAnalysis.Analyzers" Version="3.3.3">
-		  <PrivateAssets>all</PrivateAssets>
-		  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
 		<PackageReference Include="Microsoft.Extensions.DependencyModel" Version="6.0.0" />
-		<!--<PackageReference Include="Microsoft.NET.HostModel" Version="3.1.16" />-->
 		<PackageReference Include="GitVersion.MsBuild" Version="5.10.3">
 			<PrivateAssets>all</PrivateAssets>
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -43,10 +42,10 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Reference Include="Microsoft.NET.HostModel">
-	    <HintPath>..\..\libraryreference\Microsoft.NET.HostModel.dll</HintPath>
-	    <Private>True</Private>
-	  </Reference>
+		<Reference Include="Microsoft.NET.HostModel">
+			<HintPath>..\..\libraryreference\Microsoft.NET.HostModel.dll</HintPath>
+			<Private>True</Private>
+		</Reference>
 	</ItemGroup>
 
 	<ItemGroup>
@@ -55,21 +54,11 @@
 		</None>
 	</ItemGroup>
 
-	<!--<Target Name="CopyLauncher" BeforeTargets="CopyAdditionalFiles">
+	<Target Name="CopyLauncher" BeforeTargets="CopyAdditionalFiles">
 		<ItemGroup>
-			<LauncherFile Include="..\Crossroads.Launcher\$(OutDir)**"></LauncherFile>
+			<LauncherFile Include="..\Crossroads.Launcher\$(OutDir)**" />
 			<None Include="@(LauncherFile)">
-				<Link>.\%(LauncherFile.FileName)%(LauncherFile.Extension)</Link>
-				<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-			</None>
-		</ItemGroup>
-	</Target>-->
-
-	<Target Name="CopyLauncherToFolder" BeforeTargets="CopyAdditionalFiles">
-		<ItemGroup>
-			<LauncherFile Include="..\Crossroads.Launcher\$(OutDir)**"></LauncherFile>
-			<None Include="@(LauncherFile)">
-				<Link>Crossroads.Launcher\%(LauncherFile.FileName)%(LauncherFile.Extension)</Link>
+				<Link>Crossroads.Launcher\%(RecursiveDir)\%(LauncherFile.FileName)%(LauncherFile.Extension)</Link>
 				<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 			</None>
 		</ItemGroup>
@@ -84,30 +73,7 @@
 		</ItemGroup>
 	</Target>
 
-	<!--<ItemGroup Label="Packaging">
-		<Content Include=".\$(OutDir)\*">
-			<Pack>true</Pack>
-			--><!--<PackagePath>.\</PackagePath>--><!--
-			<PackagePath>$(BuildOutputTargetFolder)\$(TargetFramework)</PackagePath>
-			<IncludeInPackage>true</IncludeInPackage>
-			<PackageCopyToOutput>true</PackageCopyToOutput>
-			<BuildAction>Content</BuildAction>
-			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
-			<CopyToPublishDirectory>Always</CopyToPublishDirectory>
-		</Content>
-
-		<Content Include=".\$(OutDir)apphost\*">
-			<Pack>true</Pack>
-			<PackagePath>$(BuildOutputTargetFolder)\$(TargetFramework)</PackagePath>
-			<IncludeInPackage>true</IncludeInPackage>
-			<PackageCopyToOutput>true</PackageCopyToOutput>
-			<BuildAction>Content</BuildAction>
-			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
-			<CopyToPublishDirectory>Always</CopyToPublishDirectory>
-		</Content>
-	</ItemGroup>-->
-
 	<Target Name="CleanLauncherDirectory" AfterTargets="Clean">
-		<RemoveDir Directories=".\$(OutDir)LauncherFiles" />
+		<RemoveDir Directories=".\$(OutDir)Crossroads.Launcher" />
 	</Target>
 </Project>
