@@ -150,7 +150,7 @@ namespace Crossroads.Services
             get
             {
                 // todo: default is win-x64, need depends on input from PackageOption
-                string ridDir = "win-x64";
+                string ridDir = "linux-x64";    // "win-x64";
                 return Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Crossroads.Launcher", ridDir);
             }
         }
