@@ -117,7 +117,7 @@ namespace Crossroads.Test.Services
         {
             var fileSystem = new MockFileSystem();
             fileSystem.AddFile(@"assets\include\include2\file1.txt", new MockFileData("abc"));
-            fileSystem.AddDirectory(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Crossroads.Launcher", "win-x64"));
+            fileSystem.AddDirectory(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Crossroads.Launcher", "linux-x64"));
             var resource = new Mock<IResourcesAssemblyBuilder>();
             var appsettingsFile = new Mock<ILauncherAppsettingsFileService>();
             var appHostService = new Mock<IAppHostService>();
