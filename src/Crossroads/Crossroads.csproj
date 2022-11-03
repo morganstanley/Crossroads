@@ -49,9 +49,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<None Update="appsettings.json">
-			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		</None>
+	  <None Update="appsettings.json">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </None>
 	</ItemGroup>
 
 	<Target Name="CopyLauncher" BeforeTargets="CopyAdditionalFiles">
@@ -59,15 +59,6 @@
 			<LauncherFile Include="..\Crossroads.Launcher\$(OutDir)**" />
 			<None Include="@(LauncherFile)">
 				<Link>Crossroads.Launcher\%(RecursiveDir)\%(LauncherFile.FileName)%(LauncherFile.Extension)</Link>
-				<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-			</None>
-		</ItemGroup>
-	</Target>
-
-	<Target Name="CopyAppHost" BeforeTargets="CopyAdditionalFiles" DependsOnTargets="ResolveFrameworkReferences">
-		<ItemGroup>
-			<None Include="$(AppHostSourcePath)">
-				<Link>apphost\apphost.exe</Link>
 				<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 			</None>
 		</ItemGroup>
