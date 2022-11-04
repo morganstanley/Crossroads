@@ -43,5 +43,16 @@ namespace Crossroads.Test.Services
             IAppHostService appHost = new AppHostService();
             await appHost.ConvertLauncherToBundle(bundleName, bundleDirectory, appHostDirectory, Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "CrossRoads.dll"));
         }
+
+        [Fact]
+        public async Task Convert_GetAppHostSourceFilePath_ApplicationException()
+        {
+            string bundleName = Path.GetRandomFileName();
+            string bundleDirectory = Path.Combine(Path.GetTempPath(), "crossroads", $"{Path.GetRandomFileName()}.ext");
+            string appHostDirectory = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Crossroads.Launcher", "invalidPath");
+
+            IAppHostService appHost = new AppHostService();
+            await Assert.ThrowsAsync<ApplicationException>(async () => await appHost.ConvertLauncherToBundle(bundleName, bundleDirectory, appHostDirectory, null));
+        }
     }
 }
