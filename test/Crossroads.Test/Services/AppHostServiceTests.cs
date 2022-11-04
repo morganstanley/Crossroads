@@ -43,5 +43,31 @@ namespace Crossroads.Test.Services
             IAppHostService appHost = new AppHostService();
             await appHost.ConvertLauncherToBundle(bundleName, bundleDirectory, appHostDirectory, Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "CrossRoads.dll"));
         }
+
+        [Fact]
+        public async Task Convert_GetAppHostSourceFilePath_ApplicationException()
+        {
+            string bundleName = Path.GetRandomFileName();
+            string bundleDirectory = Path.Combine(Path.GetTempPath(), "crossroads", $"{Path.GetRandomFileName()}.ext");
+            string appHostDirectory = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Crossroads.Launcher", "invalidPath");
+
+            IAppHostService appHost = new AppHostService();
+            await Assert.ThrowsAsync<ApplicationException>(async () => await appHost.ConvertLauncherToBundle(bundleName, bundleDirectory, appHostDirectory, null));
+        }
+
+        [Fact]
+        public async Task Convert_GetAppHostSourceFilePath_Linux_Success()
+        {
+            //todo: mock for Path.Combine....if doesn't work, make rId dynamic
+            //var fileSystem = new Mock<IFileSystem>();
+            //fileSystem.Setup(x => x.DirectoryInfo.FromDirectoryName(It.IsAny<string>())).Returns(It.IsAny<DirectoryInfoBase>());
+
+            string bundleName = Path.GetRandomFileName();
+            string bundleDirectory = Path.Combine(Path.GetTempPath(), "crossroads", $"{Path.GetRandomFileName()}.ext");
+            string appHostDirectory = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Crossroads.Launcher", "invalidPath");
+
+            IAppHostService appHost = new AppHostService();
+            await Assert.ThrowsAsync<ApplicationException>(async () => await appHost.ConvertLauncherToBundle(bundleName, bundleDirectory, appHostDirectory, null));
+        }
     }
 }

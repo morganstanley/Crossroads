@@ -31,7 +31,7 @@ namespace Crossroads.Services
             await Task.Run(() => HostWriter.CreateAppHost(GetAppHostSourceFilePath(appHostDirectory, rId), appHostDestinationFilePath, appBinaryFilePath, assemblyToCopyResorcesFrom: resourceassemblyPathResult));
 
             var bundler = new Bundler(hostName, outputDir, BundleOptions.BundleAllContent | BundleOptions.BundleSymbolFiles,
-                OSPlatform.Windows, Architecture.X64, Version.Parse("6.0.10"), false, "Crossroads.Launcher", false);
+                OSPlatform.Linux, Architecture.X64, Version.Parse("6.0.10"), false, "Crossroads.Launcher", false);
             var fileSpecs = GenerateFileSpecs(appHostDirectory);
             await Task.Run(() => bundler.GenerateBundle(fileSpecs));
         }

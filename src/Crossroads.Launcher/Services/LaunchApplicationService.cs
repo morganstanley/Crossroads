@@ -102,7 +102,7 @@ namespace Crossroads.Launcher.Services
                     var dir = Directory.GetParent(command).Name;
                     return Path.Combine(dir, Path.GetFileName(command));
                 }
-                throw new Exception($"Command is not configured correctly: {command}");
+                throw new Exception($"Command is not configured correctly: {command} : {Path.Combine(Directory.GetParent(command).Name, Path.GetFileName(command))}");
             }
         }
     }
