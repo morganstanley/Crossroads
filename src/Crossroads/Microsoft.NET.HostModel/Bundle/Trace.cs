@@ -2,12 +2,14 @@
 // The .NET Foundation licenses this file to you under the MIT license.
 
 using System;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Microsoft.NET.HostModel.Bundle
 {
     /// <summary>
     ///  Tracing utilities for diagnostic output
     /// </summary>
+    [ExcludeFromCodeCoverage]
     public class Trace
     {
         private readonly bool Verbose;

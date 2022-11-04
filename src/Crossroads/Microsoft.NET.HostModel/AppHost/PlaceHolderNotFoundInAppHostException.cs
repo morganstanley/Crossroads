@@ -2,6 +2,7 @@
 // The .NET Foundation licenses this file to you under the MIT license.
 
 using System;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Microsoft.NET.HostModel.AppHost
 {
@@ -9,6 +10,7 @@ namespace Microsoft.NET.HostModel.AppHost
     /// Unable to use input file as a valid application host executable, as it does not contain
     /// the expected placeholder byte sequence.
     /// </summary>
+    [ExcludeFromCodeCoverage]
     public class PlaceHolderNotFoundInAppHostException : AppHostUpdateException
     {
         public byte[] MissingPattern { get; }

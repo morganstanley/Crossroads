@@ -2,6 +2,7 @@
 // The .NET Foundation licenses this file to you under the MIT license.
 
 using System;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.IO.MemoryMappedFiles;
 using System.Text;
@@ -18,6 +19,7 @@ namespace Microsoft.NET.HostModel
     /// - IOException
     /// - Failure with Win32 errors indicating file-lock
     /// </summary>
+    [ExcludeFromCodeCoverage]
     public static class RetryUtil
     {
         public const int NumberOfRetries = 500;

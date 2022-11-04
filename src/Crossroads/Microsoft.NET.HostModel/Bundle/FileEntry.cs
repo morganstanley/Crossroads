@@ -1,6 +1,7 @@
 // Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the MIT license.
 
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 
 namespace Microsoft.NET.HostModel.Bundle
@@ -18,6 +19,7 @@ namespace Microsoft.NET.HostModel.Bundle
     /// === present only in bundle version 3+
     /// * CompressedSize   (Int64)  0 indicates No Compression
     /// </summary>
+    [ExcludeFromCodeCoverage]
     public class FileEntry
     {
         public readonly uint BundleMajorVersion;

@@ -4,6 +4,7 @@
 using System;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.IO.MemoryMappedFiles;
 using System.Runtime.InteropServices;
@@ -15,6 +16,7 @@ namespace Microsoft.NET.HostModel.AppHost
     /// Embeds the App Name into the AppHost.exe
     /// If an apphost is a single-file bundle, updates the location of the bundle headers.
     /// </summary>
+    [ExcludeFromCodeCoverage]
     public static class HostWriter
     {
         /// <summary>

@@ -2,6 +2,7 @@
 // The .NET Foundation licenses this file to you under the MIT license.
 
 using System;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Microsoft.NET.HostModel.AppHost
 {
@@ -9,6 +10,7 @@ namespace Microsoft.NET.HostModel.AppHost
     /// An instance of this exception is thrown when an AppHost binary update
     /// fails due to known user errors.
     /// </summary>
+    [ExcludeFromCodeCoverage]
     public class AppHostUpdateException : Exception
     {
         internal AppHostUpdateException(string message = null)
@@ -21,6 +23,7 @@ namespace Microsoft.NET.HostModel.AppHost
     /// The application host executable cannot be customized because adding resources requires
     /// that the build be performed on Windows (excluding Nano Server).
     /// </summary>
+    [ExcludeFromCodeCoverage]
     public sealed class AppHostCustomizationUnsupportedOSException : AppHostUpdateException
     {
         internal AppHostCustomizationUnsupportedOSException()
@@ -32,6 +35,7 @@ namespace Microsoft.NET.HostModel.AppHost
     /// The MachO application host executable cannot be customized because
     /// it was not in the expected format
     /// </summary>
+    [ExcludeFromCodeCoverage]
     public sealed class AppHostMachOFormatException : AppHostUpdateException
     {
         public readonly MachOFormatError Error;
@@ -47,6 +51,7 @@ namespace Microsoft.NET.HostModel.AppHost
     /// Unable to use the input file as application host executable because it's not a
     /// Windows executable for the CUI (Console) subsystem.
     /// </summary>
+    [ExcludeFromCodeCoverage]
     public sealed class AppHostNotCUIException : AppHostUpdateException
     {
         internal AppHostNotCUIException(ushort subsystem)
@@ -59,6 +64,7 @@ namespace Microsoft.NET.HostModel.AppHost
     ///  Unable to use the input file as an application host executable
     ///  because it's not a Windows PE file
     /// </summary>
+    [ExcludeFromCodeCoverage]
     public sealed class AppHostNotPEFileException : AppHostUpdateException
     {
         public readonly string Reason;
@@ -73,6 +79,7 @@ namespace Microsoft.NET.HostModel.AppHost
     /// <summary>
     /// Unable to sign the apphost binary.
     /// </summary>
+    [ExcludeFromCodeCoverage]
     public sealed class AppHostSigningException : AppHostUpdateException
     {
         public readonly int ExitCode;
@@ -87,6 +94,7 @@ namespace Microsoft.NET.HostModel.AppHost
     /// <summary>
     /// Given app file name is longer than 1024 bytes
     /// </summary>
+    [ExcludeFromCodeCoverage]
     public sealed class AppNameTooLongException : AppHostUpdateException
     {
         public string LongName { get; }

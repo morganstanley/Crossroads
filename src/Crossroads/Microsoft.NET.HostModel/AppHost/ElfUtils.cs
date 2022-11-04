@@ -2,10 +2,12 @@
 // The .NET Foundation licenses this file to you under the MIT license.
 
 using System;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 
 namespace Microsoft.NET.HostModel.AppHost
 {
+    [ExcludeFromCodeCoverage]
     internal static class ElfUtils
     {
         // First four bytes of valid ELF, as defined in https://github.com/torvalds/linux/blob/aae703b/include/uapi/linux/elf.h

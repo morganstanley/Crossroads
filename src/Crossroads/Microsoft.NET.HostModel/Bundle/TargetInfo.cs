@@ -4,6 +4,7 @@
 using Microsoft.NET.HostModel.AppHost;
 using System;
 using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Runtime.InteropServices;
 
@@ -20,6 +21,7 @@ namespace Microsoft.NET.HostModel.Bundle
     ///   - the assembly alignment for this target
     /// </summary>
 
+    [ExcludeFromCodeCoverage]
     public class TargetInfo
     {
         public readonly OSPlatform OS;

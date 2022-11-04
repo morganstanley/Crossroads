@@ -3,6 +3,7 @@
 
 using System;
 using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 using System.Runtime.InteropServices;
 
 namespace Microsoft.NET.HostModel
@@ -12,6 +13,7 @@ namespace Microsoft.NET.HostModel
     /// in a PE image. It currently only works on Windows, because it
     /// requires various kernel32 APIs.
     /// </summary>
+    [ExcludeFromCodeCoverage]
     public class ResourceUpdater : IDisposable
     {
         private sealed class Kernel32

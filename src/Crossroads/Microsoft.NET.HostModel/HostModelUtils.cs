@@ -2,11 +2,13 @@
 // The .NET Foundation licenses this file to you under the MIT license.
 
 using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Runtime.InteropServices;
 
 namespace Microsoft.NET.HostModel
 {
+    [ExcludeFromCodeCoverage]
     internal static class HostModelUtils
     {
         private const string CodesignPath = @"/usr/bin/codesign";

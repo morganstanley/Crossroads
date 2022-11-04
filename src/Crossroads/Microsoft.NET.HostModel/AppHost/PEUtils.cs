@@ -2,11 +2,13 @@
 // The .NET Foundation licenses this file to you under the MIT license.
 
 using System;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.IO.MemoryMappedFiles;
 
 namespace Microsoft.NET.HostModel.AppHost
 {
+    [ExcludeFromCodeCoverage]
     public static class PEUtils
     {
         /// <summary>

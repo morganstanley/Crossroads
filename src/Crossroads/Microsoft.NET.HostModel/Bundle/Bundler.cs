@@ -4,6 +4,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
@@ -17,6 +18,7 @@ namespace Microsoft.NET.HostModel.Bundle
     /// Bundler: Functionality to embed the managed app and its dependencies
     /// into the host native binary.
     /// </summary>
+    [ExcludeFromCodeCoverage]
     public class Bundler
     {
         public const uint BundlerMajorVersion = 6;

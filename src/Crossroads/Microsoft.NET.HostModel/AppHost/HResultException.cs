@@ -5,12 +5,14 @@ using System;
 using System.IO;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Microsoft.NET.HostModel
 {
     /// <summary>
     /// Represents an exception thrown because of a Win32 error
     /// </summary>
+    [ExcludeFromCodeCoverage]
     public class HResultException : Exception
     {
         public readonly int Win32HResult;

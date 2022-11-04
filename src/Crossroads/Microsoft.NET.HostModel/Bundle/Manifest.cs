@@ -3,6 +3,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
@@ -49,6 +50,7 @@ namespace Microsoft.NET.HostModel.Bundle
     ///
     /// _________________________________________________
     /// </summary>
+    [ExcludeFromCodeCoverage]
     public class Manifest
     {
         // NetcoreApp3CompatMode flag is set on a .net5+ app,

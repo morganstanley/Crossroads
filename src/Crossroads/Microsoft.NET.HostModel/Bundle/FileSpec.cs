@@ -2,6 +2,7 @@
 // The .NET Foundation licenses this file to you under the MIT license.
 
 using System;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Microsoft.NET.HostModel.Bundle
 {
@@ -12,6 +13,7 @@ namespace Microsoft.NET.HostModel.Bundle
     ///   BundleRelativePath: path where the file is expected at run time,
     ///                       relative to the app DLL.
     /// </summary>
+    [ExcludeFromCodeCoverage]
     public class FileSpec
     {
         public readonly string SourcePath;

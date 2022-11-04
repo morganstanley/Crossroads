@@ -2,6 +2,7 @@
 // The .NET Foundation licenses this file to you under the MIT license.
 
 using System;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.IO.MemoryMappedFiles;
 using System.Runtime.CompilerServices;
@@ -9,6 +10,7 @@ using System.Text;
 
 namespace Microsoft.NET.HostModel.AppHost
 {
+    [ExcludeFromCodeCoverage]
     internal static class MachOUtils
     {
         // The MachO Headers are copied from
