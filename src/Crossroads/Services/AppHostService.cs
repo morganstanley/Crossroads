@@ -26,6 +26,7 @@ namespace Crossroads.Services
     {
         public async Task ConvertLauncherToBundle(string hostName, string outputDir, string appHostDirectory, string resourceassemblyPathResult)
         {
+            string rId = "win-x64";
             var appHostDestinationFilePath = Path.Combine(appHostDirectory, hostName);
             await Task.Run(() => HostWriter.CreateAppHost(GetAppHostSourceFilePath(appHostDirectory), appHostDestinationFilePath, appBinaryFilePath, assemblyToCopyResourcesFrom: resourceassemblyPathResult));
 

@@ -101,6 +101,19 @@ namespace Crossroads.Commands
             }
         };
 
+        private readonly Option TargetOsOption = new Option<string>(
+                    new[] { "--rid", "-r" },
+                    description: "Set runtime identifier for the executable package")
+        {
+            IsRequired = true,
+
+            Argument = new Argument<string>
+            {
+                Arity = ArgumentArity.ExactlyOne
+            }
+        };
+
+
         private async Task<int> PackageHandler(IHost host, PackageOption option)
         {
             try
