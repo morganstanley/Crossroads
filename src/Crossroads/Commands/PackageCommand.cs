@@ -102,7 +102,7 @@ namespace Crossroads.Commands
         };
 
         private readonly Option TargetOsOption = new Option<string>(
-                    new[] { "--rid", "-r" },
+                    new[] { "--targetos", "-t" },
                     description: "Set runtime identifier for the executable package")
         {
             Argument = new Argument<string>
