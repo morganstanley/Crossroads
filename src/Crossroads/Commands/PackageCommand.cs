@@ -105,8 +105,6 @@ namespace Crossroads.Commands
                     new[] { "--rid", "-r" },
                     description: "Set runtime identifier for the executable package")
         {
-            IsRequired = true,
-
             Argument = new Argument<string>
             {
                 Arity = ArgumentArity.ExactlyOne
