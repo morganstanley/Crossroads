@@ -17,6 +17,7 @@ using System;
 using System.IO;
 using System.IO.Abstractions;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 
 namespace Crossroads.Services
@@ -150,7 +151,12 @@ namespace Crossroads.Services
             get
             {
                 // todo: default is win-x64, need depends on input from PackageOption
-                string ridDir = "win-x64";
+                //string ridDir = "win-x64";
+                string ridDir = null;   // not set
+                if (String.IsNullOrEmpty(ridDir))
+                {
+                    ridDir = DetectHostOSRid();
+                }
                 return Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Crossroads.Launcher", ridDir);
             }
         }
@@ -192,5 +198,22 @@ namespace Crossroads.Services
                 }
             }
         }
+
+        private string DetectHostOSRid()
+        {
+            string osRid;
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
+            {
+                osRid = "linux-64";
+                return osRid;
+            }
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+            {
+                osRid = "win-64";
+                return osRid;
+            }
+            throw new ArgumentException($"Couldn't detect host OS");
+        }
+
     }
 }
