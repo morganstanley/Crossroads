@@ -63,7 +63,7 @@ namespace Crossroads.Services
             string resourceassemblyPathResult = await resourcesAssemblyBuilder.Build(resourceassemblyPath, Option.Version, Option.Icon);
 
             var fileName = (string.Compare(Path.GetExtension(Option.Name), ".exe", true) == 0) ? Option.Name : $"{Option.Name}.exe";
-            await appHostService.ConvertLauncherToBundle(fileName, Option.Location, appHostDirectory, resourceassemblyPathResult);
+            await appHostService.ConvertLauncherToBundle(fileName, Option.Location, Option.TargetOs, appHostDirectory, resourceassemblyPathResult);
         }
 
         public void Dispose()
