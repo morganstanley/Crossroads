@@ -28,15 +28,17 @@ namespace Crossroads.Services
         private readonly IResourcesAssemblyBuilder resourcesAssemblyBuilder;
         private readonly ILauncherAppsettingsFileService launcherAppsettingsFileService;
         private readonly IAppHostService appHostService;
+        private readonly IHostOsDetectionService hostOsDetectionService;
         private readonly ILogger<PackageApplicationBuilder> _logger;
 
-        public PackageApplicationBuilder(IFileSystem fileSystem, IResourcesAssemblyBuilder resourcesAssemblyBuilder, ILauncherAppsettingsFileService launcherAppsettingsFileService, IAppHostService appHostService, ILogger<PackageApplicationBuilder> logger)
+        public PackageApplicationBuilder(IFileSystem fileSystem, IResourcesAssemblyBuilder resourcesAssemblyBuilder, ILauncherAppsettingsFileService launcherAppsettingsFileService, IAppHostService appHostService, ILogger<PackageApplicationBuilder> logger, IHostOsDetectionService hostOsDetectionService)
         {
             this.fileSystem = fileSystem;
             this.resourcesAssemblyBuilder = resourcesAssemblyBuilder;
             this.launcherAppsettingsFileService = launcherAppsettingsFileService;
             this.appHostService = appHostService;
             _logger = logger;
+            this.hostOsDetectionService = hostOsDetectionService;
         }
 
         private bool disposed = false;
@@ -53,6 +55,10 @@ namespace Crossroads.Services
             if (string.IsNullOrWhiteSpace(Option.Name))
             {
                 throw new ArgumentException(nameof(Option.Name));
+            }
+            if (String.IsNullOrEmpty(option.TargetOs))
+            {
+                option.TargetOs = hostOsDetectionService.GetTargetOsRid();
             }
             await Task.Run(() => CopyDirectory(launcherSourceDirectory, appHostDirectory, true));
 
@@ -150,14 +156,7 @@ namespace Crossroads.Services
         {
             get
             {
-                // todo: default is win-x64, need depends on input from PackageOption
-                string ridDir = Option.TargetOs;
-                //string ridDir = null;   // not set
-                if (String.IsNullOrEmpty(ridDir))
-                {
-                    ridDir = DetectHostOSRid();
-                }
-                return Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Crossroads.Launcher", ridDir);
+                return Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Crossroads.Launcher", Option.TargetOs);
             }
         }
 
@@ -167,7 +166,6 @@ namespace Crossroads.Services
         //creates resource .dll inside temp
         private string resourceassemblyPath => Path.Combine(appHostDirectory, "crossroads.resourceassembly.dll");
         private string assetsDirectory => Path.Combine(appHostDirectory, "assets");
-
 
         private void CopyDirectory(string sourceDirName, string destDirName, bool copySubDirs)
         {
@@ -197,22 +195,6 @@ namespace Crossroads.Services
                     CopyDirectory(subdir.FullName, tempPath, copySubDirs);
                 }
             }
-        }
-
-        private string DetectHostOSRid()
-        {
-            string osRid;
-            if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
-            {
-                osRid = "linux-64";
-                return osRid;
-            }
-            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
-            {
-                osRid = "win-64";
-                return osRid;
-            }
-            throw new ArgumentException($"Couldn't detect host OS");
         }
 
     }
