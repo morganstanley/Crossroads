@@ -1,3 +1,12 @@
 Crossroads
 Copyright 2021 Morgan Stanley
 This project includes software developed at Morgan Stanley.
+
+-------------------------------
+
+Crossroads uses third-party libraries or other resources that may be distributed under licenses different than the Crossroads software.
+
+License notice for dotnet/runtime
+https://github.com/dotnet/runtime/blob/main/LICENSE.TXT
+Copyright (c) .NET Foundation and Contributors
+The MIT License (MIT)

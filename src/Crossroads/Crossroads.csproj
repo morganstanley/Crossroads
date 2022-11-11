@@ -16,6 +16,8 @@
 		<PackageReadmeFile>README.md</PackageReadmeFile>
 		<PackageLicenseFile>LICENSE</PackageLicenseFile>
 		<ErrorOnDuplicatePublishOutputFiles>false</ErrorOnDuplicatePublishOutputFiles>
+		<AllowUnsafeBlocks>True</AllowUnsafeBlocks>
+		<LangVersion>preview</LangVersion>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -41,12 +43,12 @@
 		</PackageReference>
 	</ItemGroup>
 
-	<ItemGroup>
+	<!--<ItemGroup>
 		<Reference Include="Microsoft.NET.HostModel">
 			<HintPath>..\..\libraryreference\Microsoft.NET.HostModel.dll</HintPath>
 			<Private>True</Private>
 		</Reference>
-	</ItemGroup>
+	</ItemGroup>-->
 
 	<ItemGroup>
 	  <None Update="appsettings.json">
