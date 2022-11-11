@@ -39,7 +39,6 @@ namespace Crossroads.Launcher.Services
             showLauncherOption(resultBuilder, "Version");
             showLauncherOption(resultBuilder, "Icon");
             showLauncherOption(resultBuilder, "Location");
-            showLauncherOption(resultBuilder, "RuntimeIdentifier");
 
 
             var includes = configuration.GetSection("Launcher:Include")?.Get<IEnumerable<string>>();

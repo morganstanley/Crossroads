@@ -45,7 +45,8 @@ namespace Crossroads.Test.Services
                 Name = "testapp",
                 Command = "Notepad",
                 Version = "3.0.1.0",
-                Include = new[] { @".\assets\invalidinclude" }
+                Include = new[] { @".\assets\invalidinclude" },
+                TargetOs = "win-x64"
             };
             await Assert.ThrowsAsync<ArgumentException>(async () => await packageApplicationBuilder.Build(option));
         }
@@ -59,7 +60,8 @@ namespace Crossroads.Test.Services
                 Name = "testapp",
                 Command = "Notepad",
                 Version = "3.0.1.0",
-                Include = new[] { @".\assets\invalidinclude", @".\assets\invalidinclude2" }
+                Include = new[] { @".\assets\invalidinclude", @".\assets\invalidinclude2" },
+                TargetOs = "win-x64"
             };
             await Assert.ThrowsAsync<AggregateException>(async () => await packageApplicationBuilder.Build(option));
         }
@@ -80,7 +82,8 @@ namespace Crossroads.Test.Services
                 Name = "testapp",
                 Command = "Notepad",
                 Version = "3.0.1.0",
-                Include = new string[] { @"assets\include" }
+                Include = new string[] { @"assets\include" },
+                TargetOs = "win-x64"
             };
             await packageApplicationBuilder.Build(option);
         }
@@ -107,6 +110,7 @@ namespace Crossroads.Test.Services
                 Command = "Notepad",
                 Version = "3.0.1.0",
                 Include = null,
+                TargetOs = "win-x64"
             };
 
             await packageApp.Build(option);
