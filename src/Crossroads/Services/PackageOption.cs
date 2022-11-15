@@ -25,5 +25,7 @@ namespace Crossroads.Services
         public string Command { get; set; }
         public string Args { get; set; }
         public string Location { get; set; }
+        public string TargetOs { get; set; }
+
     }
 }

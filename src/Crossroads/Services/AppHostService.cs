@@ -18,21 +18,22 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Runtime.InteropServices;
+using System.Security.Cryptography;
 using System.Threading.Tasks;
 
 namespace Crossroads.Services
 {
     public class AppHostService : IAppHostService
     {
-        public async Task ConvertLauncherToBundle(string hostName, string outputDir, string appHostDirectory, string resourceassemblyPathResult)
+        public async Task ConvertLauncherToBundle(string hostName, string outputDir, string appHostDirectory, string resourceassemblyPathResult, string rId)
         {
             var appHostDestinationFilePath = Path.Combine(appHostDirectory, hostName);
-            await Task.Run(() => HostWriter.CreateAppHost(GetAppHostSourceFilePath(appHostDirectory), appHostDestinationFilePath, appBinaryFilePath, assemblyToCopyResourcesFrom: resourceassemblyPathResult));
-
+            await Task.Run(() => HostWriter.CreateAppHost(GetAppHostSourceFilePath(appHostDirectory, rId), appHostDestinationFilePath, appBinaryFilePath, assemblyToCopyResourcesFrom: resourceassemblyPathResult));
+            var platformBundler = ((rId == "win-x64") ? OSPlatform.Windows : OSPlatform.Linux);
             var bundler = new Bundler(hostName, outputDir, BundleOptions.BundleAllContent | BundleOptions.BundleSymbolFiles,
-                OSPlatform.Windows, Architecture.X64, Version.Parse("6.0.10"), false, "Crossroads.Launcher", false);
-            var fileSpects = GenerateFileSpecs(appHostDirectory);
-            await Task.Run(() => bundler.GenerateBundle(fileSpects));
+              platformBundler, Architecture.X64, Version.Parse("6.0.10"), false, "Crossroads.Launcher", false);
+            var fileSpecs = GenerateFileSpecs(appHostDirectory);
+            await Task.Run(() => bundler.GenerateBundle(fileSpecs));
         }
 
         private List<FileSpec> GenerateFileSpecs(string sourceDir)
@@ -61,10 +62,10 @@ namespace Crossroads.Services
         }
 
         // path to bin win64
-        private string GetAppHostSourceFilePath(string appHostDirectory)
+        private string GetAppHostSourceFilePath(string appHostDirectory, string rId)
         {
 
-            string path = Path.Combine(appHostDirectory, "singlefilehost.exe");
+            string path = Path.Combine(appHostDirectory, (rId == "win-x64") ? "singlefilehost.exe" : "singlefilehost");
             if (! File.Exists(path))
             {
                 throw new ApplicationException($"Host file {path} does not exist.");

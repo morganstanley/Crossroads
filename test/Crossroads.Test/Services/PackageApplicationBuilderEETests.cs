@@ -57,7 +57,8 @@ namespace Crossroads.Test.Services
             {
                 Command = "Notepad",
                 Version = "3.0.1.0",
-                Include = new[] { @".\assets\invalidinclude" }
+                Include = new[] { @".\assets\invalidinclude" },
+                TargetOs = "win-x64"
             };
             await Assert.ThrowsAsync<ArgumentException>(async () => await packageApplicationBuilder.Build(option));
         }
@@ -68,7 +69,8 @@ namespace Crossroads.Test.Services
             using var packageApplicationBuilder = GetPackageApplicationBuilder();
             var option = new DefaultOption
             {
-                Icon = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "assets", "TestIcon.ico")
+                Icon = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "assets", "TestIcon.ico"),
+                TargetOs = "win-x64"
             };
             await packageApplicationBuilder.Build(option);
         }
@@ -79,7 +81,8 @@ namespace Crossroads.Test.Services
             using var packageApplicationBuilder = GetPackageApplicationBuilder();
             var option = new DefaultOption
             {
-                Command = "Notepad"
+                Command = "Notepad",
+                TargetOs = "win-x64"
             };
             await packageApplicationBuilder.Build(option);
         }

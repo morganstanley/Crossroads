@@ -62,8 +62,8 @@ namespace Crossroads.Services
 
             string resourceassemblyPathResult = await resourcesAssemblyBuilder.Build(resourceassemblyPath, Option.Version, Option.Icon);
 
-            var fileName = (string.Compare(Path.GetExtension(Option.Name), ".exe", true) == 0) ? Option.Name : $"{Option.Name}.exe";
-            await appHostService.ConvertLauncherToBundle(fileName, Option.Location, appHostDirectory, resourceassemblyPathResult);
+            var fileName = (Option.TargetOs == "win-x64") ? $"{Option.Name}.exe" : Option.Name;
+            await appHostService.ConvertLauncherToBundle(fileName, Option.Location, appHostDirectory, resourceassemblyPathResult, Option.TargetOs);
         }
 
         public void Dispose()
@@ -150,7 +150,7 @@ namespace Crossroads.Services
             get
             {
                 // todo: default is win-x64, need depends on input from PackageOption
-                string ridDir = "win-x64";
+                string ridDir = Option.TargetOs;
                 return Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Crossroads.Launcher", ridDir);
             }
         }
