@@ -31,7 +31,8 @@ namespace Crossroads.Test.Services
             var option = new DefaultOption
             {
                 Command = "Notepad",
-                Version = "3.0.1.0"
+                Version = "3.0.1.0",
+                TargetOs = "win-x64"
             };
             await packageApplicationBuilder.Build(option);
         }
@@ -44,7 +45,8 @@ namespace Crossroads.Test.Services
             {
                 Command = "Notepad",
                 Version = "3.0.1.0",
-                Include = new[] { @".\assets\" }
+                Include = new[] { @".\assets\" },
+                TargetOs = "win-x64"
             };
             await packageApplicationBuilder.Build(option);
         }
