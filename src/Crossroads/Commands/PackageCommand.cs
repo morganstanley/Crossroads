@@ -35,6 +35,7 @@ namespace Crossroads.Commands
             AddOption(IconOption);
             AddOption(VersionOption);
             AddOption(IncludeOption);
+            AddOption(TargetOsOption);
 
             Handler = CommandHandler.Create<IHost, PackageOption>(PackageHandler);
         }

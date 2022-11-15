@@ -63,17 +63,7 @@ namespace Crossroads.Services
         // path to bin win64
         private string GetAppHostSourceFilePath(string appHostDirectory, string rId)
         {
-<<<<<<< HEAD
-<<<<<<< HEAD
-
-            string path = Path.Combine(appHostDirectory, "singlefilehost.exe");
-=======
-            string path = Path.Combine(appHostDirectory, "singlefilehost.exe");
-            //string path = Path.Combine(appHostDirectory, (rId == "win-x64") ? "singlefilehost.exe" : "singlefilehost");
->>>>>>> a0f9f83 (add input from package option)
-=======
             string path = Path.Combine(appHostDirectory, (rId == "win-x64") ? "singlefilehost.exe" : "singlefilehost");
->>>>>>> 688a17c (make target option dynamic)
             if (! File.Exists(path))
             {
                 throw new ApplicationException($"Host file {path} does not exist.");
