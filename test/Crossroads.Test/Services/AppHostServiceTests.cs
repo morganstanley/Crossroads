@@ -22,26 +22,59 @@ namespace Crossroads.Test.Services
 {
     public class AppHostServiceTests
     {
+        //todo
         [Fact]
         public async Task Convert_NoResource_Success()
         {
             string bundleName = Path.GetRandomFileName();
             string bundleDirectory = Path.Combine(Path.GetTempPath(), "crossroads", $"{Path.GetRandomFileName()}.ext");
             string appHostDirectory = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Crossroads.Launcher");
-
+            
             IAppHostService appHost = new AppHostService();
-            await appHost.ConvertLauncherToBundle(bundleName, bundleDirectory, appHostDirectory, null);
+            await appHost.ConvertLauncherToBundle(bundleName, bundleDirectory, appHostDirectory, null, null);
         }
-
+        //todo
         [Fact]
         public async Task Convert_WithResource_Success()
         {
             string bundleName = Path.GetRandomFileName();
             string bundleDirectory = Path.Combine(Path.GetTempPath(), "crossroads", Path.ChangeExtension(Path.GetRandomFileName(), "exe"));
             string appHostDirectory = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Crossroads.Launcher");
+            string resourceassemblyPathResult = "./assets";
 
             IAppHostService appHost = new AppHostService();
-            await appHost.ConvertLauncherToBundle(bundleName, bundleDirectory, appHostDirectory, Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "CrossRoads.dll"));
+            await appHost.ConvertLauncherToBundle(bundleName, bundleDirectory, appHostDirectory, Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "CrossRoads.dll"), resourceassemblyPathResult);
+        }
+        //todo
+        [Fact]
+        public async Task Convert_GetAppHostSourceFilePath_ApplicationException()
+        {
+            string bundleName = Path.GetRandomFileName();
+            string bundleDirectory = Path.Combine(Path.GetTempPath(), "crossroads", $"{Path.GetRandomFileName()}.ext");
+            string appHostDirectory = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Crossroads.Launcher", "invalidPath");
+            string platformBundler = "win-x64";
+            string resourceassemblyPathResult = "./assets";
+            
+
+
+
+            IAppHostService appHost = new AppHostService();
+            await Assert.ThrowsAsync<ApplicationException>(async () => await appHost.ConvertLauncherToBundle(bundleName, bundleDirectory, appHostDirectory,platformBundler, resourceassemblyPathResult));
+        }
+
+        //todo
+        [Fact]
+        public async Task Convert_GetAppHostSourceFilePath_Linux_Success()
+        {
+            string bundleName = Path.GetRandomFileName();
+            string bundleDirectory = Path.Combine(Path.GetTempPath(), "crossroads", $"{Path.GetRandomFileName()}.ext");
+            string appHostDirectory = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Crossroads.Launcher", "invalidPath");
+            string platformBundler = "win-x64";
+            string resourceassemblyPathResult = "./assets";
+            ;
+
+            IAppHostService appHost = new AppHostService();
+            await Assert.ThrowsAsync<ApplicationException>(async () => await appHost.ConvertLauncherToBundle(bundleName, bundleDirectory, appHostDirectory, platformBundler, resourceassemblyPathResult));
         }
     }
 }

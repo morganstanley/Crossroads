@@ -61,8 +61,8 @@ namespace Crossroads.Services
             CopyIncludeDirectories();
 
             string resourceassemblyPathResult = await resourcesAssemblyBuilder.Build(resourceassemblyPath, Option.Version, Option.Icon);
-
-            var fileName = (string.Compare(Path.GetExtension(Option.Name), ".exe", true) == 0) ? Option.Name : $"{Option.Name}.exe";
+           
+            string fileName = (Option.TargetOs == "win-x64") ? $"{Option.Name}.exe" : Option.Name;
             await appHostService.ConvertLauncherToBundle(fileName, Option.Location, Option.TargetOs, appHostDirectory, resourceassemblyPathResult);
         }
 
@@ -150,8 +150,8 @@ namespace Crossroads.Services
             get
             {
                 // todo: default is win-x64, need depends on input from PackageOption
-                string ridDir = Option.TargetOs;
-                return Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Crossroads.Launcher", ridDir);
+                string ridDirectory = Option.TargetOs;
+                return Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Crossroads.Launcher", ridDirectory);
             }
         }
 

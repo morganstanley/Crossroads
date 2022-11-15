@@ -24,12 +24,13 @@ namespace Crossroads.Services
 {
     public class AppHostService : IAppHostService
     {
-        public async Task ConvertLauncherToBundle(string hostName, string outputDir,string rId, string appHostDirectory, string resourceassemblyPathResult)
+        public async Task ConvertLauncherToBundle(string hostName, string outputDir, string rId, string appHostDirectory, string resourceassemblyPathResult)
         {
             var appHostDestinationFilePath = Path.Combine(appHostDirectory, hostName);
-            await Task.Run(() => HostWriter.CreateAppHost(GetAppHostSourceFilePath(appHostDirectory,rId), appHostDestinationFilePath, appBinaryFilePath, assemblyToCopyResorcesFrom: resourceassemblyPathResult));
+            var platformBundler = ((rId == "win-x64") ? OSPlatform.Windows : OSPlatform.Linux);
+            await Task.Run(() => HostWriter.CreateAppHost(GetAppHostSourceFilePath(appHostDirectory,rId), appHostDestinationFilePath, appBinaryFilePath, assemblyToCopyResourcesFrom: resourceassemblyPathResult));
             var bundler = new Bundler(hostName, outputDir, BundleOptions.BundleAllContent | BundleOptions.BundleSymbolFiles,
-            (rId == "win-x64") ? OSPlatform.Windows : OSPlatform.Linux, Architecture.X64, Version.Parse("6.0.10"), false, "Crossroads.Launcher", false);
+            platformBundler, Architecture.X64, Version.Parse("6.0.10"), false, "Crossroads.Launcher", false);
             var fileSpecs = GenerateFileSpecs(appHostDirectory);
             await Task.Run(() => bundler.GenerateBundle(fileSpecs));
         }
