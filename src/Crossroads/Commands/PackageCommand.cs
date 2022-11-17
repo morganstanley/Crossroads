@@ -35,6 +35,7 @@ namespace Crossroads.Commands
             AddOption(IconOption);
             AddOption(VersionOption);
             AddOption(IncludeOption);
+            AddOption(TargetOsOption);
 
             Handler = CommandHandler.Create<IHost, PackageOption>(PackageHandler);
         }
@@ -100,6 +101,17 @@ namespace Crossroads.Commands
                 Arity = ArgumentArity.OneOrMore
             }
         };
+
+        private readonly Option TargetOsOption = new Option<string>(
+                   new[] { "--targetos", "-t" },
+                   description: "Set runtime identifier for the executable package")
+        {
+            Argument = new Argument<string>
+            {
+                Arity = ArgumentArity.ExactlyOne
+            }
+        };
+
 
         private async Task<int> PackageHandler(IHost host, PackageOption option)
         {

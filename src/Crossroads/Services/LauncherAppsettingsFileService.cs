@@ -41,6 +41,7 @@ namespace Crossroads.Services
                 jsonObj["Launcher"]["Command"] = option.Command;
                 jsonObj["Launcher"]["Args"] = option.Args;
                 jsonObj["Launcher"]["Location"] = option.Location;
+                jsonObj["Launcher"]["TargetOs"] = option.TargetOs;
                 string output = JsonConvert.SerializeObject(jsonObj, Newtonsoft.Json.Formatting.Indented);
                 fileSystem.File.WriteAllText(filePath, output);
             });
