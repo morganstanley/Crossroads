@@ -34,7 +34,7 @@ namespace Crossroads.Test.Services
             await appHost.ConvertLauncherToBundle(bundleName, bundleDirectory, appHostDirectory, null, rId);
         }
 
-        [Fact(Skip = "true")]
+        [Fact]
         public async Task Convert_WithResource_Success()
         {
             string bundleName = Path.GetRandomFileName();
@@ -52,10 +52,10 @@ namespace Crossroads.Test.Services
             string bundleName = Path.GetRandomFileName();
             string bundleDirectory = Path.Combine(Path.GetTempPath(), "crossroads", $"{Path.GetRandomFileName()}.ext");
             string appHostDirectory = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Crossroads.Launcher", "invalidPath");
-            string platformBundler = "win-x64";
+            string rId = "win-x64";
 
             IAppHostService appHost = new AppHostService();
-            await Assert.ThrowsAsync<ApplicationException>(async () => await appHost.ConvertLauncherToBundle(bundleName, bundleDirectory, appHostDirectory, platformBundler, null));
+            await Assert.ThrowsAsync<ApplicationException>(async () => await appHost.ConvertLauncherToBundle(bundleName, bundleDirectory, appHostDirectory, rId, null));
         }
 
         [Fact]
@@ -64,10 +64,10 @@ namespace Crossroads.Test.Services
             string bundleName = Path.GetRandomFileName();
             string bundleDirectory = Path.Combine(Path.GetTempPath(), "crossroads", $"{Path.GetRandomFileName()}.ext");
             string appHostDirectory = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Crossroads.Launcher", "invalidPath");
-            string platformBundler = "linux-x64";
+            string rId = "linux-x64";
 
             IAppHostService appHost = new AppHostService();
-            await Assert.ThrowsAsync<ApplicationException>(async () => await appHost.ConvertLauncherToBundle(bundleName, bundleDirectory, appHostDirectory, platformBundler, null));
+            await Assert.ThrowsAsync<ApplicationException>(async () => await appHost.ConvertLauncherToBundle(bundleName, bundleDirectory, appHostDirectory, rId, null));
         }
     }
 }
