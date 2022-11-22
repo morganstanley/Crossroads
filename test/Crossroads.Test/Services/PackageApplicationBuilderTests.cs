@@ -101,8 +101,9 @@ namespace Crossroads.Test.Services
             var resource = new Mock<IResourcesAssemblyBuilder>();
             var appsettingsFile = new Mock<ILauncherAppsettingsFileService>();
             var appHostService = new Mock<IAppHostService>();
+            var hostOsService = new Mock<IHostOsDetectionService>();
             var logger = new Mock<ILogger<PackageApplicationBuilder>>();
-            var packageApp = new PackageApplicationBuilder(fileSystem.Object, resource.Object, appsettingsFile.Object, appHostService.Object, logger.Object);
+            var packageApp = new PackageApplicationBuilder(fileSystem.Object, resource.Object, appsettingsFile.Object, appHostService.Object, logger.Object, hostOsService.Object);
 
             var option = new PackageOption
             {
@@ -125,9 +126,10 @@ namespace Crossroads.Test.Services
             var resource = new Mock<IResourcesAssemblyBuilder>();
             var appsettingsFile = new Mock<ILauncherAppsettingsFileService>();
             var appHostService = new Mock<IAppHostService>();
+            var hostOsService = new Mock<IHostOsDetectionService>();
             var logger = new Mock<ILogger<PackageApplicationBuilder>>();
 
-            return new PackageApplicationBuilder(fileSystem, resource.Object, appsettingsFile.Object, appHostService.Object, logger.Object);
+            return new PackageApplicationBuilder(fileSystem, resource.Object, appsettingsFile.Object, appHostService.Object, logger.Object, hostOsService.Object);
         }
 
     }

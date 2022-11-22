@@ -97,8 +97,10 @@ namespace Crossroads.Test.Services
             IAppHostService appHostService = new AppHostService();
             ILoggerFactory loggerFactory = new LoggerFactory();
             ILogger<PackageApplicationBuilder> logger = loggerFactory.CreateLogger<PackageApplicationBuilder>();
+            IHostOsDetectionService hostOsDetectionService = new HostOsDetectionService();
 
-            return new PackageApplicationBuilder(fileSystem, resource, launcherAppsettingsFileService, appHostService, logger);
+
+            return new PackageApplicationBuilder(fileSystem, resource, launcherAppsettingsFileService, appHostService, logger, hostOsDetectionService);
         }
 
         private class DefaultOption : PackageOption
