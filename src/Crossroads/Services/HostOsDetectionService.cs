@@ -11,10 +11,9 @@ namespace Crossroads.Services
     {
         public string GetTargetOsRid()
         {
-            var rid =  RuntimeInformation.IsOSPlatform(OSPlatform.Linux) ? "linux-x64" :
-                              RuntimeInformation.IsOSPlatform(OSPlatform.Windows) ? "win-x64" :
-                             throw new ArgumentException($"Couldn't detect host OS");
-            return rid;
+            return  RuntimeInformation.IsOSPlatform(OSPlatform.Linux) ? "linux-x64" :
+                              (RuntimeInformation.IsOSPlatform(OSPlatform.Windows) ? "win-x64" :
+                             throw new ArgumentException($"Couldn't detect host OS"));
         }
     }
 }

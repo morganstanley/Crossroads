@@ -31,7 +31,13 @@ namespace Crossroads.Services
         private readonly IHostOsDetectionService hostOsDetectionService;
         private readonly ILogger<PackageApplicationBuilder> _logger;
 
-        public PackageApplicationBuilder(IFileSystem fileSystem, IResourcesAssemblyBuilder resourcesAssemblyBuilder, ILauncherAppsettingsFileService launcherAppsettingsFileService, IAppHostService appHostService, ILogger<PackageApplicationBuilder> logger, IHostOsDetectionService hostOsDetectionService)
+        public PackageApplicationBuilder(
+            IFileSystem fileSystem, 
+            IResourcesAssemblyBuilder resourcesAssemblyBuilder, 
+            ILauncherAppsettingsFileService launcherAppsettingsFileService, 
+            IAppHostService appHostService, 
+            ILogger<PackageApplicationBuilder> logger, 
+            IHostOsDetectionService hostOsDetectionService)
         {
             this.fileSystem = fileSystem;
             this.resourcesAssemblyBuilder = resourcesAssemblyBuilder;
@@ -60,6 +66,7 @@ namespace Crossroads.Services
             {
                 option.TargetOs = hostOsDetectionService.GetTargetOsRid();
             }
+
             await Task.Run(() => CopyDirectory(launcherSourceDirectory, appHostDirectory, true));
 
             await launcherAppsettingsFileService.SetOption(appSettingsFilePath, option);

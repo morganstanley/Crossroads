@@ -89,6 +89,18 @@ namespace Crossroads.Test.Services
             await packageApplicationBuilder.Build(option);
         }
 
+        [Fact]
+        public async Task Build_DetectHostOS_Success()
+        {
+            using var packageApplicationBuilder = GetPackageApplicationBuilder();
+            var option = new DefaultOption
+            {
+                Command = "Notepad",
+                TargetOs = null
+            };
+            await packageApplicationBuilder.Build(option);
+        }
+
         private PackageApplicationBuilder GetPackageApplicationBuilder()
         {
             var fileSystem = new FileSystem();
@@ -98,7 +110,6 @@ namespace Crossroads.Test.Services
             ILoggerFactory loggerFactory = new LoggerFactory();
             ILogger<PackageApplicationBuilder> logger = loggerFactory.CreateLogger<PackageApplicationBuilder>();
             IHostOsDetectionService hostOsDetectionService = new HostOsDetectionService();
-
 
             return new PackageApplicationBuilder(fileSystem, resource, launcherAppsettingsFileService, appHostService, logger, hostOsDetectionService);
         }
