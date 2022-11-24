@@ -52,6 +52,7 @@ namespace Crossroads
                                    services.AddTransient<IAppHostService, AppHostService>();
                                    services.AddTransient<IResourcesAssemblyBuilder, ResourcesAssemblyBuilder>();
                                    services.AddTransient<IProcessService, ProcessService>();
+                                   services.AddTransient<IHostOsDetectionService, HostOsDetectionService>();
                                });
                        })
                    .AddCommand(new PackageCommand())

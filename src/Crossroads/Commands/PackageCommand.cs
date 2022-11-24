@@ -125,7 +125,6 @@ namespace Crossroads.Commands
             catch (Exception ex)
             {
                 Console.WriteLine("Failed to package the application.");
-                Console.WriteLine(ex.Message);
                 return 1;
             }
         }

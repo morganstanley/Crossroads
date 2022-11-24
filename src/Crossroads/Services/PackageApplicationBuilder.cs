@@ -17,6 +17,7 @@ using System;
 using System.IO;
 using System.IO.Abstractions;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 
 namespace Crossroads.Services
@@ -27,15 +28,23 @@ namespace Crossroads.Services
         private readonly IResourcesAssemblyBuilder resourcesAssemblyBuilder;
         private readonly ILauncherAppsettingsFileService launcherAppsettingsFileService;
         private readonly IAppHostService appHostService;
+        private readonly IHostOsDetectionService hostOsDetectionService;
         private readonly ILogger<PackageApplicationBuilder> _logger;
 
-        public PackageApplicationBuilder(IFileSystem fileSystem, IResourcesAssemblyBuilder resourcesAssemblyBuilder, ILauncherAppsettingsFileService launcherAppsettingsFileService, IAppHostService appHostService, ILogger<PackageApplicationBuilder> logger)
+        public PackageApplicationBuilder(
+            IFileSystem fileSystem, 
+            IResourcesAssemblyBuilder resourcesAssemblyBuilder, 
+            ILauncherAppsettingsFileService launcherAppsettingsFileService, 
+            IAppHostService appHostService, 
+            ILogger<PackageApplicationBuilder> logger, 
+            IHostOsDetectionService hostOsDetectionService)
         {
             this.fileSystem = fileSystem;
             this.resourcesAssemblyBuilder = resourcesAssemblyBuilder;
             this.launcherAppsettingsFileService = launcherAppsettingsFileService;
             this.appHostService = appHostService;
             _logger = logger;
+            this.hostOsDetectionService = hostOsDetectionService;
         }
 
         private bool disposed = false;
@@ -53,6 +62,11 @@ namespace Crossroads.Services
             {
                 throw new ArgumentException(nameof(Option.Name));
             }
+            if (String.IsNullOrEmpty(option.TargetOs))
+            {
+                option.TargetOs = hostOsDetectionService.GetTargetOsRid();
+            }
+
             await Task.Run(() => CopyDirectory(launcherSourceDirectory, appHostDirectory, true));
 
             await launcherAppsettingsFileService.SetOption(appSettingsFilePath, option);
@@ -149,9 +163,7 @@ namespace Crossroads.Services
         {
             get
             {
-                // todo: default is win-x64, need depends on input from PackageOption
-                string ridDir = Option.TargetOs;
-                return Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Crossroads.Launcher", ridDir);
+                return Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Crossroads.Launcher", Option.TargetOs);
             }
         }
 
@@ -161,7 +173,6 @@ namespace Crossroads.Services
         //creates resource .dll inside temp
         private string resourceassemblyPath => Path.Combine(appHostDirectory, "crossroads.resourceassembly.dll");
         private string assetsDirectory => Path.Combine(appHostDirectory, "assets");
-
 
         private void CopyDirectory(string sourceDirName, string destDirName, bool copySubDirs)
         {
@@ -192,5 +203,6 @@ namespace Crossroads.Services
                 }
             }
         }
+
     }
 }

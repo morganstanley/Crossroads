@@ -21,6 +21,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.IO.Abstractions;
 using System.IO.Abstractions.TestingHelpers;
+using System.Runtime.InteropServices;
+using System.Security.Cryptography;
 using System.Threading.Tasks;
 using Xunit;
 
@@ -89,6 +91,22 @@ namespace Crossroads.Test.Services
         }
 
         [Fact]
+        public async Task Build_Linux_Success()
+        {
+            using var packageApplicationBuilder = GetPackageApplicationBuilder();
+            var option = new PackageOption
+            {
+                Name = "testapp",
+                Command = "Notepad",
+                Version = "3.0.1.0",
+                Include = new string[] { @"assets\include" },
+                TargetOs = "linux-x64"
+            };
+            await packageApplicationBuilder.Build(option);
+        }
+
+
+        [Fact]
         public async Task Build_Success_Exception()
         {
             var fileSystem = new Mock<IFileSystem>();
@@ -101,8 +119,9 @@ namespace Crossroads.Test.Services
             var resource = new Mock<IResourcesAssemblyBuilder>();
             var appsettingsFile = new Mock<ILauncherAppsettingsFileService>();
             var appHostService = new Mock<IAppHostService>();
+            var hostOsService = new Mock<IHostOsDetectionService>();
             var logger = new Mock<ILogger<PackageApplicationBuilder>>();
-            var packageApp = new PackageApplicationBuilder(fileSystem.Object, resource.Object, appsettingsFile.Object, appHostService.Object, logger.Object);
+            var packageApp = new PackageApplicationBuilder(fileSystem.Object, resource.Object, appsettingsFile.Object, appHostService.Object, logger.Object, hostOsService.Object);
 
             var option = new PackageOption
             {
@@ -117,17 +136,55 @@ namespace Crossroads.Test.Services
             packageApp.Dispose();
         }
 
+        [Fact]
+        public async Task Build_AutoDetectOs_Success()
+        {
+            using var packageApplicationBuilder = GetPackageApplicationBuilder();
+            var option = new PackageOption
+            {
+                Name = "testapp",
+                Command = "Notepad",
+                Version = "3.0.1.0",
+                Include = new string[] { @"assets\include" },
+                TargetOs = null
+            };
+            await packageApplicationBuilder.Build(option);
+        }
+
         private PackageApplicationBuilder GetPackageApplicationBuilder()
         {
             var fileSystem = new MockFileSystem();
             fileSystem.AddFile(@"assets\include\include2\file1.txt", new MockFileData("abc"));
             fileSystem.AddDirectory(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Crossroads.Launcher", "win-x64"));
+            fileSystem.AddDirectory(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Crossroads.Launcher", "linux-x64"));
+            var resource = new Mock<IResourcesAssemblyBuilder>();
+            var appsettingsFile = new Mock<ILauncherAppsettingsFileService>();
+            var appHostService = new Mock<IAppHostService>();
+            var hostOsService = new Mock<IHostOsDetectionService>();
+            hostOsService.Setup(x => x.GetTargetOsRid()).Returns(RuntimeInformation.IsOSPlatform(OSPlatform.Windows) ? "win-x64": "linux-x64");
+
+            var logger = new Mock<ILogger<PackageApplicationBuilder>>();
+
+            return new PackageApplicationBuilder(fileSystem, resource.Object, appsettingsFile.Object, appHostService.Object, logger.Object, hostOsService.Object);
+        }
+
+        [Fact]
+        public async Task Build_AutoDetectOs_UnknowHostOS_Exception()
+        {
+            var option = new PackageOption { Name = "testapp", TargetOs = null };
+            var fileSystem = new MockFileSystem();
             var resource = new Mock<IResourcesAssemblyBuilder>();
             var appsettingsFile = new Mock<ILauncherAppsettingsFileService>();
             var appHostService = new Mock<IAppHostService>();
             var logger = new Mock<ILogger<PackageApplicationBuilder>>();
+            var hostOsService = new Mock<IHostOsDetectionService>();
+            hostOsService.Setup(x => x.GetTargetOsRid()).Throws(new ArgumentException())
+                .Verifiable();
 
-            return new PackageApplicationBuilder(fileSystem, resource.Object, appsettingsFile.Object, appHostService.Object, logger.Object);
+            using var packageApplicationBuilder = new PackageApplicationBuilder(fileSystem, resource.Object, appsettingsFile.Object, appHostService.Object, logger.Object, hostOsService.Object);
+
+            await Assert.ThrowsAsync<ArgumentException>(async () => await packageApplicationBuilder.Build(option));
+            hostOsService.Verify();
         }
 
     }
