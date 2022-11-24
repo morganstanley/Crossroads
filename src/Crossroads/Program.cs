@@ -22,9 +22,7 @@ using System.CommandLine;
 using System.CommandLine.Builder;
 using System.CommandLine.Hosting;
 using System.CommandLine.Parsing;
-using System.Diagnostics;
 using System.IO.Abstractions;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace Crossroads

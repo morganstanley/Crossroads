@@ -1,9 +1,6 @@
 ﻿using Crossroads.Launcher.Services;
 using Microsoft.Extensions.Configuration;
 using Moq;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using Xunit;
 
 namespace Crossroads.Launcher.Test.Services

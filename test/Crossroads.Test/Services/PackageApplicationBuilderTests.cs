@@ -16,13 +16,10 @@ using Crossroads.Services;
 using Microsoft.Extensions.Logging;
 using Moq;
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.IO;
 using System.IO.Abstractions;
 using System.IO.Abstractions.TestingHelpers;
 using System.Runtime.InteropServices;
-using System.Security.Cryptography;
 using System.Threading.Tasks;
 using Xunit;
 
