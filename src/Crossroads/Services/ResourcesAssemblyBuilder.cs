@@ -125,7 +125,5 @@ class Program
 
         private bool NeedIcon(string iconPath) => !string.IsNullOrWhiteSpace(iconPath);
         private bool NeedVersion(string version) => !string.IsNullOrWhiteSpace(version);
-
-        // public bool NeedBuild => NeedIcon || NeedVersion;
     }
 }

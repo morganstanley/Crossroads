@@ -17,7 +17,6 @@ using System;
 using System.IO;
 using System.IO.Abstractions;
 using System.Linq;
-using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 
 namespace Crossroads.Services
@@ -71,7 +70,6 @@ namespace Crossroads.Services
 
             await launcherAppsettingsFileService.SetOption(appSettingsFilePath, option);
 
-            // copy include files
             CopyIncludeDirectories();
 
             string resourceassemblyPathResult = await resourcesAssemblyBuilder.Build(resourceassemblyPath, Option.Version, Option.Icon);
@@ -156,9 +154,7 @@ namespace Crossroads.Services
 
         private string workingDirectory;
 
-        //WorkingDirectory contains path to temp/crossroads/random/'AppDirectory'
         private string appHostDirectory => Path.Combine(WorkingDirectory, "AppDirectory");
-        //private string launcherSourceDirectory => Path.Combine(AppDomain.CurrentDomain.BaseDirectory);
         private string launcherSourceDirectory
         {
             get
@@ -167,25 +163,19 @@ namespace Crossroads.Services
             }
         }
 
-        //appsettings creates new appsettings.json file in path to temp/crossroads/random/'AppDirectory'
         private string appSettingsFilePath => Path.Combine(appHostDirectory, "appsettings.json");
 
-        //creates resource .dll inside temp
         private string resourceassemblyPath => Path.Combine(appHostDirectory, "crossroads.resourceassembly.dll");
         private string assetsDirectory => Path.Combine(appHostDirectory, "assets");
 
         private void CopyDirectory(string sourceDirName, string destDirName, bool copySubDirs)
         {
-            // Get the subdirectories for the specified directory.
             IDirectoryInfo dir = fileSystem.DirectoryInfo.FromDirectoryName(sourceDirName);
 
             IDirectoryInfo[] dirs = dir.GetDirectories();
-            //FileInfoBase[] dirs = dir.GetFiles();
                                         
-            // If the destination directory doesn't exist, create it.       
             fileSystem.Directory.CreateDirectory(destDirName);
 
-            // Get the files in the directory and copy them to the new location.
             IFileInfo[] files = dir.GetFiles();
             foreach (FileInfoBase file in files)
             {
@@ -193,7 +183,6 @@ namespace Crossroads.Services
                 file.CopyTo(tempPath, false);
             }
 
-            // If copying subdirectories, copy them and their contents to new location.
             if (copySubDirs)
             {
                 foreach (DirectoryInfoBase subdir in dirs)

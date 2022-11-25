@@ -68,7 +68,6 @@ namespace Crossroads.Services
             });
         }
 
-        // path to bin win64
         private string GetAppHostSourceFilePath(string appHostDirectory, string rId)
         {
             string path = Path.Combine(appHostDirectory, (rId == "win-x64") ? "singlefilehost.exe" : "singlefilehost");

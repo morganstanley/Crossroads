@@ -12,7 +12,6 @@
  * and limitations under the License.
  */
 
-using Crossroads.Services;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.IO.Abstractions;

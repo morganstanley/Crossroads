@@ -16,14 +16,8 @@ using Crossroads.Launcher.Commands;
 using Crossroads.Launcher.Services;
 using Crossroads.Test.Utility;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
 using Moq;
 using System;
-using System.CommandLine;
-using System.CommandLine.Builder;
-using System.CommandLine.Hosting;
-using System.CommandLine.Parsing;
-using System.IO;
 using System.Threading.Tasks;
 using Xunit;
 
