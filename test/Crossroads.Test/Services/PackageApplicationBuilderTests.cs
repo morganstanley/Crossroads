@@ -184,5 +184,34 @@ namespace Crossroads.Test.Services
             hostOsService.Verify();
         }
 
+        [Fact]
+        public async Task Build_Linux_With_No_Extension_Success()
+        {
+            using var packageApplicationBuilder = GetPackageApplicationBuilder();
+            var option = new PackageOption
+            {
+                Name = "testapp1.exe",
+                Command = "Notepad",
+                Version = "3.0.1.0",
+                Include = new string[] { @"assets\include" },
+                TargetOs = "linux-x64"
+            };
+            await packageApplicationBuilder.Build(option);
+        }
+
+        [Fact]
+        public async Task Build_Windows_With_No_Duplicate_Exe_Extension_Success()
+        {
+            using var packageApplicationBuilder = GetPackageApplicationBuilder();
+            var option = new PackageOption
+            {
+                Name = "testapp.exe",
+                Command = "Notepad",
+                Version = "3.0.1.0",
+                Include = new string[] { @"assets\include" },
+                TargetOs = "win-x64"
+            };
+            await packageApplicationBuilder.Build(option);
+        }
     }
 }

@@ -17,6 +17,7 @@ using System;
 using System.IO;
 using System.IO.Abstractions;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 
 namespace Crossroads.Services
@@ -73,8 +74,8 @@ namespace Crossroads.Services
             CopyIncludeDirectories();
 
             string resourceassemblyPathResult = await resourcesAssemblyBuilder.Build(resourceassemblyPath, Option.Version, Option.Icon);
-
-            var fileName = (Option.TargetOs == "win-x64") ? $"{Option.Name}.exe" : Option.Name;
+            string fileName = ( WindowsPlatform && option.TargetOs == "linux-x64") ? Path.GetFileNameWithoutExtension(Option.Name) :
+                (string.Compare(Path.GetExtension(Option.Name), ".exe", true) == 0) ? Option.Name : $"{Option.Name}.exe";
             await appHostService.ConvertLauncherToBundle(fileName, Option.Location, appHostDirectory, resourceassemblyPathResult, Option.TargetOs);
         }
 
@@ -192,6 +193,6 @@ namespace Crossroads.Services
                 }
             }
         }
-
+       private bool WindowsPlatform => RuntimeInformation.IsOSPlatform(OSPlatform.Windows);
     }
 }
