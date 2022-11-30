@@ -32,7 +32,7 @@ namespace Crossroads.Test.Services
             {
                 Command = "Notepad",
                 Version = "3.0.1.0",
-                TargetOs = "win-x64"
+                TargetOs = AppHostService.WIN_RID
             };
             await packageApplicationBuilder.Build(option);
         }
@@ -46,9 +46,23 @@ namespace Crossroads.Test.Services
                 Command = "Notepad",
                 Version = "3.0.1.0",
                 Include = new[] { @".\assets\" },
-                TargetOs = "win-x64"
+                TargetOs = AppHostService.WIN_RID
             };
             await packageApplicationBuilder.Build(option);
+        }
+
+        [Fact]
+        public async Task Build_InvalidRID_ArgumentException()
+        {
+            using var packageApplicationBuilder = GetPackageApplicationBuilder();
+            var option = new DefaultOption
+            {
+                Command = "Notepad",
+                Version = "3.0.1.0",
+                Include = new[] { @".\assets\" },
+                TargetOs = "invalid-RID"
+            };
+            await Assert.ThrowsAsync<ArgumentException>(async () => await packageApplicationBuilder.Build(option));
         }
 
         [Fact]
@@ -60,7 +74,7 @@ namespace Crossroads.Test.Services
                 Command = "Notepad",
                 Version = "3.0.1.0",
                 Include = new[] { @".\assets\invalidinclude" },
-                TargetOs = "win-x64"
+                TargetOs = AppHostService.WIN_RID
             };
             await Assert.ThrowsAsync<ArgumentException>(async () => await packageApplicationBuilder.Build(option));
         }
@@ -72,7 +86,7 @@ namespace Crossroads.Test.Services
             var option = new DefaultOption
             {
                 Icon = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "assets", "TestIcon.ico"),
-                TargetOs = "win-x64"
+                TargetOs = AppHostService.WIN_RID
             };
             await packageApplicationBuilder.Build(option);
         }
@@ -84,7 +98,7 @@ namespace Crossroads.Test.Services
             var option = new DefaultOption
             {
                 Command = "Notepad",
-                TargetOs = "win-x64"
+                TargetOs = AppHostService.WIN_RID
             };
             await packageApplicationBuilder.Build(option);
         }
