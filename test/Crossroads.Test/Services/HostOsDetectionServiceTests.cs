@@ -9,7 +9,7 @@ namespace Crossroads.Test.Services
         [Fact]
         public void GetTargetOsRid_Success()
         {
-            var expected = RuntimeInformation.IsOSPlatform(OSPlatform.Windows) ? "win-x64" : "linux-x64";
+            var expected = RuntimeInformation.IsOSPlatform(OSPlatform.Windows) ? AppHostService.WIN_RID : AppHostService.LINUX_RID;
             HostOsDetectionService osService = new HostOsDetectionService();
             var result =  osService.GetTargetOsRid();
             Assert.Equal(expected, result);

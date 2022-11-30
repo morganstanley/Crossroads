@@ -65,6 +65,10 @@ namespace Crossroads.Services
             {
                 option.TargetOs = hostOsDetectionService.GetTargetOsRid();
             }
+            if (!(option.TargetOs.Equals(AppHostService.WIN_RID) || option.TargetOs.Equals(AppHostService.LINUX_RID)))
+            {
+                throw new ArgumentException($"Invalid os RIDs provided: {option.TargetOs}");
+            }
 
             await Task.Run(() => CopyDirectory(launcherSourceDirectory, appHostDirectory, true));
 
@@ -74,7 +78,7 @@ namespace Crossroads.Services
 
             string resourceassemblyPathResult = await resourcesAssemblyBuilder.Build(resourceassemblyPath, Option.Version, Option.Icon);
 
-            var fileName = (Option.TargetOs == "win-x64") ? $"{Option.Name}.exe" : Option.Name;
+            var fileName = (Option.TargetOs == AppHostService.WIN_RID) ? $"{Option.Name}.exe" : Option.Name;
             await appHostService.ConvertLauncherToBundle(fileName, Option.Location, appHostDirectory, resourceassemblyPathResult, Option.TargetOs);
         }
 
