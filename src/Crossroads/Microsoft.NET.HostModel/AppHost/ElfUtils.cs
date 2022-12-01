@@ -13,7 +13,7 @@ namespace Microsoft.NET.HostModel.AppHost
         // First four bytes of valid ELF, as defined in https://github.com/torvalds/linux/blob/aae703b/include/uapi/linux/elf.h
         //    0x7f (DEL), 'E', 'L', 'F'
         //private static ReadOnlySpan<byte> ElfMagic => "\u007f"u8 + "ELF"u8;
-        private static ReadOnlySpan<byte> ElfMagic => "\u007f"u8 + "ELF"u8;
+        private static ReadOnlySpan<byte> ElfMagic => new byte[4] { 127, 69, 76, 70 };
 
         public static bool IsElfImage(string filePath)
         {
