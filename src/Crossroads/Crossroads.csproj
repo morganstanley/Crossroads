@@ -17,7 +17,6 @@
 		<PackageLicenseFile>LICENSE</PackageLicenseFile>
 		<ErrorOnDuplicatePublishOutputFiles>false</ErrorOnDuplicatePublishOutputFiles>
 		<AllowUnsafeBlocks>True</AllowUnsafeBlocks>
-		<LangVersion>preview</LangVersion>
 	</PropertyGroup>
 
 	<ItemGroup>

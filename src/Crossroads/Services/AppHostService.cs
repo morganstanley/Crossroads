@@ -24,12 +24,15 @@ namespace Crossroads.Services
 {
     public class AppHostService : IAppHostService
     {
+        public const string WIN_RID = "win-x64";
+        public const string LINUX_RID = "linux-x64";
+
         public async Task ConvertLauncherToBundle(string hostName, string outputDir, string appHostDirectory, string resourceassemblyPathResult, string rId)
         {
             var appHostDestinationFilePath = Path.Combine(appHostDirectory, hostName);
             await Task.Run(() => HostWriter.CreateAppHost(GetAppHostSourceFilePath(appHostDirectory, rId), appHostDestinationFilePath, appBinaryFilePath, assemblyToCopyResourcesFrom: resourceassemblyPathResult));
             
-            var platformBundler = ((rId == "win-x64") ? OSPlatform.Windows : OSPlatform.Linux);
+            var platformBundler = ((rId == WIN_RID) ? OSPlatform.Windows : OSPlatform.Linux);
             var bundler = new Bundler(hostName, outputDir,
                 BundleOptions.BundleAllContent | BundleOptions.BundleSymbolFiles,
                 platformBundler,
@@ -70,7 +73,7 @@ namespace Crossroads.Services
 
         private string GetAppHostSourceFilePath(string appHostDirectory, string rId)
         {
-            string path = Path.Combine(appHostDirectory, (rId == "win-x64") ? "singlefilehost.exe" : "singlefilehost");
+            string path = Path.Combine(appHostDirectory, (rId == WIN_RID) ? "singlefilehost.exe" : "singlefilehost");
             if (! File.Exists(path))
             {
                 throw new ApplicationException($"Host file {path} does not exist.");

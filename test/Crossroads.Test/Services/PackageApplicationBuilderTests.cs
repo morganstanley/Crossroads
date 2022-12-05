@@ -45,7 +45,7 @@ namespace Crossroads.Test.Services
                 Command = "Notepad",
                 Version = "3.0.1.0",
                 Include = new[] { @".\assets\invalidinclude" },
-                TargetOs = "win-x64"
+                TargetOs = AppHostService.WIN_RID
             };
             await Assert.ThrowsAsync<ArgumentException>(async () => await packageApplicationBuilder.Build(option));
         }
@@ -60,7 +60,7 @@ namespace Crossroads.Test.Services
                 Command = "Notepad",
                 Version = "3.0.1.0",
                 Include = new[] { @".\assets\invalidinclude", @".\assets\invalidinclude2" },
-                TargetOs = "win-x64"
+                TargetOs = AppHostService.WIN_RID
             };
             await Assert.ThrowsAsync<AggregateException>(async () => await packageApplicationBuilder.Build(option));
         }
@@ -82,7 +82,7 @@ namespace Crossroads.Test.Services
                 Command = "Notepad",
                 Version = "3.0.1.0",
                 Include = new string[] { @"assets\include" },
-                TargetOs = "win-x64"
+                TargetOs = AppHostService.WIN_RID
             };
             await packageApplicationBuilder.Build(option);
         }
@@ -97,7 +97,7 @@ namespace Crossroads.Test.Services
                 Command = "Notepad",
                 Version = "3.0.1.0",
                 Include = new string[] { @"assets\include" },
-                TargetOs = "linux-x64"
+                TargetOs = AppHostService.LINUX_RID
             };
             await packageApplicationBuilder.Build(option);
         }
@@ -126,7 +126,7 @@ namespace Crossroads.Test.Services
                 Command = "Notepad",
                 Version = "3.0.1.0",
                 Include = null,
-                TargetOs = "win-x64"
+                TargetOs = AppHostService.WIN_RID
             };
 
             await packageApp.Build(option);
@@ -152,13 +152,13 @@ namespace Crossroads.Test.Services
         {
             var fileSystem = new MockFileSystem();
             fileSystem.AddFile(@"assets\include\include2\file1.txt", new MockFileData("abc"));
-            fileSystem.AddDirectory(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Crossroads.Launcher", "win-x64"));
-            fileSystem.AddDirectory(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Crossroads.Launcher", "linux-x64"));
+            fileSystem.AddDirectory(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Crossroads.Launcher", AppHostService.WIN_RID));
+            fileSystem.AddDirectory(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Crossroads.Launcher", AppHostService.LINUX_RID));
             var resource = new Mock<IResourcesAssemblyBuilder>();
             var appsettingsFile = new Mock<ILauncherAppsettingsFileService>();
             var appHostService = new Mock<IAppHostService>();
             var hostOsService = new Mock<IHostOsDetectionService>();
-            hostOsService.Setup(x => x.GetTargetOsRid()).Returns(RuntimeInformation.IsOSPlatform(OSPlatform.Windows) ? "win-x64": "linux-x64");
+            hostOsService.Setup(x => x.GetTargetOsRid()).Returns(RuntimeInformation.IsOSPlatform(OSPlatform.Windows) ? AppHostService.WIN_RID : AppHostService.LINUX_RID);
 
             var logger = new Mock<ILogger<PackageApplicationBuilder>>();
 
