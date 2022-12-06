@@ -194,7 +194,7 @@ namespace Crossroads.Test.Services
                 Command = "Notepad",
                 Version = "3.0.1.0",
                 Include = new string[] { @"assets\include" },
-                TargetOs = "linux-x64"
+                TargetOs = AppHostService.LINUX_RID
             };
             await packageApplicationBuilder.Build(option);
         }
@@ -209,9 +209,25 @@ namespace Crossroads.Test.Services
                 Command = "Notepad",
                 Version = "3.0.1.0",
                 Include = new string[] { @"assets\include" },
-                TargetOs = "win-x64"
+                TargetOs = AppHostService.WIN_RID
             };
             await packageApplicationBuilder.Build(option);
         }
+
+        [Fact]
+        public async Task Build_InvalidRID_ArgumentException()
+        {
+            using var packageApplicationBuilder = GetPackageApplicationBuilder();
+            var option = new PackageOption
+            {
+                Name = "testapp.exe",
+                Command = "Notepad",
+                Version = "3.0.1.0",
+                Include = new[] { @".\assets\" },
+                TargetOs = "mac-os"
+            };
+            await Assert.ThrowsAsync<ArgumentException>(async () => await packageApplicationBuilder.Build(option));
+        }
+
     }
 }
