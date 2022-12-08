@@ -122,7 +122,7 @@ namespace Crossroads.Commands
                 Console.WriteLine("Package application successfully.");
                 return 0;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 Console.WriteLine("Failed to package the application.");
                 return 1;
