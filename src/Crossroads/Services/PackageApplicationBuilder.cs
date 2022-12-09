@@ -68,7 +68,7 @@ namespace Crossroads.Services
             }
             if (!(option.TargetOs.Equals(AppHostService.WIN_RID) || option.TargetOs.Equals(AppHostService.LINUX_RID)))
             {
-                throw new ArgumentException($"Invalid os RIDs provided: {option.TargetOs}");
+                throw new ArgumentException($"Invalid RID: {option.TargetOs}");
             }
 
             await Task.Run(() => CopyDirectory(launcherSourceDirectory, appHostDirectory, true));

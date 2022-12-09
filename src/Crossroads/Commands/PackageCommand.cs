@@ -42,8 +42,10 @@ namespace Crossroads.Commands
 
         private readonly Option NameOption = new Option<string>(
                    new[] { "--name", "-n" },
-                    description: "Set name for rebranding executable"
-            );
+                    description: "Set name for rebranding executable")
+        {
+            IsRequired = true,
+        };
 
         private readonly Option CommandOption = new Option<string>(
                     new[] { "--command", "-c" },
@@ -122,9 +124,9 @@ namespace Crossroads.Commands
                 Console.WriteLine("Package application successfully.");
                 return 0;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                Console.WriteLine("Failed to package the application.");
+                Console.WriteLine($"Failed to package the application. {ex.Message}");
                 return 1;
             }
         }
