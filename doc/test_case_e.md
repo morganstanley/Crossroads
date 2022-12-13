@@ -1,6 +1,6 @@
 # Tutorial - Package a python console application using the Crossroads tool packager
-As a user  I have a python application on my local windows machine which I would want to share with other developers using a local linux machine without them having to install any dependencies or framework inorder to run my application.
-This tutorial teaches you how to package a simple python console application with crossroads into a self-contained, executable file. The <code>crossroads</code> tool which is is a NuGet package that is installed from the .NET CLI, will generate a self-contained executable, making sure that others can install and run our package without having to install any dependencies.
+As a user  I have a python application on my local windows machine which I would want to share with other developers so they can run on their local linux machine.
+This tutorial teaches you how to package a simple python console application with crossroads into a self-contained file. The <code>crossroads</code> tool which is is a NuGet package that is installed from the .NET CLI, will generate a self-contained file, making sure that others can install and run the generated package.
 
 ## Pre-requisites
 <li>.Net runtime 6.0 or later version</li>
@@ -12,11 +12,11 @@ This tutorial uses .NET SDK 6.1, but global tools are available starting in .NET
 ## What to expect
 
 By the end of this tutorial, it should be expected that:
-<li>The python application will be tested locally on a windows machine which has python already installed and the output,"Hello,Visual Studio" will be displayed on the console</li>
-<li>The application will be packaged with crossroads and a self-contained, executable file will be generated</li>
-<li>The executable file generated will be run and its expected to display the same output, "Hello,Visual Studio"</li>
-<li>The executable file will be distributed to another local linux-based machine which doesn't have python installed</li>
-<li>The expected result "Hello,Visual Studio" will be displayed after running the executable</li>
+<li>The python application will be tested locally on a windows machine which has python already installed and the output,"Hello,pythonix crossroads for linux" will be displayed on the console</li>
+<li>The application will be packaged with crossroads and a self-contained, file will be generated</li>
+<li>The file generated will be run on the windows machine and its expected to display the same output, "Hello,pythonix crossroads for linux"</li>
+<li>The executable file will be distributed to linux-based machine</li>
+<li>The expected result "Hello,pythonix crossroads for linux" will be displayed after running the executable</li>
 
 ## Usage
 ``` dotnet tool install --global MorganStanley.Crossroads --version 1.0.0 ```
@@ -27,21 +27,21 @@ The above command installs the crossroads as a global tool. This will enable you
 
 First,let's see the output of the pythoncrossroads console application:
 <br>
-<img alt="#" src ="">
+<img alt="#" src =".\assets\python-linux-output.png">
 <br>
 
 let's see the current folder structure of the pythonCrossroads console application
 
-<img alt="#" src="">
+<img alt="#" src=".\assets\pythonfolder_structure.png">
 
 ## Packaging our console application
-We now head straight to packaging our application and generating the single executable.
+We now head straight to packaging our application and generating the file.
 
 ## Command to package the pythonCrossroads console application
 
-```crossroads package --name python-crossroads-test -t linux-x64 --command "Python39_64\python.exe" --location .\OurPythonOutput  --icon .\testicon.ico --version "2.2.2" --include "C:\Program Files (x86)\Microsoft Visual Studio\Shared\Python39_64" --include "C:\PythonCrossroads\PythonCrossroads"  --args "PythonCrossroads\PythonCrossroads.py"```
+```crossroads package --name package_python_for_Linux --command "python3" --location .\OurPythonOutput --targetos linux-x64 --version "2.0" --include "C:/PythonCrossroads/PythonCrossroads" --args "PythonCrossroads/PythonCrossroads.py"```
 
-<img alt="#" src=".\assets\python-package-success.png">
+<img alt="#" src=".\assets\pythonlinux-package-success.png">
 
 Now let's take a look into what each command represents:
 
@@ -55,9 +55,9 @@ We can see a list of commands and options on the crossroads tool by typing `cros
 
 `--include`: Include internal resource application to be packaged.
 The --include command can be used multiple times especially in scenarios where the dependencies needed to run the framework plus the project files are found in two separate file locations.
-This can be seen in this instance where we need all the dependencies in the python folder inorder to run our application as well as the path to the main class.
+in this instance since python comes pre-installed on ubuntu, there is no need to include all the oython runtime configuration files as demonstrated on test_case_d.
 
-`--command`:This command can have the alias `-c ` option on the crossroads tool. It allows us to specify the command to run the internal application, which in our case is the `python.exe` executable.
+`--command`:This command can have the alias `-c ` option on the crossroads tool. It allows us to specify the command to run the internal application, which in our case is the `python` executable.
 
 `--location`: This option allows us to set the output file location of the package.
 
@@ -79,47 +79,29 @@ This above image also shows the help page for the <code>package</code> sub-comma
 
 After successfully packaging an application, we get success feedback, otherwise the necessary error message.
 
-<img alt ="#" src = ".\assets\package_success.png"> <br>
+<img alt="#" src=".\assets\python-linux-success.png">
 
 Our custom location which has the packaged application <br>
 
-<img alt = "#" src =".\assets\python-output.png"> <br>
-
-## Launching the application
-Having packaged pythoncrossroads, let's try running the created executable by navigating to the output directory and running the command below:
-
-```.\python-crossroads-test.exe```  <br>
-
-Below is the expected output: <br>
-
-<img alt = "#" src = ".\assets\python-exe-success.png>
-<br>
-Voila! There we have it! Same behavior from the original console application.
-
-## Package Inspection
-
-To see the metadata and or additional information in our packaged application, run the command below:
-
-```crossroads inspect --package python-crossroads-test.exe```
-<br><br>
-And the corresponding output below: <br><br>
-<img alt = "#" src = ".\assets\python-crossroads-inspect.png">
+<img alt="#" src=".\assets\pythonlinux-package-success.png"> <br>
 
 ## Testing our console application
 
-Having packaged our python console app, let's try running the created executable on a different machine which does not have python installed to verify whether the executable created is self-contained or not.
- First we verify if python has been installed locally by running the ```python --version``` command then we run:
+Having packaged our python console app, let's try running the packaged file on a linux based  machine but first we need to make the file executable on the linux machine to enable us run it using the command 
 
-```.\python-crossroads-test.exe``` 
+```chmod +x ./package_python_for_Linux```
 
 The result is seen below:
+<img alt = "#" src =".\assets\generate-exe.png"> <br>
 
-<img alt = "#" src = ".\assets\self-contained-python.png">
+the results after running the file is seen below:
+
+<img alt = "#" src = ".\assets\python-linux-output-success.png">
 
 ## Conclusion.
- From the image above, it can be deduced that eventhough python is not installed locally we have been able to successfully launch the pythoncrossroads application which has displayed the "Hello world!" message as expected,hence during packaging,the executable file generated was self-contained which is also verifiable in the assets directory in the temp folder as shown in the image below.
+ From the image above, it can be deduced that we have been able to successfully launch the pythoncrossroads application which has displayed the "Hello,pythonix crossroads for linux" message as expected eventhough the file was generated on a windows machine.
 
- <img alt = "#" src = ".\assets\python-temp-folder.png">
+
 
  
 
