@@ -78,7 +78,7 @@ namespace Crossroads.Services
             CopyIncludeDirectories();
 
             string resourceassemblyPathResult = await resourcesAssemblyBuilder.Build(resourceassemblyPath, Option.Version, Option.Icon);
-            string fileName = ( WindowsPlatform && option.TargetOs == AppHostService.LINUX_RID) ? Path.GetFileNameWithoutExtension(Option.Name) :
+            string fileName = (option.TargetOs == AppHostService.LINUX_RID) ? Path.GetFileNameWithoutExtension(Option.Name) :
                 (string.Compare(Path.GetExtension(Option.Name), ".exe", true) == 0) ? Option.Name : $"{Option.Name}.exe";
             await appHostService.ConvertLauncherToBundle(fileName, Option.Location, appHostDirectory, resourceassemblyPathResult, Option.TargetOs);
         }
@@ -197,6 +197,5 @@ namespace Crossroads.Services
                 }
             }
         }
-       private bool WindowsPlatform => RuntimeInformation.IsOSPlatform(OSPlatform.Windows);
     }
 }
