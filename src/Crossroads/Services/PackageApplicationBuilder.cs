@@ -197,6 +197,5 @@ namespace Crossroads.Services
                 }
             }
         }
-       private bool WindowsPlatform => RuntimeInformation.IsOSPlatform(OSPlatform.Windows);
     }
 }
