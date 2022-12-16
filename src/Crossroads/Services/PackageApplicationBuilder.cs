@@ -62,6 +62,10 @@ namespace Crossroads.Services
             {
                 throw new ArgumentException(nameof(Option.Name));
             }
+            if (!hostOsDetectionService.IsVersionIconSupported(option))
+            {
+                throw new ArgumentException($"{nameof(Option.Version)} or {nameof(Option.Icon)} not required.");
+            }
             if (String.IsNullOrEmpty(option.TargetOs))
             {
                 option.TargetOs = hostOsDetectionService.GetTargetOsRid();

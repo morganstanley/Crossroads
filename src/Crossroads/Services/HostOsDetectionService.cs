@@ -11,5 +11,21 @@ namespace Crossroads.Services
                               (RuntimeInformation.IsOSPlatform(OSPlatform.Windows) ? AppHostService.WIN_RID :
                              throw new ArgumentException($"Couldn't detect host OS"));
         }
+
+        public bool IsVersionIconSupported(PackageOption option)
+        {
+            if(option.TargetOs.Equals(AppHostService.WIN_RID) && 
+                RuntimeInformation.IsOSPlatform(OSPlatform.Windows) && 
+                HasVersionOrIcon(option))
+            {
+                return false;
+            }
+            return true;
+        }
+
+        private bool HasVersionOrIcon(PackageOption option)
+        {
+            return !string.IsNullOrWhiteSpace(option.Version) || !string.IsNullOrWhiteSpace(option.Icon);
+        }
     }
 }

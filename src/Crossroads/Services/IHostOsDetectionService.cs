@@ -9,5 +9,6 @@ namespace Crossroads.Services
     public interface IHostOsDetectionService
     {
         string GetTargetOsRid();
+        bool IsVersionIconSupported(PackageOption option);
     }
 }
