@@ -62,10 +62,6 @@ namespace Crossroads.Services
             {
                 throw new ArgumentException(nameof(Option.Name));
             }
-            if (!hostOsDetectionService.IsVersionIconSupported(option))
-            {
-                throw new ArgumentException($"{nameof(Option.Version)} or {nameof(Option.Icon)} not required.");
-            }
             if (String.IsNullOrEmpty(option.TargetOs))
             {
                 option.TargetOs = hostOsDetectionService.GetTargetOsRid();
@@ -73,6 +69,10 @@ namespace Crossroads.Services
             if (!(option.TargetOs.Equals(AppHostService.WIN_RID) || option.TargetOs.Equals(AppHostService.LINUX_RID)))
             {
                 throw new ArgumentException($"Invalid RID: {option.TargetOs}");
+            }
+            if (!hostOsDetectionService.IsVersionIconSupported(option))
+            {
+                throw new ArgumentException($"{nameof(Option.Version)} or {nameof(Option.Icon) } is not required.");
             }
 
             await Task.Run(() => CopyDirectory(launcherSourceDirectory, appHostDirectory, true));

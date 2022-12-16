@@ -14,8 +14,8 @@ namespace Crossroads.Services
 
         public bool IsVersionIconSupported(PackageOption option)
         {
-            if(option.TargetOs.Equals(AppHostService.WIN_RID) && 
-                RuntimeInformation.IsOSPlatform(OSPlatform.Windows) && 
+            if(option.TargetOs.Equals(AppHostService.WIN_RID) &&
+                RuntimeInformation.IsOSPlatform(OSPlatform.Linux) &&
                 HasVersionOrIcon(option))
             {
                 return false;
