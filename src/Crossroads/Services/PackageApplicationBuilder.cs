@@ -70,6 +70,10 @@ namespace Crossroads.Services
             {
                 throw new ArgumentException($"Invalid RID: {option.TargetOs}");
             }
+            if (!hostOsDetectionService.IsVersionIconSupported(option))
+            {
+                throw new ArgumentException($"{nameof(Option.Version)} or {nameof(Option.Icon) } is not required.");
+            }
 
             await Task.Run(() => CopyDirectory(launcherSourceDirectory, appHostDirectory, true));
 
