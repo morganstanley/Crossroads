@@ -61,6 +61,8 @@ in this instance since python comes pre-installed on ubuntu, there is no need to
 
 `--location`: This option allows us to set the output file location of the package.
 
+`--targetos`: This option allows us to specify the os platform for which we are packaging our application for.In this instance because we are packaging our application to run on a linux machine hence the target os option "linux-x64" specified. 
+
 These are just a few of the options we have on the crossroads tool. There are others available for customizing your app with an icon, default args, etc.
 
 ## Help Pages for <code>crossroads -h</code> and <code>crossroads package -h</code> respectively <br>
