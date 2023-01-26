@@ -6,9 +6,9 @@ using System.Text;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace Crossroads.Test
+namespace Crossroads.Test.Utility
 {
-    public class IgnoreOnLinuxFactAttribute: FactAttribute
+    public class IgnoreOnLinuxFactAttribute : FactAttribute
     {
         public IgnoreOnLinuxFactAttribute()
         {
