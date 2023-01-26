@@ -13,6 +13,7 @@
  */
 
 using Crossroads.Services;
+using Crossroads.Test.Utility;
 using Microsoft.Extensions.Logging;
 using Moq;
 using System;
@@ -87,7 +88,7 @@ namespace Crossroads.Test.Services
             await packageApplicationBuilder.Build(option);
         }
 
-        [Fact]
+        [PlatformRestrictedFact(Windows: true)]
         public async Task Build_Linux_Success()
         {
             using var packageApplicationBuilder = GetPackageApplicationBuilder();
@@ -101,7 +102,6 @@ namespace Crossroads.Test.Services
             };
             await packageApplicationBuilder.Build(option);
         }
-
 
         [Fact]
         public async Task Build_Success_Exception()
