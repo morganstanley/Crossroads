@@ -32,6 +32,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Crossroads.Launcher", "src\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Crossroads.Launcher.Test", "test\Crossroads.Launcher.Test\Crossroads.Launcher.Test.csproj", "{0D30CF3F-C262-41CC-AC03-3803313951E5}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Crossroads.Test.Linux", "test\Crossroads.Test.Linux\Crossroads.Test.Linux.csproj", "{9B4B72BA-3A1A-415A-B0EC-0C5702196F89}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -54,6 +56,10 @@ Global
 		{0D30CF3F-C262-41CC-AC03-3803313951E5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0D30CF3F-C262-41CC-AC03-3803313951E5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0D30CF3F-C262-41CC-AC03-3803313951E5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9B4B72BA-3A1A-415A-B0EC-0C5702196F89}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9B4B72BA-3A1A-415A-B0EC-0C5702196F89}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9B4B72BA-3A1A-415A-B0EC-0C5702196F89}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9B4B72BA-3A1A-415A-B0EC-0C5702196F89}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -63,6 +69,7 @@ Global
 		{207E512B-88F2-4BD5-96C5-2809928043C3} = {59C1FECC-EF9E-49DF-AB1A-A483FEE8CEF4}
 		{71387D9F-8B55-440F-A736-1C8849374E89} = {25BC40E7-F8F5-4CBB-BB93-6FEBB82A27CB}
 		{0D30CF3F-C262-41CC-AC03-3803313951E5} = {59C1FECC-EF9E-49DF-AB1A-A483FEE8CEF4}
+		{9B4B72BA-3A1A-415A-B0EC-0C5702196F89} = {59C1FECC-EF9E-49DF-AB1A-A483FEE8CEF4}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {A33F4766-4A4F-4B84-821E-ECD6B428A449}
