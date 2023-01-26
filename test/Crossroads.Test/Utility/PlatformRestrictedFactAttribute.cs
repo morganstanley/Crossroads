@@ -11,13 +11,13 @@ namespace Crossroads.Test.Utility
 {
     public class PlatformRestrictedFactAttribute : FactAttribute
     {
-        public PlatformRestrictedFactAttribute(bool Windows = false, bool Linux = false)
+        public PlatformRestrictedFactAttribute(bool windows = false, bool linux = false)
         {
-            if (isRunningOnWindows && !Windows)
+            if (isRunningOnWindows && !windows)
             {
                 Skip = "Windows not supported";
             }
-            else if (isRunningOnLinux && !Linux)
+            else if (isRunningOnLinux && !linux)
             {
                 Skip = "Linux not supported";
             }

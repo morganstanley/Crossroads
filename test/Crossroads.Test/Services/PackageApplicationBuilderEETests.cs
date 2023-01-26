@@ -13,6 +13,7 @@
  */
 
 using Crossroads.Services;
+using Crossroads.Test.Utility;
 using Microsoft.Extensions.Logging;
 using System;
 using System.IO;
@@ -24,7 +25,7 @@ namespace Crossroads.Test.Services
 {
     public class PackageApplicationBuilderEETests
     {
-        [Fact]
+        [PlatformRestrictedFact(windows: true)]
         public async Task Build_Success()
         {
             using var packageApplicationBuilder = GetPackageApplicationBuilder();
@@ -37,7 +38,7 @@ namespace Crossroads.Test.Services
             await packageApplicationBuilder.Build(option);
         }
 
-        [Fact]
+        [PlatformRestrictedFact(windows: true)]
         public async Task Build_Include_Success()
         {
             using var packageApplicationBuilder = GetPackageApplicationBuilder();
@@ -79,7 +80,7 @@ namespace Crossroads.Test.Services
             await Assert.ThrowsAsync<ArgumentException>(async () => await packageApplicationBuilder.Build(option));
         }
 
-        [Fact]
+        [PlatformRestrictedFact(windows: true)]
         public async Task Build_Icon_Success()
         {
             using var packageApplicationBuilder = GetPackageApplicationBuilder();
