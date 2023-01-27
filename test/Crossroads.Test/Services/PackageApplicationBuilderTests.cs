@@ -73,8 +73,8 @@ namespace Crossroads.Test.Services
             await Assert.ThrowsAsync<ArgumentException>(async () => await packageApplicationBuilder.Build(null));
         }
 
-        [PlatformRestrictedFact(windows: true)]
-        public async Task Build_Success()
+        [PlatformRestrictedFact(Windows: true)]
+        public async Task Build_On_Windows_Success()
         {
             using var packageApplicationBuilder = GetPackageApplicationBuilder();
             var option = new PackageOption
@@ -88,7 +88,21 @@ namespace Crossroads.Test.Services
             await packageApplicationBuilder.Build(option);
         }
 
-        [PlatformRestrictedFact(windows: true)]
+         [PlatformRestrictedFact(Linux: true)]
+        public async Task Build_On_Linux_Success()
+        {
+            using var packageApplicationBuilder = GetPackageApplicationBuilder();
+            var option = new PackageOption
+            {
+                Name = "testapp",
+                Command = "python3",
+                Version = "3.0.1.0",
+                TargetOs = AppHostService.LINUX_RID
+            };
+            await packageApplicationBuilder.Build(option);
+        }
+
+        [PlatformRestrictedFact(Windows: true)]
         public async Task Build_Linux_Success()
         {
             using var packageApplicationBuilder = GetPackageApplicationBuilder();
