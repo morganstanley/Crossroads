@@ -74,7 +74,7 @@ namespace Crossroads.Test.Services
         }
 
         [PlatformRestrictedFact(Windows: true)]
-        public async Task Build_On_Windows_Success()
+        public async Task Build_On_Windows_With_ValidInclude_Success()
         {
             using var packageApplicationBuilder = GetPackageApplicationBuilder();
             var option = new PackageOption
@@ -89,7 +89,7 @@ namespace Crossroads.Test.Services
         }
 
          [PlatformRestrictedFact(Linux: true)]
-        public async Task Build_On_Linux_Success()
+        public async Task Build_On_Linux_With_ValidInclude_Success()
         {
             using var packageApplicationBuilder = GetPackageApplicationBuilder();
             var option = new PackageOption
@@ -97,28 +97,14 @@ namespace Crossroads.Test.Services
                 Name = "testapp",
                 Command = "python3",
                 Version = "3.0.1.0",
-                TargetOs = AppHostService.LINUX_RID
-            };
-            await packageApplicationBuilder.Build(option);
-        }
-
-        [PlatformRestrictedFact(Windows: true)]
-        public async Task Build_Linux_Success()
-        {
-            using var packageApplicationBuilder = GetPackageApplicationBuilder();
-            var option = new PackageOption
-            {
-                Name = "testapp",
-                Command = "Notepad",
-                Version = "3.0.1.0",
-                Include = new string[] { @"assets\include" },
+                Include = new string[] { @"assets/include" },
                 TargetOs = AppHostService.LINUX_RID
             };
             await packageApplicationBuilder.Build(option);
         }
 
         [Fact]
-        public async Task Build_Success_Exception()
+        public async Task Build_Dispose_WorkingDirDeleteFailure__ResolveException()
         {
             var fileSystem = new Mock<IFileSystem>();
             fileSystem.Setup(x => x.DirectoryInfo.FromDirectoryName(It.IsAny<string>())).Returns(It.IsAny<DirectoryInfoBase>());
@@ -148,8 +134,8 @@ namespace Crossroads.Test.Services
             packageApp.Dispose();
         }
 
-        [PlatformRestrictedFact(windows: true)]
-        public async Task Build_AutoDetectOs_Success()
+        [PlatformRestrictedFact(Windows: true)]
+        public async Task Build_AutoDetectOs_Windows_Success()
         {
             using var packageApplicationBuilder = GetPackageApplicationBuilder();
             var option = new PackageOption
@@ -163,10 +149,29 @@ namespace Crossroads.Test.Services
             await packageApplicationBuilder.Build(option);
         }
 
+
+        [PlatformRestrictedFact(Linux: true)]
+        public async Task Build_AutoDetectOs_Linux_Success()
+        {
+            using var packageApplicationBuilder = GetPackageApplicationBuilder();
+            var option = new PackageOption
+            {
+                Name = "testapp",
+                Command = "Notepad",
+                Version = "3.0.1.0",
+                Include = new string[] { @"assets/include" },
+                TargetOs = null
+            };
+            await packageApplicationBuilder.Build(option);
+        }
+
         private PackageApplicationBuilder GetPackageApplicationBuilder()
         {
             var fileSystem = new MockFileSystem();
-            fileSystem.AddFile(@"assets\include\include2\file1.txt", new MockFileData("abc"));
+            var platformResourcePath = RuntimeInformation.IsOSPlatform(OSPlatform.Windows) ? 
+                @"assets\include\include2\file1.txt" : 
+                @"assets/include/include2/file1.txt";
+            fileSystem.AddFile(platformResourcePath, new MockFileData("abc"));
             fileSystem.AddDirectory(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Crossroads.Launcher", AppHostService.WIN_RID));
             fileSystem.AddDirectory(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Crossroads.Launcher", AppHostService.LINUX_RID));
             var resource = new Mock<IResourcesAssemblyBuilder>();
@@ -200,13 +205,28 @@ namespace Crossroads.Test.Services
             hostOsService.Verify();
         }
 
-        [PlatformRestrictedFact(windows: true)]
-        public async Task Build_Linux_With_No_Extension_Success()
+        [PlatformRestrictedFact(Windows: true)]
+        public async Task Build_Windows_No_Duplicate_Extension_Success()
         {
             using var packageApplicationBuilder = GetPackageApplicationBuilder();
             var option = new PackageOption
             {
-                Name = "testapp1.exe",
+                Name = "testapp.exe",
+                Command = "Notepad",
+                Version = "3.0.1.0",
+                Include = new string[] { @"assets\include" },
+                TargetOs = AppHostService.WIN_RID
+            };
+            await packageApplicationBuilder.Build(option);
+        }
+
+         [PlatformRestrictedFact(Windows: true)]
+        public async Task Build_OnWindows_ForLinux_No_Duplicate_Extension_Success()
+        {
+            using var packageApplicationBuilder = GetPackageApplicationBuilder();
+            var option = new PackageOption
+            {
+                Name = "testapp.exe",
                 Command = "Notepad",
                 Version = "3.0.1.0",
                 Include = new string[] { @"assets\include" },
@@ -215,7 +235,22 @@ namespace Crossroads.Test.Services
             await packageApplicationBuilder.Build(option);
         }
 
-        [PlatformRestrictedFact(windows: true)]
+        [PlatformRestrictedFact(Linux: true)]
+        public async Task Build_Linux_No_Duplicate_Extension_Success()
+        {
+            using var packageApplicationBuilder = GetPackageApplicationBuilder();
+            var option = new PackageOption
+            {
+                Name = "testapp.exe",
+                Command = "python3",
+                Version = "3.0.1.0",
+                Include = new string[] { @"assets/include" },
+                TargetOs = AppHostService.LINUX_RID
+            };
+            await packageApplicationBuilder.Build(option);
+        }
+
+        [PlatformRestrictedFact(Windows: true)]
         public async Task Build_Windows_With_No_Duplicate_Exe_Extension_Success()
         {
             using var packageApplicationBuilder = GetPackageApplicationBuilder();
