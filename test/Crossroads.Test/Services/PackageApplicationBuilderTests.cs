@@ -220,7 +220,7 @@ namespace Crossroads.Test.Services
             await packageApplicationBuilder.Build(option);
         }
 
-         [PlatformRestrictedFact(Windows: true)]
+        [PlatformRestrictedFact(Windows: true)]
         public async Task Build_OnWindows_ForLinux_No_Duplicate_Extension_Success()
         {
             using var packageApplicationBuilder = GetPackageApplicationBuilder();
@@ -230,6 +230,21 @@ namespace Crossroads.Test.Services
                 Command = "Notepad",
                 Version = "3.0.1.0",
                 Include = new string[] { @"assets\include" },
+                TargetOs = AppHostService.LINUX_RID
+            };
+            await packageApplicationBuilder.Build(option);
+        }
+
+        [PlatformRestrictedFact(Linux: true)]
+        public async Task Build_Linux_No_Extension_Exe_Success()
+        {
+            using var packageApplicationBuilder = GetPackageApplicationBuilder();
+            var option = new PackageOption
+            {
+                Name = "testapp.exe",
+                Command = "python3",
+                Version = "3.0.1.0",
+                Include = new string[] { @"assets/include" },
                 TargetOs = AppHostService.LINUX_RID
             };
             await packageApplicationBuilder.Build(option);
