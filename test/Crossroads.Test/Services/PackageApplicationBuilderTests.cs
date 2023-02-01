@@ -73,7 +73,7 @@ namespace Crossroads.Test.Services
             await Assert.ThrowsAsync<ArgumentException>(async () => await packageApplicationBuilder.Build(null));
         }
 
-        [PlatformRestrictedFact(Windows: true)]
+        [PlatformRestrictedFact(windows: true)]
         public async Task Build_Success()
         {
             using var packageApplicationBuilder = GetPackageApplicationBuilder();
@@ -134,7 +134,7 @@ namespace Crossroads.Test.Services
             packageApp.Dispose();
         }
 
-        [PlatformRestrictedFact(Windows: true)]
+        [PlatformRestrictedFact(windows: true)]
         public async Task Build_AutoDetectOs_Success()
         {
             using var packageApplicationBuilder = GetPackageApplicationBuilder();
@@ -186,7 +186,7 @@ namespace Crossroads.Test.Services
             hostOsService.Verify();
         }
 
-        [PlatformRestrictedFact(Windows: true)]
+        [PlatformRestrictedFact(windows: true)]
         public async Task Build_Linux_With_No_Extension_Success()
         {
             using var packageApplicationBuilder = GetPackageApplicationBuilder();
@@ -201,7 +201,7 @@ namespace Crossroads.Test.Services
             await packageApplicationBuilder.Build(option);
         }
 
-        [PlatformRestrictedFact(Windows: true)]
+        [PlatformRestrictedFact(windows: true)]
         public async Task Build_Windows_With_No_Duplicate_Exe_Extension_Success()
         {
             using var packageApplicationBuilder = GetPackageApplicationBuilder();
