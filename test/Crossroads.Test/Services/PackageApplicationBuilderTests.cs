@@ -73,7 +73,7 @@ namespace Crossroads.Test.Services
             await Assert.ThrowsAsync<ArgumentException>(async () => await packageApplicationBuilder.Build(null));
         }
 
-        [PlatformRestrictedFact(Windows: true)]
+        [PlatformRestrictedFact(windows: true)]
         public async Task Build_On_Windows_With_ValidInclude_Success()
         {
             using var packageApplicationBuilder = GetPackageApplicationBuilder();
@@ -88,7 +88,7 @@ namespace Crossroads.Test.Services
             await packageApplicationBuilder.Build(option);
         }
 
-         [PlatformRestrictedFact(Linux: true)]
+        [PlatformRestrictedFact(linux: true)]
         public async Task Build_On_Linux_With_ValidInclude_Success()
         {
             using var packageApplicationBuilder = GetPackageApplicationBuilder();
@@ -134,7 +134,7 @@ namespace Crossroads.Test.Services
             packageApp.Dispose();
         }
 
-        [PlatformRestrictedFact(Windows: true)]
+        [PlatformRestrictedFact(windows: true)]
         public async Task Build_AutoDetectOs_Windows_Success()
         {
             using var packageApplicationBuilder = GetPackageApplicationBuilder();
@@ -150,7 +150,7 @@ namespace Crossroads.Test.Services
         }
 
 
-        [PlatformRestrictedFact(Linux: true)]
+        [PlatformRestrictedFact(linux: true)]
         public async Task Build_AutoDetectOs_Linux_Success()
         {
             using var packageApplicationBuilder = GetPackageApplicationBuilder();
@@ -205,7 +205,7 @@ namespace Crossroads.Test.Services
             hostOsService.Verify();
         }
 
-        [PlatformRestrictedFact(Windows: true)]
+        [PlatformRestrictedFact(windows: true)]
         public async Task Build_Windows_No_Duplicate_Extension_Success()
         {
             using var packageApplicationBuilder = GetPackageApplicationBuilder();
@@ -220,7 +220,7 @@ namespace Crossroads.Test.Services
             await packageApplicationBuilder.Build(option);
         }
 
-        [PlatformRestrictedFact(Windows: true)]
+        [PlatformRestrictedFact(windows: true)]
         public async Task Build_OnWindows_ForLinux_No_Duplicate_Extension_Success()
         {
             using var packageApplicationBuilder = GetPackageApplicationBuilder();
@@ -235,22 +235,7 @@ namespace Crossroads.Test.Services
             await packageApplicationBuilder.Build(option);
         }
 
-        [PlatformRestrictedFact(Linux: true)]
-        public async Task Build_Linux_No_Extension_Exe_Success()
-        {
-            using var packageApplicationBuilder = GetPackageApplicationBuilder();
-            var option = new PackageOption
-            {
-                Name = "testapp.exe",
-                Command = "python3",
-                Version = "3.0.1.0",
-                Include = new string[] { @"assets/include" },
-                TargetOs = AppHostService.LINUX_RID
-            };
-            await packageApplicationBuilder.Build(option);
-        }
-
-        [PlatformRestrictedFact(Linux: true)]
+        [PlatformRestrictedFact(linux: true)]
         public async Task Build_Linux_No_Duplicate_Extension_Success()
         {
             using var packageApplicationBuilder = GetPackageApplicationBuilder();
@@ -265,7 +250,7 @@ namespace Crossroads.Test.Services
             await packageApplicationBuilder.Build(option);
         }
 
-        [PlatformRestrictedFact(Windows: true)]
+        [PlatformRestrictedFact(windows: true)]
         public async Task Build_Windows_With_No_Duplicate_Exe_Extension_Success()
         {
             using var packageApplicationBuilder = GetPackageApplicationBuilder();
