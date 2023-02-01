@@ -13,6 +13,7 @@
  */
 
 using Crossroads.Services;
+using Crossroads.Test.Utility;
 using Microsoft.Extensions.Logging;
 using Moq;
 using System;
@@ -72,7 +73,7 @@ namespace Crossroads.Test.Services
             await Assert.ThrowsAsync<ArgumentException>(async () => await packageApplicationBuilder.Build(null));
         }
 
-        [Fact]
+        [PlatformRestrictedFact(windows: true)]
         public async Task Build_Success()
         {
             using var packageApplicationBuilder = GetPackageApplicationBuilder();
@@ -87,7 +88,7 @@ namespace Crossroads.Test.Services
             await packageApplicationBuilder.Build(option);
         }
 
-        [Fact]
+        [PlatformRestrictedFact(windows: true)]
         public async Task Build_Linux_Success()
         {
             using var packageApplicationBuilder = GetPackageApplicationBuilder();
@@ -101,7 +102,6 @@ namespace Crossroads.Test.Services
             };
             await packageApplicationBuilder.Build(option);
         }
-
 
         [Fact]
         public async Task Build_Success_Exception()
@@ -134,7 +134,7 @@ namespace Crossroads.Test.Services
             packageApp.Dispose();
         }
 
-        [Fact]
+        [PlatformRestrictedFact(windows: true)]
         public async Task Build_AutoDetectOs_Success()
         {
             using var packageApplicationBuilder = GetPackageApplicationBuilder();
@@ -186,7 +186,7 @@ namespace Crossroads.Test.Services
             hostOsService.Verify();
         }
 
-        [Fact]
+        [PlatformRestrictedFact(windows: true)]
         public async Task Build_Linux_With_No_Extension_Success()
         {
             using var packageApplicationBuilder = GetPackageApplicationBuilder();
@@ -201,7 +201,7 @@ namespace Crossroads.Test.Services
             await packageApplicationBuilder.Build(option);
         }
 
-        [Fact]
+        [PlatformRestrictedFact(windows: true)]
         public async Task Build_Windows_With_No_Duplicate_Exe_Extension_Success()
         {
             using var packageApplicationBuilder = GetPackageApplicationBuilder();

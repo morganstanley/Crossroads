@@ -13,6 +13,7 @@
  */
 
 using Crossroads.Services;
+using Crossroads.Test.Utility;
 using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
@@ -22,7 +23,7 @@ namespace Crossroads.Test.Services
 {
     public class ProcessServiceTests
     {
-        [Fact]
+        [PlatformRestrictedFact(windows: true)]
         public async Task Run_Cmd_Success()
         {
             IProcessService processService = new ProcessService();
@@ -44,10 +45,9 @@ namespace Crossroads.Test.Services
                 FileName = "bad"
             };
             await Assert.ThrowsAnyAsync<Exception>(async () => await processService.RunAsync(startInfo));
-
         }
 
-        [Fact]
+        [PlatformRestrictedFact(windows: true)]
         public async Task GetConsoleOutput_Success()
         {
             IProcessService processService = new ProcessService();
@@ -60,7 +60,7 @@ namespace Crossroads.Test.Services
             Assert.Contains("hello", actual);
         }
 
-        [Fact]
+        [PlatformRestrictedFact(windows: true)]
         public async Task GetConsoleOutput_Output_TimeoutException()
         {
             IProcessService processService = new ProcessService();
@@ -79,7 +79,7 @@ namespace Crossroads.Test.Services
             }
         }
 
-        [Fact]
+        [PlatformRestrictedFact(windows: true)]
         public async Task GetConsoleOutput_Return1_TimeoutException()
         {
             IProcessService processService = new ProcessService();
