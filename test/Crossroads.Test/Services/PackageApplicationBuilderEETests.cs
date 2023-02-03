@@ -26,7 +26,7 @@ namespace Crossroads.Test.Services
     public class PackageApplicationBuilderEETests
     {
         [PlatformRestrictedFact(windows: true)]
-        public async Task Build_Success()
+        public async Task Build_OnWindows_Success()
         {
             using var packageApplicationBuilder = GetPackageApplicationBuilder();
             var option = new DefaultOption
@@ -38,8 +38,35 @@ namespace Crossroads.Test.Services
             await packageApplicationBuilder.Build(option);
         }
 
+        [PlatformRestrictedFact(linux: true)]
+        public async Task Build_OnLinux_Success()
+        {
+            using var packageApplicationBuilder = GetPackageApplicationBuilder();
+            var option = new DefaultOption
+            {
+                Command = "python3",
+                TargetOs = AppHostService.LINUX_RID
+            };
+            await packageApplicationBuilder.Build(option);
+        }
+
+        [PlatformRestrictedFact(linux: true)]
+        public async Task Build_OnLinux_WithVersion_Throws_ArgumentException()
+        {
+            using var packageApplicationBuilder = GetPackageApplicationBuilder();
+            var expectedMessage = "Version or Icon is not required.";
+            var option = new DefaultOption
+            {
+                Command = "python3",
+                Version = "1.0.0.0",
+                TargetOs = AppHostService.LINUX_RID
+            };
+            var ex = await Assert.ThrowsAsync<ArgumentException>(async () => await packageApplicationBuilder.Build(option));
+            Assert.Equal(expectedMessage, ex.Message);
+        }
+
         [PlatformRestrictedFact(windows: true)]
-        public async Task Build_Include_Success()
+        public async Task Build_OnWindows_Include_Success()
         {
             using var packageApplicationBuilder = GetPackageApplicationBuilder();
             var option = new DefaultOption
@@ -48,6 +75,19 @@ namespace Crossroads.Test.Services
                 Version = "3.0.1.0",
                 Include = new[] { @".\assets\" },
                 TargetOs = AppHostService.WIN_RID
+            };
+            await packageApplicationBuilder.Build(option);
+        }
+
+        [PlatformRestrictedFact(linux:true)]
+        public async Task Build_OnLinux_Include_Success()
+        {
+            using var packageApplicationBuilder = GetPackageApplicationBuilder();
+            var option = new DefaultOption
+            {
+                Command = "python3",
+                Include = new[] { @"./assets" },
+                TargetOs = AppHostService.LINUX_RID
             };
             await packageApplicationBuilder.Build(option);
         }
@@ -81,7 +121,7 @@ namespace Crossroads.Test.Services
         }
 
         [PlatformRestrictedFact(windows: true)]
-        public async Task Build_Icon_Success()
+        public async Task Build_Icon_OnWindows_Success()
         {
             using var packageApplicationBuilder = GetPackageApplicationBuilder();
             var option = new DefaultOption
@@ -90,6 +130,21 @@ namespace Crossroads.Test.Services
                 TargetOs = AppHostService.WIN_RID
             };
             await packageApplicationBuilder.Build(option);
+        }
+
+        [PlatformRestrictedFact(linux: true)]
+        public async Task Build_WithIcon_OnLinux_Success()
+        {
+            using var packageApplicationBuilder = GetPackageApplicationBuilder();
+            var expectedMessage = "Version or Icon is not required.";
+
+            var option = new DefaultOption
+            {
+                Icon = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "assets", "TestIcon.ico"),
+                TargetOs = AppHostService.LINUX_RID
+            };
+            var ex = await Assert.ThrowsAsync<ArgumentException>(async () => await packageApplicationBuilder.Build(option));
+            Assert.Equal(expectedMessage, ex.Message);
         }
 
         [Fact]
