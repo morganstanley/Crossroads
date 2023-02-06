@@ -59,7 +59,7 @@ namespace Crossroads.Test.Services
             {
                 Command = "python3",
                 Version = "1.0.0.0",
-                TargetOs = AppHostService.LINUX_RID
+                TargetOs = AppHostService.WIN_RID
             };
             var ex = await Assert.ThrowsAsync<ArgumentException>(async () => await packageApplicationBuilder.Build(option));
             Assert.Equal(expectedMessage, ex.Message);
@@ -141,7 +141,7 @@ namespace Crossroads.Test.Services
             var option = new DefaultOption
             {
                 Icon = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "assets", "TestIcon.ico"),
-                TargetOs = AppHostService.LINUX_RID
+                TargetOs = AppHostService.WIN_RID
             };
             var ex = await Assert.ThrowsAsync<ArgumentException>(async () => await packageApplicationBuilder.Build(option));
             Assert.Equal(expectedMessage, ex.Message);
