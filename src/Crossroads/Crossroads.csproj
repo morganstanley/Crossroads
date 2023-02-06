@@ -14,7 +14,7 @@
 		<SelfContained>false</SelfContained>
 		<ToolCommandName>crossroads</ToolCommandName>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
-		<PackageLicenseFile>LICENSE</PackageLicenseFile>
+		<PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
 		<ErrorOnDuplicatePublishOutputFiles>false</ErrorOnDuplicatePublishOutputFiles>
 		<AllowUnsafeBlocks>True</AllowUnsafeBlocks>
 	</PropertyGroup>
