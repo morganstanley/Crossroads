@@ -15,7 +15,6 @@ jobs:
       matrix:
         os: [windows-2022, ubuntu-latest]
     runs-on: ${{ matrix.os }}
-
     steps:
       - uses: actions/checkout@v2
         with:
@@ -35,11 +34,11 @@ jobs:
       - name: Upload Test Report to Codecov
         uses: codecov/codecov-action@v3
         with:
-          files: .\test\Crossroads.Test\coverage.opencover.xml, .\test\Crossroads.Launcher.Test\coverage.opencover.xml
+          files: ./test/Crossroads.Test/coverage.opencover.xml, ./test/Crossroads.Launcher.Test/coverage.opencover.xml
           flags: unittests
           fail_ci_if_error: true
       - name: Pack
-        run: dotnet pack .\src\Crossroads\Crossroads.csproj --no-build --configuration Release --output package
+        run: dotnet pack ./src/Crossroads/Crossroads.csproj --no-build --configuration Release --output package
       - name: Package published artifact
         uses: actions/upload-artifact@v2
         with:
