@@ -36,8 +36,8 @@ namespace Crossroads.Test.Services
             await Assert.ThrowsAsync<ArgumentException>(async () => await packageApplicationBuilder.Build(option));
         }
 
-        [Fact]
-        public async Task Build_InvalidInclude_ArgumentException()
+         [PlatformRestrictedFact(windows: true)]
+        public async Task Build_Windows_InvalidInclude_ArgumentException()
         {
             using var packageApplicationBuilder = GetPackageApplicationBuilder();
             var option = new PackageOption
@@ -51,8 +51,22 @@ namespace Crossroads.Test.Services
             await Assert.ThrowsAsync<ArgumentException>(async () => await packageApplicationBuilder.Build(option));
         }
 
-        [Fact]
-        public async Task Build_InvalidIncludes_ArgumentException()
+         [PlatformRestrictedFact(linux: true)]
+        public async Task Build_Linux_InvalidInclude_ArgumentException()
+        {
+            using var packageApplicationBuilder = GetPackageApplicationBuilder();
+            var option = new PackageOption
+            {
+                Name = "testapp",
+                Command = "Notepad",
+                Include = new[] { @"./assets/invalidinclude" },
+                TargetOs = AppHostService.LINUX_RID
+            };
+            await Assert.ThrowsAsync<ArgumentException>(async () => await packageApplicationBuilder.Build(option));
+        }
+        
+        [PlatformRestrictedFact(windows: true)]
+        public async Task Build_Windows_InvalidIncludes_ArgumentException()
         {
             using var packageApplicationBuilder = GetPackageApplicationBuilder();
             var option = new PackageOption
@@ -62,6 +76,20 @@ namespace Crossroads.Test.Services
                 Version = "3.0.1.0",
                 Include = new[] { @".\assets\invalidinclude", @".\assets\invalidinclude2" },
                 TargetOs = AppHostService.WIN_RID
+            };
+            await Assert.ThrowsAsync<AggregateException>(async () => await packageApplicationBuilder.Build(option));
+        }
+
+        [PlatformRestrictedFact(linux: true)]
+        public async Task Build_Linux_InvalidIncludes_ArgumentException()
+        {
+            using var packageApplicationBuilder = GetPackageApplicationBuilder();
+            var option = new PackageOption
+            {
+                Name = "testapp",
+                Command = "python3",
+                Include = new[] { @"./assets/invalidinclude", @"./assets/invalidinclude2" },
+                TargetOs = AppHostService.LINUX_RID
             };
             await Assert.ThrowsAsync<AggregateException>(async () => await packageApplicationBuilder.Build(option));
         }
@@ -281,7 +309,7 @@ namespace Crossroads.Test.Services
         }
 
         [Fact]
-        public async Task Build_Not_IsVersionIconSupported_OnLinuxForWinRID_Exception()
+        public async Task Build_VersionIcon_Not_Supported_OnLinuxForWinRID_Exception()
         {
             var option = new PackageOption {
                 Name = "testapp",
