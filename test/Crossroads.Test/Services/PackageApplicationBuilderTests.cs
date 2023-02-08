@@ -36,7 +36,7 @@ namespace Crossroads.Test.Services
             await Assert.ThrowsAsync<ArgumentException>(async () => await packageApplicationBuilder.Build(option));
         }
 
-        [PlatformRestrictedFact(windows: true)]
+        [Fact]
         public async Task Build_InvalidInclude_ArgumentException()
         {
             using var packageApplicationBuilder = GetPackageApplicationBuilder();
@@ -47,20 +47,6 @@ namespace Crossroads.Test.Services
                 Version = "3.0.1.0",
                 Include = new[] { @".\assets\invalidinclude" },
                 TargetOs = AppHostService.WIN_RID
-            };
-            await Assert.ThrowsAsync<ArgumentException>(async () => await packageApplicationBuilder.Build(option));
-        }
-
-        [PlatformRestrictedFact(linux: true)]
-        public async Task Build_LInux_InvalidInclude_ArgumentException()
-        {
-            using var packageApplicationBuilder = GetPackageApplicationBuilder();
-            var option = new PackageOption
-            {
-                Name = "testapp",
-                Command = "python3",
-                Include = new[] { @".\assets\invalidinclude" },
-                TargetOs = AppHostService.LINUX_RID
             };
             await Assert.ThrowsAsync<ArgumentException>(async () => await packageApplicationBuilder.Build(option));
         }
