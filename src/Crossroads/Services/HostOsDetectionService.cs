@@ -14,9 +14,7 @@ namespace Crossroads.Services
 
         public bool IsVersionIconSupported(PackageOption option)
         {
-            if(option.TargetOs.Equals(AppHostService.WIN_RID) &&
-                RuntimeInformation.IsOSPlatform(OSPlatform.Linux) &&
-                HasVersionOrIcon(option))
+            if(IsLinuxPlatformOrAsTargetRID(option) && HasVersionOrIcon(option))
             {
                 return false;
             }
@@ -27,5 +25,8 @@ namespace Crossroads.Services
         {
             return !string.IsNullOrWhiteSpace(option.Version) || !string.IsNullOrWhiteSpace(option.Icon);
         }
+
+        private bool IsLinuxPlatformOrAsTargetRID(PackageOption option)
+            => RuntimeInformation.IsOSPlatform(OSPlatform.Linux) || option.TargetOs.Equals(AppHostService.LINUX_RID);
     }
 }
