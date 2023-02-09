@@ -36,6 +36,19 @@ namespace Crossroads.Test.Services
             Assert.Equal(0, actual);
         }
 
+        [PlatformRestrictedFact(linux: true)]
+        public async Task Run_Bash_Success()
+        {
+            IProcessService processService = new ProcessService();
+            var startInfo = new ProcessStartInfo
+            {
+                FileName = "/bin/bash",
+               Arguments = "-c \"echo hello\""
+            };
+            var actual = await processService.RunAsync(startInfo);
+            Assert.Equal(0, actual);
+        }
+
         [Fact]
         public async Task Run_BadCmd_Exception()
         {
@@ -48,13 +61,26 @@ namespace Crossroads.Test.Services
         }
 
         [PlatformRestrictedFact(windows: true)]
-        public async Task GetConsoleOutput_Success()
+        public async Task Get_Windows_ConsoleOutput_Success()
         {
             IProcessService processService = new ProcessService();
             var startInfo = new ProcessStartInfo
             {
                 FileName = "cmd",
                 Arguments = "/c echo hello"
+            };
+            var actual = await processService.GetConsoleOutputAsync(startInfo, 3000);
+            Assert.Contains("hello", actual);
+        }
+
+        [PlatformRestrictedFact(linux: true)]
+        public async Task Get_Linux_ConsoleOutput_Success()
+        {
+            IProcessService processService = new ProcessService();
+            var startInfo = new ProcessStartInfo
+            {
+                FileName = "/bin/bash",
+                Arguments = " -c \"echo hello\""
             };
             var actual = await processService.GetConsoleOutputAsync(startInfo, 3000);
             Assert.Contains("hello", actual);
@@ -80,7 +106,7 @@ namespace Crossroads.Test.Services
         }
 
         [PlatformRestrictedFact(windows: true)]
-        public async Task GetConsoleOutput_Return1_TimeoutException()
+        public async Task Get_Windows_ConsoleOutput_Return1_TimeoutException()
         {
             IProcessService processService = new ProcessService();
             var startInfo = new ProcessStartInfo
@@ -90,5 +116,18 @@ namespace Crossroads.Test.Services
             };
             await Assert.ThrowsAsync<Exception>(async () => await processService.GetConsoleOutputAsync(startInfo, 3000));
         }
+
+        [PlatformRestrictedFact(linux: true)]
+        public async Task Get_Linux_ConsoleOutput_Return1_TimeoutException()
+        {
+            IProcessService processService = new ProcessService();
+            var startInfo = new ProcessStartInfo
+            {
+                FileName = "/bin/bash",
+               Arguments = "-c \"exit 1\"",
+            };
+            await Assert.ThrowsAsync<Exception>(async () => await processService.GetConsoleOutputAsync(startInfo, 3000));
+        }
+
     }
 }
