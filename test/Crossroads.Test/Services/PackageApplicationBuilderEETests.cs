@@ -51,7 +51,7 @@ namespace Crossroads.Test.Services
         }
 
         [PlatformRestrictedFact(linux: true)]
-        public async Task Build_OnLinux_WithVersion_Throws_ArgumentException()
+        public async Task Build_OnLinux_WithVersion_ArgumentException()
         {
             using var packageApplicationBuilder = GetPackageApplicationBuilder();
             var expectedMessage = "Version or Icon is not required.";
@@ -66,7 +66,7 @@ namespace Crossroads.Test.Services
         }
 
         [PlatformRestrictedFact(linux: true)]
-        public async Task Build_OnLinux_TargetWindows_WithVersion_Throws_ArgumentException()
+        public async Task Build_OnLinux_TargetWindows_WithVersion_ArgumentException()
         {
             using var packageApplicationBuilder = GetPackageApplicationBuilder();
             var expectedMessage = "Version or Icon is not required.";

@@ -37,7 +37,7 @@ namespace Crossroads.Test.Services
         }
 
          [PlatformRestrictedFact(windows: true)]
-        public async Task Build_Windows_InvalidInclude_ArgumentException()
+        public async Task Build_OnWindows_InvalidInclude_ArgumentException()
         {
             using var packageApplicationBuilder = GetPackageApplicationBuilder();
             var option = new PackageOption
@@ -52,7 +52,7 @@ namespace Crossroads.Test.Services
         }
 
          [PlatformRestrictedFact(linux: true)]
-        public async Task Build_Linux_InvalidInclude_ArgumentException()
+        public async Task Build_OnLinux_InvalidInclude_ArgumentException()
         {
             using var packageApplicationBuilder = GetPackageApplicationBuilder();
             var option = new PackageOption
@@ -66,7 +66,7 @@ namespace Crossroads.Test.Services
         }
         
         [PlatformRestrictedFact(windows: true)]
-        public async Task Build_Windows_InvalidIncludes_ArgumentException()
+        public async Task Build_OnWindows_InvalidIncludes_ArgumentException()
         {
             using var packageApplicationBuilder = GetPackageApplicationBuilder();
             var option = new PackageOption
@@ -81,7 +81,7 @@ namespace Crossroads.Test.Services
         }
 
         [PlatformRestrictedFact(linux: true)]
-        public async Task Build_Linux_InvalidIncludes_ArgumentException()
+        public async Task Build_OnLinux_InvalidIncludes_ArgumentException()
         {
             using var packageApplicationBuilder = GetPackageApplicationBuilder();
             var option = new PackageOption
@@ -102,7 +102,7 @@ namespace Crossroads.Test.Services
         }
 
         [PlatformRestrictedFact(windows: true)]
-        public async Task Build_On_Windows_With_ValidInclude_Success()
+        public async Task Build_OnWindows_WithValidInclude_Success()
         {
             using var packageApplicationBuilder = GetPackageApplicationBuilder();
             var option = new PackageOption
@@ -117,7 +117,7 @@ namespace Crossroads.Test.Services
         }
 
         [PlatformRestrictedFact(linux: true)]
-        public async Task Build_On_Linux_With_ValidInclude_Success()
+        public async Task Build_OnLinux_WithValidInclude_Success()
         {
             using var packageApplicationBuilder = GetPackageApplicationBuilder();
             var option = new PackageOption
@@ -163,7 +163,7 @@ namespace Crossroads.Test.Services
         }
 
         [PlatformRestrictedFact(windows: true)]
-        public async Task Build_AutoDetectOs_Windows_Success()
+        public async Task Build_OnWindows_NoTargetOs_AutoDetectWinOs_Success()
         {
             using var packageApplicationBuilder = GetPackageApplicationBuilder();
             var option = new PackageOption
@@ -179,7 +179,7 @@ namespace Crossroads.Test.Services
 
 
         [PlatformRestrictedFact(linux: true)]
-        public async Task Build_AutoDetectOs_Linux_Success()
+        public async Task Build_OnLinux_NoTargetOs_AutoDetectWinOs_Success()
         {
             using var packageApplicationBuilder = GetPackageApplicationBuilder();
             var option = new PackageOption
@@ -215,7 +215,7 @@ namespace Crossroads.Test.Services
         }
 
         [Fact]
-        public async Task Build_AutoDetectOs_UnknowHostOS_Exception()
+        public async Task Build_OnUnsupportedHostOs_AutoDetectOs_ArgumentException()
         {
             var option = new PackageOption { Name = "testapp", TargetOs = null };
             var fileSystem = new MockFileSystem();
@@ -234,7 +234,7 @@ namespace Crossroads.Test.Services
         }
 
         [PlatformRestrictedFact(windows: true)]
-        public async Task Build_Windows_No_Duplicate_Extension_Success()
+        public async Task Build_OnWindows_No_Duplicate_Extension_Success()
         {
             using var packageApplicationBuilder = GetPackageApplicationBuilder();
             var option = new PackageOption
@@ -264,7 +264,7 @@ namespace Crossroads.Test.Services
         }
 
         [PlatformRestrictedFact(linux: true)]
-        public async Task Build_Linux_No_Duplicate_Extension_Success()
+        public async Task Build_OnLinux_No_Duplicate_Extension_Success()
         {
             using var packageApplicationBuilder = GetPackageApplicationBuilder();
             var option = new PackageOption
@@ -279,7 +279,7 @@ namespace Crossroads.Test.Services
         }
 
         [PlatformRestrictedFact(windows: true)]
-        public async Task Build_Windows_With_No_Duplicate_Exe_Extension_Success()
+        public async Task Build_OnWindows_With_No_Duplicate_Exe_Extension_Success()
         {
             using var packageApplicationBuilder = GetPackageApplicationBuilder();
             var option = new PackageOption
@@ -309,7 +309,7 @@ namespace Crossroads.Test.Services
         }
 
         [Fact]
-        public async Task Build_VersionIcon_Not_Supported_OnLinuxForWinRID_Exception()
+        public async Task Build_TargetLinux_UnsupportedVersionAndIcon_ArgumentException()
         {
             var option = new PackageOption {
                 Name = "testapp",
