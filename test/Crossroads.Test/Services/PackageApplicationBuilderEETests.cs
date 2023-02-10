@@ -65,6 +65,21 @@ namespace Crossroads.Test.Services
             Assert.Equal(expectedMessage, ex.Message);
         }
 
+        [PlatformRestrictedFact(linux: true)]
+        public async Task Build_OnLinux_WindowsTarget_WithVersion_Throws_ArgumentException()
+        {
+            using var packageApplicationBuilder = GetPackageApplicationBuilder();
+            var expectedMessage = "Version or Icon is not required.";
+            var option = new DefaultOption
+            {
+                Command = "python3",
+                Version = "1.0.0.0",
+                TargetOs = AppHostService.WIN_RID
+            };
+            var ex = await Assert.ThrowsAsync<ArgumentException>(async () => await packageApplicationBuilder.Build(option));
+            Assert.Equal(expectedMessage, ex.Message);
+        }
+
         [PlatformRestrictedFact(windows: true)]
         public async Task Build_OnWindows_Include_Success()
         {
@@ -121,7 +136,7 @@ namespace Crossroads.Test.Services
         }
 
         [PlatformRestrictedFact(windows: true)]
-        public async Task Build_Icon_OnWindows_Success()
+        public async Task Build_OnWindows_WithIcon_Success()
         {
             using var packageApplicationBuilder = GetPackageApplicationBuilder();
             var option = new DefaultOption
@@ -132,8 +147,35 @@ namespace Crossroads.Test.Services
             await packageApplicationBuilder.Build(option);
         }
 
+        [PlatformRestrictedFact(windows: true)]
+        public async Task Build_OnWindows_LinuxTarget_WithIcon_Success()
+        {
+            using var packageApplicationBuilder = GetPackageApplicationBuilder();
+            var option = new DefaultOption
+            {
+                Icon = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "assets", "TestIcon.ico"),
+                TargetOs = AppHostService.LINUX_RID
+            };
+            await packageApplicationBuilder.Build(option);
+        }
+
         [PlatformRestrictedFact(linux: true)]
-        public async Task Build_WithIcon_OnLinux_Success()
+        public async Task Build_OnLinux_WithIcon_ArgumentException()
+        {
+            using var packageApplicationBuilder = GetPackageApplicationBuilder();
+            var expectedMessage = "Version or Icon is not required.";
+
+            var option = new DefaultOption
+            {
+                Icon = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "assets", "TestIcon.ico"),
+                TargetOs = AppHostService.WIN_RID
+            };
+            var ex = await Assert.ThrowsAsync<ArgumentException>(async () => await packageApplicationBuilder.Build(option));
+            Assert.Equal(expectedMessage, ex.Message);
+        }
+
+        [PlatformRestrictedFact(linux: true)]
+        public async Task Build_OnLinux_WindowsTarget_WithIcon_ArgumentException()
         {
             using var packageApplicationBuilder = GetPackageApplicationBuilder();
             var expectedMessage = "Version or Icon is not required.";
