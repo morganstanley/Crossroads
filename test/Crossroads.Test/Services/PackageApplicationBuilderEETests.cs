@@ -148,15 +148,18 @@ namespace Crossroads.Test.Services
         }
 
         [PlatformRestrictedFact(windows: true)]
-        public async Task Build_OnWindows_LinuxTarget_WithIcon_Success()
+        public async Task Build_OnWindows_LinuxTarget_WithIcon_ArgumentException()
         {
             using var packageApplicationBuilder = GetPackageApplicationBuilder();
+            var expectedMessage = "Version or Icon is not required.";
+
             var option = new DefaultOption
             {
                 Icon = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "assets", "TestIcon.ico"),
                 TargetOs = AppHostService.LINUX_RID
             };
-            await packageApplicationBuilder.Build(option);
+            var ex = await Assert.ThrowsAsync<ArgumentException>(async () => await packageApplicationBuilder.Build(option));
+            Assert.Equal(expectedMessage, ex.Message);
         }
 
         [PlatformRestrictedFact(linux: true)]
