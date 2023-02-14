@@ -34,7 +34,7 @@ We now head straight to packaging our application and generating the executable 
 
 ## Command to package the pythonCrossroads console application
 
-```dotnet Crossroads.dll package --name package-python-for-windows --command "python3" --targetos win-x64 --version "2.0" --include "../script" --args "script/crosspy.py" --location "../result-output"```
+```dotnet Crossroads.dll package --name package-python-for-windows --command "python3" --targetos win-x64 --include "../script" --args "script/crosspy.py" --location "../result-output"```
 
 <img alt="#" src=".\assets\pythonforwindows.png">
 
@@ -50,7 +50,7 @@ We can see a list of commands and options on the crossroads tool by typing `cros
 
 `--include`: Include internal resource application to be packaged.
 The --include command can be used multiple times especially in scenarios where the dependencies needed to run the framework plus the project files are found in two separate file locations.
-in this instance since python comes pre-installed on ubuntu, there is no need to include all the oython runtime configuration files as demonstrated on test_case_d.
+in this instance since python comes pre-installed on ubuntu, there is no need to include all the python runtime configuration files as demonstrated on test_case_d.
 
 `--command`:This command can have the alias `-c ` option on the crossroads tool. It allows us to specify the command to run the internal application, which in our case is the `python` executable.
 
@@ -59,7 +59,7 @@ in this instance since python comes pre-installed on ubuntu, there is no need to
 `--targetos`: This option allows us to specify the os platform for which we are packaging our application for.In this instance because we are packaging our application to run on a windows machine hence the target os option "win-x64" specified. 
 
 
-These are just a few of the options we have on the crossroads tool. There are others available for customizing your app with an icon, default args, etc.
+Currently our application does not support the version and icon command on the linux environment.Hence a display message "Failed to package the application. Version or Icon is not required." will be displayed when added as part of commands when packaging.
 
 # Result 
 
