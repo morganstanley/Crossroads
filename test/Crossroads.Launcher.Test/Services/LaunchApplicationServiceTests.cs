@@ -273,5 +273,32 @@ namespace Crossroads.Launcher.Test.Services
             await Assert.ThrowsAsync<Exception>(async () => await launchApplicationService.RunAsync());
         }
 
+        [Fact]
+        public async Task Launch_Cmd_WithSingleInclude_WithRelativeCmdConfig_TmpCommand_Exist_Success()
+        {
+            MockFileSystem fileSystem = new MockFileSystem();
+            var configuration = new Mock<IConfiguration>();
+            var comandSectionMock = new Mock<IConfigurationSection>();
+            var argsSectionMock = new Mock<IConfigurationSection>();
+            var includeSectionMock = new Mock<IConfigurationSection>();
+
+            fileSystem.AddFile(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "assets", "mockCmdDir", "cmd"), null);
+            var processService = new Mock<IProcessService>();
+            processService.Setup(x => x.RunAsync(It.IsAny<ProcessStartInfo>()))
+                .Callback<ProcessStartInfo>(x => Assert.Equal("/c echo abc", x.Arguments))
+                .ReturnsAsync(0)
+                .Verifiable();
+            comandSectionMock.Setup(s => s.Value).Returns(@".\mockCmdDir\cmd");
+            argsSectionMock.Setup(s => s.Value).Returns("/c echo abc");
+            configuration.Setup(c => c.GetSection("Launcher:Command")).Returns(comandSectionMock.Object);
+            configuration.Setup(c => c.GetSection("Launcher:Args")).Returns(argsSectionMock.Object);
+            configuration.Setup(c => c.GetSection("Launcher:Include")).Returns(includeSectionMock.Object);
+
+            ILaunchApplicationService launchApplicationService = new LaunchApplicationService(configuration.Object, fileSystem, processService.Object);
+            var actual = await launchApplicationService.RunAsync();
+            Assert.Equal(0, actual);
+            processService.Verify();
+        }
+
     }
 }
