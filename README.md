@@ -96,3 +96,5 @@ dotnet test -maxcpucount:1 -p:CollectCoverage=true -p:CoverletOutput="..\TestRes
 dotnet build -c:release
 dotnet publish .\src\Crossroads\Crossroads.csproj -c:release --no-build
 ```
+### Crossroads on Linux
+For information about how to use our application on the linux environment kindly <a href="https://github.com/morganstanley/Crossroads/blob/main/doc/Linux.md" target="_blank">click here</a>.
