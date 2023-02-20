@@ -44,21 +44,21 @@ namespace Crossroads.Launcher.Services
 
         public async Task<int> RunAsync(string arguments = null)
         {
-            string command = getCommand(launcherOption.Command);
+            string command = GetCommand(launcherOption.Command);
             if (string.IsNullOrWhiteSpace(command))
             {
                 throw new Exception("Command is not configured correctly.");
             }
 
             string workingDirectory;
-            if (fileSystem.Directory.Exists(assetsDirectory))
+            if (fileSystem.Directory.Exists(AssetsDirectory))
             {
-                string tmpCommand = Path.Combine(assetsSourceDirectory, command);
+                string tmpCommand = Path.Combine(AssetsSourceDirectory, command);
                 if (fileSystem.File.Exists(tmpCommand))
                 {
                     command = tmpCommand;
                 }
-                workingDirectory = assetsDirectory;
+                workingDirectory = AssetsDirectory;
             }
             else
             {
@@ -73,21 +73,20 @@ namespace Crossroads.Launcher.Services
                 WorkingDirectory = workingDirectory
             };
             return await processService.RunAsync(startInfo);
-
         }
 
-        private string assetsDirectory => Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "assets");
-        private string singleAssetDirectory => Directory.GetDirectories(assetsDirectory).FirstOrDefault();
-        private string assetsSourceDirectory => hasSingleAssetsDirectory ? singleAssetDirectory : assetsDirectory;
-        private bool hasSingleAssetsDirectory => launcherOption.Include?.Count() == 1;
+        private static string AssetsDirectory => Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "assets");
+        private static string SingleAssetDirectory => Directory.GetDirectories(AssetsDirectory).FirstOrDefault();
+        private string AssetsSourceDirectory => HasSingleAssetsDirectory ? SingleAssetDirectory : AssetsDirectory;
+        private bool HasSingleAssetsDirectory => launcherOption.Include?.Count() == 1;
 
-        private string getCommand(string command)
+        private string GetCommand(string command)
         {
             if (launcherOption.Include == null)
             {
                 return command;
             }
-            if (hasSingleAssetsDirectory)
+            if (HasSingleAssetsDirectory)
             {
                 if (command.Contains(Path.DirectorySeparatorChar) || command.Contains(Path.AltDirectorySeparatorChar))
                 {
