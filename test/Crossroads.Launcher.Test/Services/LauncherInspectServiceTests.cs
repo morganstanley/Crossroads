@@ -48,5 +48,21 @@ namespace Crossroads.Launcher.Test.Services
             service.DisplayOption();
             configurationMock.Verify(c => c.GetSection("Launcher:Include"), Times.Once);
         }
+
+        [Fact]
+        public void Display_Option_With_TargetOS_Success()
+        {
+            IConfiguration configuration = Mock.Of<IConfiguration>(x =>
+                x["Launcher:Name"] == "testapp" &&
+                x["Launcher:TargetOs"] == "win-x64" &&
+                x["Launcher:Include"] == "include/path/dir" && 
+                x["Launcher:Location"] == "" 
+            );
+            ILauncherInspectService service = new LauncherInspectService(configuration);
+
+            service.DisplayOption();
+        }
+
+
     }
 }
