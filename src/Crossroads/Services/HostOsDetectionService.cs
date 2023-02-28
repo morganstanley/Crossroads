@@ -7,10 +7,6 @@ namespace Crossroads.Services
     {
         public string GetTargetOsRid()
         {
-            // var result = RuntimeInformation.IsOSPlatform(OSPlatform.Linux) ? AppHostService.LINUX_RID :
-            //                   (RuntimeInformation.IsOSPlatform(OSPlatform.Windows) ? AppHostService.WIN_RID :
-            //                  throw new ArgumentException($"Couldn't detect host OS"));
-            
             if(RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
                 return AppHostService.LINUX_RID;
             

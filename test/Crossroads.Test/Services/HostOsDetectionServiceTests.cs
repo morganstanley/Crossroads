@@ -8,7 +8,7 @@ namespace Crossroads.Test.Services
     public class HostOsDetectionServiceTests
     {
         [PlatformRestrictedFact(windows: true)]
-        public void GetTargetOsRid_Success()
+        public void GetTargetOsRid_ShouldReturnWinRid_WhenRunningOnWindows()
         {
             HostOsDetectionService osService = new HostOsDetectionService();
             var result =  osService.GetTargetOsRid();
@@ -16,7 +16,7 @@ namespace Crossroads.Test.Services
         }
 
         [PlatformRestrictedFact(linux: true)]
-        public void GetTargetOsRid_OnLinux_Success()
+        public void GetTargetOsRid_ShouldReturnLinuxRid_WhenRunningOnLinux()
         {
             HostOsDetectionService osService = new HostOsDetectionService();
             var result =  osService.GetTargetOsRid();

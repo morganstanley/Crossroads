@@ -177,7 +177,6 @@ namespace Crossroads.Test.Services
             await packageApplicationBuilder.Build(option);
         }
 
-
         [PlatformRestrictedFact(linux: true)]
         public async Task Build_OnLinux_NoTargetOs_AutoDetectWinOs_Success()
         {
@@ -308,7 +307,7 @@ namespace Crossroads.Test.Services
             await Assert.ThrowsAsync<ArgumentException>(async () => await packageApplicationBuilder.Build(option));
         }
 
-        [Fact]
+        [PlatformRestrictedFact(linux: true)]
         public async Task Build_TargetLinux_UnsupportedVersionAndIcon_ArgumentException()
         {
             var option = new PackageOption {
@@ -324,6 +323,32 @@ namespace Crossroads.Test.Services
             var logger = new Mock<ILogger<PackageApplicationBuilder>>();
             var hostOsService = new Mock<IHostOsDetectionService>();
             hostOsService.Setup(x => x.GetTargetOsRid()).Returns(AppHostService.LINUX_RID)
+                .Verifiable();
+            hostOsService.Setup(x => x.IsVersionIconSupported(It.IsAny<PackageOption>())).Returns(false)
+               .Verifiable();
+
+            using var packageApplicationBuilder = new PackageApplicationBuilder(fileSystem, resource.Object, appsettingsFile.Object, appHostService.Object, logger.Object, hostOsService.Object);
+
+            await Assert.ThrowsAsync<ArgumentException>(async () => await packageApplicationBuilder.Build(option));
+            hostOsService.Verify();
+        }
+
+        [PlatformRestrictedFact(windows: true)]
+        public async Task Build_TargetWindows_UnsupportedVersionAndIcon_ArgumentException()
+        {
+            var option = new PackageOption {
+                Name = "testapp",
+                Command = "Python3",
+                Version = "2.0.0",
+                Icon = @"./assets/TestIcon.ico"
+            };
+            var fileSystem = new MockFileSystem();
+            var resource = new Mock<IResourcesAssemblyBuilder>();
+            var appsettingsFile = new Mock<ILauncherAppsettingsFileService>();
+            var appHostService = new Mock<IAppHostService>();
+            var logger = new Mock<ILogger<PackageApplicationBuilder>>();
+            var hostOsService = new Mock<IHostOsDetectionService>();
+            hostOsService.Setup(x => x.GetTargetOsRid()).Returns(AppHostService.WIN_RID)
                 .Verifiable();
             hostOsService.Setup(x => x.IsVersionIconSupported(It.IsAny<PackageOption>())).Returns(false)
                .Verifiable();
