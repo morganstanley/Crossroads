@@ -1,18 +1,26 @@
 ﻿using System.Runtime.InteropServices;
 using Crossroads.Services;
+using Crossroads.Test.Utility;
 using Xunit;
 
 namespace Crossroads.Test.Services
 {
     public class HostOsDetectionServiceTests
     {
-        [Fact]
-        public void GetTargetOsRid_Success()
+        [PlatformRestrictedFact(windows: true)]
+        public void GetTargetOsRid_ShouldReturnWinRid_WhenRunningOnWindows()
         {
-            var expected = RuntimeInformation.IsOSPlatform(OSPlatform.Windows) ? AppHostService.WIN_RID : AppHostService.LINUX_RID;
             HostOsDetectionService osService = new HostOsDetectionService();
             var result =  osService.GetTargetOsRid();
-            Assert.Equal(expected, result);
+            Assert.Equal(AppHostService.WIN_RID, result);
+        }
+
+        [PlatformRestrictedFact(linux: true)]
+        public void GetTargetOsRid_ShouldReturnLinuxRid_WhenRunningOnLinux()
+        {
+            HostOsDetectionService osService = new HostOsDetectionService();
+            var result =  osService.GetTargetOsRid();
+            Assert.Equal(AppHostService.LINUX_RID, result);
         }
     }
 }
