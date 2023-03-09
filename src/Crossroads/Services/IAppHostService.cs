@@ -18,6 +18,6 @@ namespace Crossroads.Services
 {
     public interface IAppHostService
     {
-        Task ConvertLauncherToBundle(string hostName, string outputDir, string appHostDirectory, string resourceassemblyPathResult, string rId);
+        Task<string> ConvertLauncherToBundle(string hostName, string outputDir, string appHostDirectory, string resourceassemblyPathResult, string rId);
     }
 }

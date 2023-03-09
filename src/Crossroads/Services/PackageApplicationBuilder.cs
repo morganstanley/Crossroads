@@ -30,13 +30,12 @@ namespace Crossroads.Services
         private readonly IAppHostService appHostService;
         private readonly IHostOsDetectionService hostOsDetectionService;
         private readonly ILogger<PackageApplicationBuilder> _logger;
-
         public PackageApplicationBuilder(
             IFileSystem fileSystem, 
-            IResourcesAssemblyBuilder resourcesAssemblyBuilder, 
-            ILauncherAppsettingsFileService launcherAppsettingsFileService, 
-            IAppHostService appHostService, 
-            ILogger<PackageApplicationBuilder> logger, 
+            IResourcesAssemblyBuilder resourcesAssemblyBuilder,
+            ILauncherAppsettingsFileService launcherAppsettingsFileService,
+            IAppHostService appHostService,
+            ILogger<PackageApplicationBuilder> logger,
             IHostOsDetectionService hostOsDetectionService)
         {
             this.fileSystem = fileSystem;
@@ -51,7 +50,7 @@ namespace Crossroads.Services
 
         public PackageOption Option { get; set; }
 
-        public async Task Build(PackageOption option)
+        public async Task<string> Build(PackageOption option)
         {
             Option = option;
             if (Option == null)
@@ -72,7 +71,7 @@ namespace Crossroads.Services
             }
             if (!hostOsDetectionService.IsVersionIconSupported(option))
             {
-                throw new ArgumentException($"{nameof(Option.Version)} or {nameof(Option.Icon) } is not required.");
+                throw new ArgumentException($"{nameof(Option.Version)} or {nameof(Option.Icon)} is not required.");
             }
 
             await Task.Run(() => CopyDirectory(launcherSourceDirectory, appHostDirectory, true));
@@ -84,7 +83,7 @@ namespace Crossroads.Services
             string resourceassemblyPathResult = await resourcesAssemblyBuilder.Build(resourceassemblyPath, Option.Version, Option.Icon);
             string fileName = (option.TargetOs == AppHostService.LINUX_RID) ? Path.GetFileNameWithoutExtension(Option.Name) :
                 (string.Compare(Path.GetExtension(Option.Name), ".exe", true) == 0) ? Option.Name : $"{Option.Name}.exe";
-            await appHostService.ConvertLauncherToBundle(fileName, Option.Location, appHostDirectory, resourceassemblyPathResult, Option.TargetOs);
+           return await appHostService.ConvertLauncherToBundle(fileName, Option.Location, appHostDirectory, resourceassemblyPathResult, Option.TargetOs);
         }
 
         public void Dispose()
