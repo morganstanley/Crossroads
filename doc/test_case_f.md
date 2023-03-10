@@ -18,7 +18,9 @@ By the end of this tutorial, it should be expected that:
 <li>The expected result "Hello,pythonix crossroads for linux" will be displayed after running the executable on the windows machine</li>
 
 ## Usage
-``` dotnet tool install --global MorganStanley.Crossroads --version 1.0.0 ```
+```sh
+ dotnet tool install --global MorganStanley.Crossroads --version 1.0.0 
+```
 
 The above command installs the crossroads as a global tool. This will enable you to run the tool from anywhere on your machine.
 
@@ -34,7 +36,9 @@ We now head straight to packaging our application and generating the executable 
 
 ## Command to package the pythonCrossroads console application
 
-```dotnet Crossroads.dll package --name package-python-for-windows --command "python3" --targetos win-x64 --include "../script" --args "script/crosspy.py" --location "../result-output"```
+```sh
+crossroads package --name package-python-for-windows --command "python3" --targetos win-x64 --include "../script" --args "script/crosspy.py" --location "../result-output"
+```
 
 <img alt="#" src=".\assets\pythonforwindows.png">
 
@@ -57,7 +61,6 @@ in this instance since python comes pre-installed on ubuntu, there is no need to
 `--location`: This option allows us to set the output file location of the package.
 
 `--targetos`: This option allows us to specify the os platform for which we are packaging our application for.In this instance because we are packaging our application to run on a windows machine hence the target os option "win-x64" specified. 
-
 
 Currently our application does not support the version and icon command on the linux environment.Hence a display message "Failed to package the application. Version or Icon is not required." will be displayed when added as part of commands when packaging.
 
