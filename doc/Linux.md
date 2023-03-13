@@ -16,25 +16,25 @@ crossroads --help
 ### Package Python
 
 ```sh
- dotnet Crossroads.dll package --name newnotepad --command "python3"
+ crossroads package --name newnotepad --command "python3"
 ```
 
 ### Package Python and add a script file from include
 
 ```sh
-dotnet Crossroads.dll package --name newhello  --command "python3" --args "script/crosspy.py" --location "./output" --include "../script" 
+crossroads package --name newhello  --command "python3" --args "script/crosspy.py" --location "./output" --include "../script" 
 ```
 
 ### Inspect a package
 
 ```sh
-dotnet Crossroads.dll inspect --package "./newhello"
+ crossroads inspect --package "./newhello"
 ```
 
 ### Show help
 
 ```sh
-Crossroads.dll --help
+crossroads --help
 ```
 
 ### Execute generated app
