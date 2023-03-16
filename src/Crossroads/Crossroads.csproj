@@ -42,13 +42,6 @@
 		</PackageReference>
 	</ItemGroup>
 
-	<!--<ItemGroup>
-		<Reference Include="Microsoft.NET.HostModel">
-			<HintPath>..\..\libraryreference\Microsoft.NET.HostModel.dll</HintPath>
-			<Private>True</Private>
-		</Reference>
-	</ItemGroup>-->
-
 	<ItemGroup>
 	  <None Update="appsettings.json">
 	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
