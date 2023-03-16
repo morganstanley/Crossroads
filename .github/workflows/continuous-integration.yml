@@ -4,9 +4,9 @@ name: CI
 
 on:
   push:
-    branches: [main, migrate-dotnet-tool]
+    branches: [main]
   pull_request:
-    branches: [main, migrate-dotnet-tool]
+    branches: [main]
   workflow_call:
 
 jobs:
