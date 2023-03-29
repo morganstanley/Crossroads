@@ -19,6 +19,7 @@ using System;
 using System.Collections.Generic;
 using System.CommandLine;
 using System.CommandLine.Invocation;
+using System.IO;
 using System.Threading.Tasks;
 
 namespace Crossroads.Commands
@@ -120,8 +121,8 @@ namespace Crossroads.Commands
             try
             {
                 IPackageApplicationBuilder packageApplication = host.Services.GetRequiredService<IPackageApplicationBuilder>();
-                await packageApplication.Build(option);
-                Console.WriteLine("Package application successfully.");
+                var appPath = await packageApplication.Build(option);
+                Console.WriteLine($"Application packaged successfully at {appPath}");
                 return 0;
             }
             catch (Exception ex)

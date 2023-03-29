@@ -2,4 +2,26 @@
 	<PropertyGroup>
 		<TargetFramework>net6.0</TargetFramework>
 	</PropertyGroup>
+
+	<PropertyGroup Label="Dependencies from crossroads and Launcher">
+		<MicrosoftExtensionsHostingVersion>6.0.1</MicrosoftExtensionsHostingVersion>
+		<MicrosoftExtensionsConfigurationVersion>6.0.1</MicrosoftExtensionsConfigurationVersion>
+		<SystemCommandLineHostingVersion>0.3.0-alpha.20574.7</SystemCommandLineHostingVersion>
+		<SystemIOAbstractionsVersion>17.2.3</SystemIOAbstractionsVersion>
+		<MicrosoftCodeAnalysisCSharpVersion> 4.3.1</MicrosoftCodeAnalysisCSharpVersion>
+		<MicrosoftCodeAnalysisAnalyzersVersion>3.3.3</MicrosoftCodeAnalysisAnalyzersVersion>
+		<NewtonsoftJsonVersion>13.0.1</NewtonsoftJsonVersion>
+		<MicrosoftExtensionsDependencyModelVersion>6.0.0</MicrosoftExtensionsDependencyModelVersion>
+		<GitVersionMsBuildVersion>5.10.3</GitVersionMsBuildVersion>
+	</PropertyGroup>
+
+	<PropertyGroup  Label="Dependencies from Test">
+		<CoverletMsBuildVersion>3.2.0</CoverletMsBuildVersion>
+		<MicrosoftNETTestSdkVersion>17.3.2</MicrosoftNETTestSdkVersion>
+		<XunitVersion>2.4.2</XunitVersion>
+		<XunitRunnerVisualStudioVersion>2.4.5</XunitRunnerVisualStudioVersion>
+		<MoqVersion>4.18.2</MoqVersion>
+		<SystemIOAbstractionsTestingHelpersVersion>17.2.3</SystemIOAbstractionsTestingHelpersVersion>
+		<CoverletCollector>3.2.0</CoverletCollector>
+	</PropertyGroup>
 </Project>

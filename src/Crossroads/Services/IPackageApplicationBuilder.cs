@@ -19,6 +19,6 @@ namespace Crossroads.Services
 {
     public interface IPackageApplicationBuilder: IDisposable
     {
-        Task Build(PackageOption option);
+        Task<string> Build(PackageOption option);
     }
 }
