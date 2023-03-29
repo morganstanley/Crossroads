@@ -41,6 +41,23 @@ namespace Crossroads.Test.Commands
             Assert.Equal(0, actual);
             packageApplication.Verify();
         }
+        
+        [Fact]
+        public async Task Package_WithLocationArg_Success()
+        {
+            var packageApplication = new Mock<IPackageApplicationBuilder>();
+            packageApplication.Setup(x => x.Build(It.IsAny<PackageOption>()))
+                .Verifiable();
+
+            var command = new PackageCommand();
+            var actual = await command.ExecuteSystemCommand(@"package --name newnotepad --command notepad --location ../output", (_, services) =>
+            {
+                services.AddSingleton<IPackageApplicationBuilder>(packageApplication.Object);
+            });
+
+            Assert.Equal(0, actual);
+            packageApplication.Verify();
+        }
 
         [Fact]
         public async Task Package_Exception()

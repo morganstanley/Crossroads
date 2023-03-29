@@ -26,8 +26,7 @@ namespace Crossroads.Services
     {
         public const string WIN_RID = "win-x64";
         public const string LINUX_RID = "linux-x64";
-
-        public async Task ConvertLauncherToBundle(string hostName, string outputDir, string appHostDirectory, string resourceassemblyPathResult, string rId)
+        public async Task<string> ConvertLauncherToBundle(string hostName, string outputDir, string appHostDirectory, string resourceassemblyPathResult, string rId)
         {
             var appHostDestinationFilePath = Path.Combine(appHostDirectory, hostName);
             await Task.Run(() => HostWriter.CreateAppHost(GetAppHostSourceFilePath(appHostDirectory, rId), appHostDestinationFilePath, appBinaryFilePath, assemblyToCopyResourcesFrom: resourceassemblyPathResult));
@@ -43,7 +42,8 @@ namespace Crossroads.Services
                 false);
             
             var fileSpecs = GenerateFileSpecs(appHostDirectory);
-            await Task.Run(() => bundler.GenerateBundle(fileSpecs));
+            var bundleFilePath = await Task.Run(() => bundler.GenerateBundle(fileSpecs));
+            return bundleFilePath;
         }
 
         private List<FileSpec> GenerateFileSpecs(string sourceDir)
