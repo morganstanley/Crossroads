@@ -1,4 +1,4 @@
-﻿<Project>
+<Project>
 	<PropertyGroup>
 		<TargetFramework>net6.0</TargetFramework>
 	</PropertyGroup>
@@ -9,7 +9,7 @@
 		<SystemCommandLineHostingVersion>0.3.0-alpha.20574.7</SystemCommandLineHostingVersion>
 		<SystemIOAbstractionsVersion>17.2.3</SystemIOAbstractionsVersion>
 		<MicrosoftCodeAnalysisCSharpVersion> 4.3.1</MicrosoftCodeAnalysisCSharpVersion>
-		<MicrosoftCodeAnalysisAnalyzersVersion>3.3.3</MicrosoftCodeAnalysisAnalyzersVersion>
+		<MicrosoftCodeAnalysisAnalyzersVersion>3.3.4</MicrosoftCodeAnalysisAnalyzersVersion>
 		<NewtonsoftJsonVersion>13.0.1</NewtonsoftJsonVersion>
 		<MicrosoftExtensionsDependencyModelVersion>6.0.0</MicrosoftExtensionsDependencyModelVersion>
 		<GitVersionMsBuildVersion>5.10.3</GitVersionMsBuildVersion>
