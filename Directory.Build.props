@@ -4,7 +4,7 @@
 	</PropertyGroup>
 
 	<PropertyGroup Label="Dependencies from crossroads and Launcher">
-		<MicrosoftExtensionsHostingVersion>6.0.1</MicrosoftExtensionsHostingVersion>
+		<MicrosoftExtensionsHostingVersion>7.0.1</MicrosoftExtensionsHostingVersion>
 		<MicrosoftExtensionsConfigurationVersion>7.0.0</MicrosoftExtensionsConfigurationVersion>
 		<SystemCommandLineHostingVersion>0.3.0-alpha.20574.7</SystemCommandLineHostingVersion>
 		<SystemIOAbstractionsVersion>17.2.3</SystemIOAbstractionsVersion>
