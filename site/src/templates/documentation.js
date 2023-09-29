@@ -16,18 +16,18 @@ const DocumentationTemplate = ({ children, data, pageContext, location }) => {
         <nav className="nav documentation-nav">
           <h4>Documentation</h4>
           <ul>
-            {docs.map((node) => {
+            {docs.map((node, i) => {
               const current = location.pathname.includes(node.fields.slug);
               const title = node.frontmatter.title;
               return (
-                <li className={current ? 'current' : ''}>
+                <li key={i} className={current ? 'current' : ''}>
                   <Link to={node.fields.slug}>{title}</Link>
                   {current && (
                     <nav className="nav documentation-content-nav">
                       <ul>
                         {toc &&
-                          toc.map((item) => (
-                            <li>
+                          toc.map((item, j) => (
+                            <li key={`link-${j}`}>
                               <Link to={item.url}>{item.title}</Link>
                             </li>
                           ))}
