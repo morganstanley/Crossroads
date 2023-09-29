@@ -3,12 +3,14 @@ description: Quick start guide
 title: Getting Started
 ---
 
-Quick start guide
+To install crossroads as a global dotnet tool:
 
-```bash
-cd site
-npm install
-npm run start
+```powershell
+dotnet tool install -g MorganStanley.Crossroads
 ```
 
-Update the appropriate files located in the `site/content` directory. For instance, to change this 'Getting Started' text, update the `site/content/getting-started.mdx`.
+To get the list of available commands:
+
+```powershell
+crossroads --help
+```

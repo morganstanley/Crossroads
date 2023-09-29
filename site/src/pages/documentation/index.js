@@ -14,11 +14,7 @@ const DocumentationIndex = ({ data, location }) => {
         <Hero title="Documentation">
           <p>
             Jelly beans jelly beans tootsie roll caramels icing. Bear claw sweet
-            roll cake lemon drops halvah. Topping tootsie roll tiramisu caramels
-            bear claw topping dessert dessert chocolate cake. Chocolate bar tart
-            soufflé jujubes muffin carrot cake bonbon tootsie roll tiramisu.
-            Chupa chups sweet roll gingerbread jelly-o marshmallow brownie
-            chocolate bar tootsie roll topping.
+            roll cake lemon drops halvah.
           </p>
         </Hero>
         {docs.map((node) => {
