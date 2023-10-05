@@ -60,6 +60,7 @@
 .documentation-nav {
   margin-top: 2rem;
   flex-grow: 1;
+  width: 30%;
 }
 
 .nav ul li.current > a {
@@ -68,6 +69,7 @@
 
 .documentation-content {
   flex-grow: 2;
+  width: 70%;
 }
 
 .documentation-content > h2,
@@ -125,6 +127,7 @@ blockquote {
   .documentation-main,
   .documentation-content {
     display: block;
+    width: 95%;
   }
 
   .documentation-nav {

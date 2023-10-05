@@ -47,3 +47,9 @@
 .header-nav ul li:last-of-type {
   margin-right: 0;
 }
+
+@media (max-width: 767px) {
+  .header-main .content {
+    display: block;
+  }
+}

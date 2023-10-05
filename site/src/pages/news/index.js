@@ -1,9 +1,10 @@
 import React from 'react';
 import { Link, graphql } from 'gatsby';
 
-import Hero from '../../components/hero';
 import Layout from '../../components/layout';
 import Seo from '../../components/seo';
+
+import NewsHero from '../../../content/news-hero.mdx';
 
 const NewsIndex = ({ data, location }) => {
   const news = data.allMdx.nodes;
@@ -11,16 +12,7 @@ const NewsIndex = ({ data, location }) => {
   return (
     <Layout data={data} location={location}>
       <div className="main news-main">
-        <Hero title="News">
-          <p>
-            Jelly beans jelly beans tootsie roll caramels icing. Bear claw sweet
-            roll cake lemon drops halvah. Topping tootsie roll tiramisu caramels
-            bear claw topping dessert dessert chocolate cake. Chocolate bar tart
-            soufflé jujubes muffin carrot cake bonbon tootsie roll tiramisu.
-            Chupa chups sweet roll gingerbread jelly-o marshmallow brownie
-            chocolate bar tootsie roll topping.
-          </p>
-        </Hero>
+        <NewsHero />
         <Seo title="News" />
         {news.map((node) => {
           const title = node.frontmatter.title;
@@ -51,7 +43,7 @@ export const pageQuery = graphql`
       }
     }
     allMdx(
-      filter: { internal: { contentFilePath: { regex: "/news/" } } }
+      filter: { internal: { contentFilePath: { regex: "/news//" } } }
       sort: [{ frontmatter: { date: DESC } }]
     ) {
       nodes {

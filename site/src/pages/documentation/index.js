@@ -3,7 +3,8 @@ import { Link, graphql } from 'gatsby';
 
 import Layout from '../../components/layout';
 import Seo from '../../components/seo';
-import Hero from '../../components/hero';
+
+import DocumentationHero from '../../../content/documentation-hero.mdx';
 
 const DocumentationIndex = ({ data, location }) => {
   const docs = data.allMdx.nodes;
@@ -11,12 +12,7 @@ const DocumentationIndex = ({ data, location }) => {
   return (
     <Layout data={data} location={location}>
       <div className="main docs-main">
-        <Hero title="Documentation">
-          <p>
-            Jelly beans jelly beans tootsie roll caramels icing. Bear claw sweet
-            roll cake lemon drops halvah.
-          </p>
-        </Hero>
+        <DocumentationHero />
         {docs.map((node) => {
           const title = node.frontmatter.title;
           const toc = node.tableOfContents.items;
@@ -27,8 +23,8 @@ const DocumentationIndex = ({ data, location }) => {
               </h3>
               <ul>
                 {toc &&
-                  toc.map((item) => (
-                    <li>
+                  toc.map((item, i) => (
+                    <li key={i}>
                       <Link to={`${node.fields.slug}${item.url}`}>
                         {item.title}
                       </Link>
@@ -55,7 +51,7 @@ export const pageQuery = graphql`
       }
     }
     allMdx(
-      filter: { internal: { contentFilePath: { regex: "/documentation/" } } }
+      filter: { internal: { contentFilePath: { regex: "/documentation//" } } }
       sort: [{ frontmatter: { order: ASC } }]
     ) {
       nodes {

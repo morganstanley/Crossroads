@@ -66,7 +66,7 @@ export const pageQuery = graphql`
       tableOfContents
     }
     allMdx(
-      filter: { internal: { contentFilePath: { regex: "/documentation/" } } }
+      filter: { internal: { contentFilePath: { regex: "/documentation//" } } }
       sort: [{ frontmatter: { order: ASC } }]
     ) {
       nodes {
