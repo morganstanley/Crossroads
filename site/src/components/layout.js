@@ -25,7 +25,7 @@ const shortcodes = {
 
 const links = {
   Documentation: '/documentation',
-  News: '/news',
+  // News: '/news', // uncomment for news section
 };
 
 function Layout({ data, location, children }) {

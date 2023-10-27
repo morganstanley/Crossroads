@@ -5,7 +5,6 @@ import Alternatives from '../../content/alternatives.mdx';
 import Background from '../../content/background.mdx';
 import GettingStarted from '../../content/getting-started.mdx';
 import HeroContent from '../../content/hero.mdx';
-import Introduction from '../../content/intro.mdx';
 import UseCases from '../../content/use-cases.mdx';
 
 import Article from '../components/article';
@@ -17,9 +16,6 @@ const SiteIndex = ({ data, location }) => {
       <div className="main home-main">
         <HeroContent />
         <section className="content">
-          <Article title="Introduction">
-            <Introduction />
-          </Article>
           <Article title="Background">
             <Background />
           </Article>
