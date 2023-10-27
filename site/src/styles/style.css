@@ -73,9 +73,13 @@
 }
 
 .documentation-content > h2,
-.documentation-content > h3,
-.documentation-content > h4 {
+.documentation-content > h3 {
   margin-top: var(--spacing-section);
+}
+
+.documentation-content > h4,
+.documentation-content > h5 {
+  margin-top: 2rem;
 }
 
 .documentation-content-nav ul {
