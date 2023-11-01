@@ -17,7 +17,7 @@
 
 	<PropertyGroup  Label="Dependencies from Test">
 		<CoverletMsBuildVersion>6.0.0</CoverletMsBuildVersion>
-		<MicrosoftNETTestSdkVersion>17.3.2</MicrosoftNETTestSdkVersion>
+		<MicrosoftNETTestSdkVersion>17.7.2</MicrosoftNETTestSdkVersion>
 		<XunitVersion>2.5.3</XunitVersion>
 		<XunitRunnerVisualStudioVersion>2.5.1</XunitRunnerVisualStudioVersion>
 		<MoqVersion>4.20.69</MoqVersion>
