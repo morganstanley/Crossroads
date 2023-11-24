@@ -1,27 +1,27 @@
 <Project>
-	<PropertyGroup>
-		<TargetFramework>net6.0</TargetFramework>
-	</PropertyGroup>
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+  </PropertyGroup>
 
-	<PropertyGroup Label="Dependencies from crossroads and Launcher">
-		<MicrosoftExtensionsHostingVersion>7.0.1</MicrosoftExtensionsHostingVersion>
-		<MicrosoftExtensionsConfigurationVersion>7.0.0</MicrosoftExtensionsConfigurationVersion>
-		<SystemCommandLineHostingVersion>0.3.0-alpha.20574.7</SystemCommandLineHostingVersion>
-		<SystemIOAbstractionsVersion>19.2.69</SystemIOAbstractionsVersion>
-		<MicrosoftCodeAnalysisCSharpVersion>4.7.0</MicrosoftCodeAnalysisCSharpVersion>
-		<MicrosoftCodeAnalysisAnalyzersVersion>3.3.4</MicrosoftCodeAnalysisAnalyzersVersion>
-		<NewtonsoftJsonVersion>13.0.3</NewtonsoftJsonVersion>
-		<MicrosoftExtensionsDependencyModelVersion>6.0.0</MicrosoftExtensionsDependencyModelVersion>
-		<GitVersionMsBuildVersion>5.12.0</GitVersionMsBuildVersion>
-	</PropertyGroup>
+  <PropertyGroup Label="Dependencies from crossroads and Launcher">
+    <MicrosoftExtensionsHostingVersion>7.0.1</MicrosoftExtensionsHostingVersion>
+    <MicrosoftExtensionsConfigurationVersion>7.0.0</MicrosoftExtensionsConfigurationVersion>
+    <SystemCommandLineHostingVersion>0.3.0-alpha.20574.7</SystemCommandLineHostingVersion>
+    <TestableIOSystemIOAbstractionsWrappersVersion>19.2.69</TestableIOSystemIOAbstractionsWrappersVersion>
+    <MicrosoftCodeAnalysisCSharpVersion>4.7.0</MicrosoftCodeAnalysisCSharpVersion>
+    <MicrosoftCodeAnalysisAnalyzersVersion>3.3.4</MicrosoftCodeAnalysisAnalyzersVersion>
+    <NewtonsoftJsonVersion>13.0.3</NewtonsoftJsonVersion>
+    <MicrosoftExtensionsDependencyModelVersion>6.0.0</MicrosoftExtensionsDependencyModelVersion>
+    <GitVersionMsBuildVersion>5.12.0</GitVersionMsBuildVersion>
+  </PropertyGroup>
 
-	<PropertyGroup  Label="Dependencies from Test">
-		<CoverletMsBuildVersion>6.0.0</CoverletMsBuildVersion>
-		<MicrosoftNETTestSdkVersion>17.3.2</MicrosoftNETTestSdkVersion>
-		<XunitVersion>2.5.3</XunitVersion>
-		<XunitRunnerVisualStudioVersion>2.5.1</XunitRunnerVisualStudioVersion>
-		<MoqVersion>4.20.69</MoqVersion>
-		<SystemIOAbstractionsTestingHelpersVersion>19.2.69</SystemIOAbstractionsTestingHelpersVersion>
-		<CoverletCollector>3.2.0</CoverletCollector>
-	</PropertyGroup>
+  <PropertyGroup  Label="Dependencies from Test">
+    <CoverletMsBuildVersion>6.0.0</CoverletMsBuildVersion>
+    <MicrosoftNETTestSdkVersion>17.3.2</MicrosoftNETTestSdkVersion>
+    <XunitVersion>2.5.3</XunitVersion>
+    <XunitRunnerVisualStudioVersion>2.5.1</XunitRunnerVisualStudioVersion>
+    <MoqVersion>4.20.69</MoqVersion>
+    <TestableIOSystemIOAbstractionsTestingHelpersVersion>19.2.69</TestableIOSystemIOAbstractionsTestingHelpersVersion>
+    <CoverletCollector>3.2.0</CoverletCollector>
+  </PropertyGroup>
 </Project>

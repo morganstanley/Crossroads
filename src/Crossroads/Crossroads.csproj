@@ -28,8 +28,8 @@
 		<PackageReference Include="Microsoft.Extensions.Hosting" Version="$(MicrosoftExtensionsHostingVersion)" />
 		<PackageReference Include="Microsoft.Extensions.Configuration" Version="$(MicrosoftExtensionsConfigurationVersion)" />
 		<PackageReference Include="System.CommandLine.Hosting" Version="$(SystemCommandLineHostingVersion)" />
-		<PackageReference Include="System.IO.Abstractions" Version="$(SystemIOAbstractionsVersion)" />
-		<PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="$(MicrosoftCodeAnalysisCSharpVersion)" />
+    <PackageReference Include="TestableIO.System.IO.Abstractions.Wrappers" Version="$(TestableIOSystemIOAbstractionsWrappersVersion)" />
+    <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="$(MicrosoftCodeAnalysisCSharpVersion)" />
 		<PackageReference Include="Microsoft.CodeAnalysis.Analyzers" Version="$(MicrosoftCodeAnalysisAnalyzersVersion)">
 			<PrivateAssets>all</PrivateAssets>
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
