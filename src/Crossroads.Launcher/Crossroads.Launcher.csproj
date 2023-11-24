@@ -15,7 +15,7 @@
 		<PackageReference Include="Microsoft.Extensions.Hosting" Version="$(MicrosoftExtensionsHostingVersion)" />
 		<PackageReference Include="Microsoft.Extensions.Configuration" Version="$(MicrosoftExtensionsConfigurationVersion)" />
 		<PackageReference Include="System.CommandLine.Hosting" Version="$(SystemCommandLineHostingVersion)" />
-		<PackageReference Include="System.IO.Abstractions" Version="$(SystemIOAbstractionsVersion)" />
+		<PackageReference Include="TestableIO.System.IO.Abstractions.Wrappers" Version="$(SystemIOAbstractionsVersion)" />
 	</ItemGroup>
 	<ItemGroup>
 		<None Update="appsettings.json">
