@@ -1,0 +1,46 @@
+---
+order: 1
+title: Use
+---
+
+### Package Notepad
+
+```powershell
+crossroads package --name newnotepad --command "notepad"
+```
+
+### Package Notepad and open a text file from include
+
+```powershell
+crossroads package --name newhello --command notepad --args .\notepadtxt\abc.txt --location .\output --icon .\testicon.ico --version "2.2.2" --include ".\notepadtxt"
+```
+
+### Package an application from include directory
+
+```powershell
+crossroads package --name newhello --command ".\helloworld\helloworld.exe" --location .\output --icon .\testcion.ico --version "3.0.1" --include ".\helloworld"
+```
+
+### Inspect a package
+
+```powershell
+crossroads inspect --package ".\testapp.exe"
+```
+
+### Show help
+
+```powershell
+crossroads --help
+```
+
+### Execute generated app
+
+```powershell
+<appname>.exe
+```
+
+### Execute generated with override arguments
+
+```powershell
+<appname>.exe --args "new args"
+```
