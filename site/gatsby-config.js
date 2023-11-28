@@ -4,10 +4,10 @@ module.exports = {
   siteMetadata: {
     title: `Morgan Stanley Open Source Software`,
     description: `Morgan Stanley Open Source Software`,
-    siteUrl: 'http://opensource.morganstanley.com',
+    siteUrl: 'http://opensource.morganstanley.com/crossroads',
     documentationUrl: false,
     //  documentationUrl: url-of.documentation.site,
   },
-  pathPrefix: `/`, // include subdirectory
+  pathPrefix: `/Crossroads`, // include subdirectory
   plugins,
 };
