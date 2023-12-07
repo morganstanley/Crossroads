@@ -47,12 +47,6 @@ namespace Crossroads.Launcher.Commands
             return 1;
         }
 
-        private readonly Option argsOption = new Option<string>(new string[] { "--args" }, "Override arguments.")
-        {
-            Argument = new Argument<string>
-            {
-                Arity = ArgumentArity.ExactlyOne
-            }
-        };
+        private readonly Option argsOption = new Option(new[] { "--args" }, "Override arguments.", argumentType: typeof(string), arity: ArgumentArity.ExactlyOne);
     }
 }
