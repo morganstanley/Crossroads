@@ -19,7 +19,6 @@ using System;
 using System.Collections.Generic;
 using System.CommandLine;
 using System.CommandLine.Invocation;
-using System.IO;
 using System.Threading.Tasks;
 
 namespace Crossroads.Commands
@@ -41,80 +40,60 @@ namespace Crossroads.Commands
             Handler = CommandHandler.Create<IHost, PackageOption>(PackageHandler);
         }
 
-        private readonly Option NameOption = new Option<string>(
+        private readonly Option NameOption = new Option(
                    new[] { "--name", "-n" },
-                    description: "Set name for rebranding executable")
+                   description: "Set name for rebranding executable",
+                   argumentType: typeof(string),
+                   arity: ArgumentArity.ExactlyOne)
         {
             IsRequired = true,
         };
 
-        private readonly Option CommandOption = new Option<string>(
-                    new[] { "--command", "-c" },
-                    description: "Specify command to run the internal application")
+        private readonly Option CommandOption = new Option(
+                   new[] { "--command", "-c" },
+                   description: "Specify command to run the internal application",
+                   argumentType: typeof(string),
+                   arity: ArgumentArity.ExactlyOne)
         {
-            IsRequired = true,
-
-            Argument = new Argument<string>
-            {
-                Arity = ArgumentArity.ExactlyOne
-            }
+            IsRequired = true 
         };
-
+        
         private readonly Option ArgsOption = new Option(
-                    new[] { "--args" },
-                    description: "Add arguments for the internal application")
-        {
-            Argument = new Argument<string>
-            {
-                Arity = ArgumentArity.ExactlyOne
-            }
-        };
+                   new[] { "--args" },
+                   description: "Add arguments for the internal application",
+                   argumentType: typeof(string), 
+                   arity: ArgumentArity.ExactlyOne);
 
-        private readonly Option LocationOption = new Option<string>(
-                new[] { "--location", "-l" },
-                 "Set the output file location of the package")
-        {
-            Argument = new Argument<string>
-            {
-                Arity = ArgumentArity.ExactlyOne
-            }
-        };
+        private readonly Option LocationOption = new Option(
+                   new[] { "--location", "-l" }, 
+                   description: "Set the output file location of the package", 
+                   argumentType: typeof(string), 
+                   arity: ArgumentArity.ExactlyOne);
 
-        private readonly Option IconOption = new Option<string>(
-                    new[] { "--icon" },
-                    description: "Set icon for the executable package, should be of '.ico' extension")
-        {
-            Argument = new Argument<string>
-            {
-                Arity = ArgumentArity.ExactlyOne
-            }
-        };
+        private readonly Option IconOption = new Option(
+                   new[] { "--icon" }, 
+                   description: "Set icon for the executable package, should be of '.ico' extension",
+                   argumentType: typeof(string),
+                   arity: ArgumentArity.ExactlyOne);
 
-        private readonly Option VersionOption = new Option<string>(
-                new[] { "--version" },
-                 description: "Set version for the executable package"
-        );
+        private readonly Option VersionOption = new Option(
+                   new[] { "--version" },
+                   description: "Set version for the executable package",
+                   argumentType: typeof(string),
+                   arity: ArgumentArity.ExactlyOne);
+       
 
         private readonly Option IncludeOption = new Option(
-                 new[] { "--include" },
-                  description: "Include internal resource application to be packaged")
-        {
-            Argument = new Argument<List<string>>
-            {
-                Arity = ArgumentArity.OneOrMore
-            }
-        };
+                   new[] { "--include" }, 
+                   description: "Include internal resource application to be packaged",
+                   argumentType: typeof(List<string>), 
+                   arity: ArgumentArity.OneOrMore);
 
-        private readonly Option TargetOsOption = new Option<string>(
+        private readonly Option TargetOsOption = new Option(
                    new[] { "--targetos", "-t" },
-                   description: "Set runtime identifier for the executable package")
-        {
-            Argument = new Argument<string>
-            {
-                Arity = ArgumentArity.ExactlyOne
-            }
-        };
-
+                   description: "Set runtime identifier for the executable package", 
+                   argumentType: typeof(string), 
+                   arity: ArgumentArity.ExactlyOne);
 
         private async Task<int> PackageHandler(IHost host, PackageOption option)
         {
