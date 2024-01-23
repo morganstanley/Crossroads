@@ -4,8 +4,8 @@
 	</PropertyGroup>
 
 	<PropertyGroup Label="Dependencies from crossroads and Launcher">
-		<MicrosoftExtensionsHostingVersion>7.0.1</MicrosoftExtensionsHostingVersion>
-		<MicrosoftExtensionsConfigurationVersion>7.0.0</MicrosoftExtensionsConfigurationVersion>
+		<MicrosoftExtensionsHostingVersion>8.0.0</MicrosoftExtensionsHostingVersion>
+		<MicrosoftExtensionsConfigurationVersion>8.0.0</MicrosoftExtensionsConfigurationVersion>
 		<SystemCommandLineHostingVersion>0.3.0-alpha.21216.1</SystemCommandLineHostingVersion>
     <TestableIOSystemIOAbstractionsWrappersVersion>19.2.69</TestableIOSystemIOAbstractionsWrappersVersion>
 		<MicrosoftCodeAnalysisCSharpVersion>4.7.0</MicrosoftCodeAnalysisCSharpVersion>
