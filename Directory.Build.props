@@ -22,7 +22,7 @@
 		<XunitVersion>2.6.4</XunitVersion>
 		<XunitRunnerVisualStudioVersion>2.5.1</XunitRunnerVisualStudioVersion>
 		<MoqVersion>4.20.69</MoqVersion>
-    <TestableIOSystemIOAbstractionsTestingHelpersVersion>19.2.69</TestableIOSystemIOAbstractionsTestingHelpersVersion>
+    <TestableIOSystemIOAbstractionsTestingHelpersVersion>20.0.15</TestableIOSystemIOAbstractionsTestingHelpersVersion>
 		<CoverletCollector>3.2.0</CoverletCollector>
 	</PropertyGroup>
 </Project>
