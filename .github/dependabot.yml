@@ -19,6 +19,7 @@ updates:
         patterns:
         - "*gatsby*/*"
         - "*/*gatsby*"
+        - "gatsby*"
 
   - package-ecosystem: github-actions
     directory: /
