@@ -22,4 +22,4 @@ updates:
     groups:
       artifact-actions:
         patterns:
-        - "actions/*-artifact"  # Upload/Download usually need to be updated together
+        - "actions/*-artifact*"  # Upload/Download usually need to be updated together
