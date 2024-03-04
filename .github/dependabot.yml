@@ -9,3 +9,23 @@ updates:
     directory: "/" # Location of package manifests
     schedule:
       interval: "monthly"
+
+  - package-ecosystem: npm
+    directory: /site
+    schedule:
+      interval: "monthly"
+    groups:
+      gatsby:
+        patterns:
+        - "*gatsby*/*"
+        - "*/*gatsby*"
+        - "gatsby*"
+
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: "monthly"
+    groups:
+      artifact-actions:
+        patterns:
+        - "actions/*-artifact*"  # Upload/Download usually need to be updated together
