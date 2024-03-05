@@ -83,10 +83,6 @@ http://prismjs.com/download.html#themes=prism&languages=markup+css+clike+javascr
   --aqua: #4ccacd;
 }
 
-pre {
-  overflow: auto;
-}
-
 pre::-webkit-scrollbar {
   width: 14px;
 }
