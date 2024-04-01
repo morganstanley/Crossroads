@@ -19,7 +19,7 @@ jobs:
         os: [windows-2022, ubuntu-latest]
     runs-on: ${{ matrix.os }}
     steps:
-      - uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # v3.6.0
+      - uses: actions/checkout@9bb56186c3b09b4f86b1c65136769dd318469633 # v4.1.2
         with:
           fetch-depth: 0
       - name: Setup .NET
@@ -34,11 +34,13 @@ jobs:
       - name: Test
         run: dotnet test --no-build --configuration Release --verbosity normal -p:CollectCoverage=true -p:CoverletOutputFormat=opencover
       - name: Upload Test Report to Codecov
-        uses: codecov/codecov-action@ab904c41d6ece82784817410c45d8b8c02684457 # v3.1.6
+        uses: codecov/codecov-action@c16abc29c95fcf9174b58eb7e1abf4c866893bc8 # v4.1.1
         with:
           files: ./test/Crossroads.Test/coverage.opencover.xml, ./test/Crossroads.Launcher.Test/coverage.opencover.xml
           flags: unittests
-          fail_ci_if_error: true
+          fail_ci_if_error: false
+        env:
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}          
       - name: Pack
         run: dotnet pack ./src/Crossroads/Crossroads.csproj --no-build --configuration Release --output package
       - name: Package published artifact
