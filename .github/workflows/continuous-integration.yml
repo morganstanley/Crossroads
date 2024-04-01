@@ -39,6 +39,8 @@ jobs:
           files: ./test/Crossroads.Test/coverage.opencover.xml, ./test/Crossroads.Launcher.Test/coverage.opencover.xml
           flags: unittests
           fail_ci_if_error: true
+        env:
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}          
       - name: Pack
         run: dotnet pack ./src/Crossroads/Crossroads.csproj --no-build --configuration Release --output package
       - name: Package published artifact
