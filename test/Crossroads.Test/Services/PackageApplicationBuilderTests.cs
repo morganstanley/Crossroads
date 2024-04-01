@@ -135,10 +135,10 @@ namespace Crossroads.Test.Services
         public async Task Build_Dispose_WorkingDirDeleteFailure__ResolveException()
         {
             var fileSystem = new Mock<IFileSystem>();
-            fileSystem.Setup(x => x.DirectoryInfo.FromDirectoryName(It.IsAny<string>())).Returns(It.IsAny<DirectoryInfoBase>());
-            fileSystem.Setup(x => x.DirectoryInfo.FromDirectoryName(It.IsAny<string>()).GetDirectories()).Returns(It.IsAny<DirectoryInfoBase[]>());
-            fileSystem.Setup(x => x.DirectoryInfo.FromDirectoryName(It.IsAny<string>()).GetFiles()).Returns(Array.Empty<FileInfoBase>);
-            fileSystem.Setup(x => x.DirectoryInfo.FromDirectoryName(It.IsAny<string>()).GetDirectories()).Returns(Array.Empty<DirectoryInfoBase>);
+            fileSystem.Setup(x => x.DirectoryInfo.New(It.IsAny<string>())).Returns(It.IsAny<DirectoryInfoBase>());
+            fileSystem.Setup(x => x.DirectoryInfo.New(It.IsAny<string>()).GetDirectories()).Returns(It.IsAny<DirectoryInfoBase[]>());
+            fileSystem.Setup(x => x.DirectoryInfo.New(It.IsAny<string>()).GetFiles()).Returns(Array.Empty<FileInfoBase>);
+            fileSystem.Setup(x => x.DirectoryInfo.New(It.IsAny<string>()).GetDirectories()).Returns(Array.Empty<DirectoryInfoBase>);
             fileSystem.Setup(x => x.Directory.Exists(It.IsAny<string>())).Returns(true);
             fileSystem.Setup(x => x.Directory.Delete(It.IsAny<string>(), It.IsAny<bool>())).Throws(new Exception());
             var resource = new Mock<IResourcesAssemblyBuilder>();

@@ -154,7 +154,7 @@ namespace Crossroads.Services
 
             foreach (var includeDirectory in Option.Include)
             {
-                IDirectoryInfo dirInfo = fileSystem.DirectoryInfo.FromDirectoryName(includeDirectory);
+                IDirectoryInfo dirInfo = fileSystem.DirectoryInfo.New(includeDirectory);
                 CopyDirectory(includeDirectory, Path.Combine(assetsDirectory, dirInfo.Name), true);
             }
         }
@@ -179,7 +179,7 @@ namespace Crossroads.Services
 
         private void CopyDirectory(string sourceDirName, string destDirName, bool copySubDirs)
         {
-            IDirectoryInfo dir = fileSystem.DirectoryInfo.FromDirectoryName(sourceDirName);
+            IDirectoryInfo dir = fileSystem.DirectoryInfo.New(sourceDirName);
 
             IDirectoryInfo[] dirs = dir.GetDirectories();
                                         
