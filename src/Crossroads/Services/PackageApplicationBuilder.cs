@@ -115,7 +115,7 @@ namespace Crossroads.Services
             }
             catch (Exception ex)
             {
-                _logger.LogWarning("Optionally delete file in working directory", ex.Message);
+                _logger.LogWarning(ex.Message, "Optionally delete file in working directory");
             }
         }
 
