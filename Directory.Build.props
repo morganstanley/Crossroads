@@ -20,7 +20,7 @@
 		<CoverletMsBuildVersion>6.0.2</CoverletMsBuildVersion>
 		<MicrosoftNETTestSdkVersion>17.10.0</MicrosoftNETTestSdkVersion>
 		<XunitVersion>2.8.1</XunitVersion>
-		<XunitRunnerVisualStudioVersion>2.8.0</XunitRunnerVisualStudioVersion>
+		<XunitRunnerVisualStudioVersion>2.8.1</XunitRunnerVisualStudioVersion>
 		<MoqVersion>4.20.70</MoqVersion>
     <TestableIOSystemIOAbstractionsTestingHelpersVersion>21.0.2</TestableIOSystemIOAbstractionsTestingHelpersVersion>
 		<CoverletCollector>3.2.0</CoverletCollector>
