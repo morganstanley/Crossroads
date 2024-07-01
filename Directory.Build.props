@@ -7,8 +7,8 @@
 		<MicrosoftExtensionsHostingVersion>8.0.0</MicrosoftExtensionsHostingVersion>
 		<MicrosoftExtensionsConfigurationVersion>8.0.0</MicrosoftExtensionsConfigurationVersion>
 		<SystemCommandLineHostingVersion>0.3.0-alpha.21216.1</SystemCommandLineHostingVersion>
-    <TestableIOSystemIOAbstractionsWrappersVersion>21.0.2</TestableIOSystemIOAbstractionsWrappersVersion>
-		<MicrosoftCodeAnalysisCSharpVersion>4.9.2</MicrosoftCodeAnalysisCSharpVersion>
+    <TestableIOSystemIOAbstractionsWrappersVersion>21.0.22</TestableIOSystemIOAbstractionsWrappersVersion>
+		<MicrosoftCodeAnalysisCSharpVersion>4.10.0</MicrosoftCodeAnalysisCSharpVersion>
 		<MicrosoftCodeAnalysisAnalyzersVersion>3.3.4</MicrosoftCodeAnalysisAnalyzersVersion>
 		<NewtonsoftJsonVersion>13.0.3</NewtonsoftJsonVersion>
 		<MicrosoftExtensionsDependencyModelVersion>8.0.0</MicrosoftExtensionsDependencyModelVersion>
@@ -22,7 +22,7 @@
 		<XunitVersion>2.8.1</XunitVersion>
 		<XunitRunnerVisualStudioVersion>2.8.1</XunitRunnerVisualStudioVersion>
 		<MoqVersion>4.20.70</MoqVersion>
-    <TestableIOSystemIOAbstractionsTestingHelpersVersion>21.0.2</TestableIOSystemIOAbstractionsTestingHelpersVersion>
+    <TestableIOSystemIOAbstractionsTestingHelpersVersion>21.0.22</TestableIOSystemIOAbstractionsTestingHelpersVersion>
 		<CoverletCollector>3.2.0</CoverletCollector>
 	</PropertyGroup>
 </Project>
