@@ -12,7 +12,7 @@
 		<MicrosoftCodeAnalysisAnalyzersVersion>3.3.4</MicrosoftCodeAnalysisAnalyzersVersion>
 		<NewtonsoftJsonVersion>13.0.3</NewtonsoftJsonVersion>
 		<MicrosoftExtensionsDependencyModelVersion>8.0.0</MicrosoftExtensionsDependencyModelVersion>
-		<GitVersionMsBuildVersion>6.0.0</GitVersionMsBuildVersion>
+		<GitVersionMsBuildVersion>6.0.2</GitVersionMsBuildVersion>
 
 </PropertyGroup>
 
