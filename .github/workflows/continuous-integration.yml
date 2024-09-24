@@ -39,6 +39,7 @@ jobs:
           files: ./test/Crossroads.Test/coverage.opencover.xml, ./test/Crossroads.Launcher.Test/coverage.opencover.xml
           flags: unittests
           fail_ci_if_error: false
+          name: codecov-${{ matrix.os }}
         env:
           CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}          
       - name: Pack
@@ -46,6 +47,6 @@ jobs:
       - name: Package published artifact
         uses: actions/upload-artifact@50769540e7f4bd5e21e526ee35c689e35e0d6874 # v4.4.0
         with:
-          name: package
+          name: package-${{ matrix.os }}
           path: package/*.nupkg
           if-no-files-found: error
