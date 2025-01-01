@@ -12,12 +12,12 @@
 		<MicrosoftCodeAnalysisAnalyzersVersion>3.11.0</MicrosoftCodeAnalysisAnalyzersVersion>
 		<NewtonsoftJsonVersion>13.0.3</NewtonsoftJsonVersion>
 		<MicrosoftExtensionsDependencyModelVersion>8.0.0</MicrosoftExtensionsDependencyModelVersion>
-		<GitVersionMsBuildVersion>6.0.4</GitVersionMsBuildVersion>
+		<GitVersionMsBuildVersion>6.1.0</GitVersionMsBuildVersion>
 
 </PropertyGroup>
 
 	<PropertyGroup  Label="Dependencies from Test">
-		<CoverletMsBuildVersion>6.0.2</CoverletMsBuildVersion>
+		<CoverletMsBuildVersion>6.0.3</CoverletMsBuildVersion>
 		<MicrosoftNETTestSdkVersion>17.11.1</MicrosoftNETTestSdkVersion>
 		<XunitVersion>2.9.2</XunitVersion>
 		<XunitRunnerVisualStudioVersion>2.8.2</XunitRunnerVisualStudioVersion>
