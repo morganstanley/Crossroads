@@ -7,22 +7,22 @@
 		<MicrosoftExtensionsHostingVersion>8.0.1</MicrosoftExtensionsHostingVersion>
 		<MicrosoftExtensionsConfigurationVersion>8.0.0</MicrosoftExtensionsConfigurationVersion>
 		<SystemCommandLineHostingVersion>0.3.0-alpha.21216.1</SystemCommandLineHostingVersion>
-    <TestableIOSystemIOAbstractionsWrappersVersion>21.0.29</TestableIOSystemIOAbstractionsWrappersVersion>
-		<MicrosoftCodeAnalysisCSharpVersion>4.11.0</MicrosoftCodeAnalysisCSharpVersion>
+    <TestableIOSystemIOAbstractionsWrappersVersion>21.2.1</TestableIOSystemIOAbstractionsWrappersVersion>
+		<MicrosoftCodeAnalysisCSharpVersion>4.12.0</MicrosoftCodeAnalysisCSharpVersion>
 		<MicrosoftCodeAnalysisAnalyzersVersion>3.11.0</MicrosoftCodeAnalysisAnalyzersVersion>
 		<NewtonsoftJsonVersion>13.0.3</NewtonsoftJsonVersion>
 		<MicrosoftExtensionsDependencyModelVersion>8.0.0</MicrosoftExtensionsDependencyModelVersion>
-		<GitVersionMsBuildVersion>6.0.4</GitVersionMsBuildVersion>
+		<GitVersionMsBuildVersion>6.1.0</GitVersionMsBuildVersion>
 
 </PropertyGroup>
 
 	<PropertyGroup  Label="Dependencies from Test">
-		<CoverletMsBuildVersion>6.0.2</CoverletMsBuildVersion>
+		<CoverletMsBuildVersion>6.0.3</CoverletMsBuildVersion>
 		<MicrosoftNETTestSdkVersion>17.11.1</MicrosoftNETTestSdkVersion>
 		<XunitVersion>2.9.2</XunitVersion>
 		<XunitRunnerVisualStudioVersion>2.8.2</XunitRunnerVisualStudioVersion>
 		<MoqVersion>4.20.72</MoqVersion>
-    <TestableIOSystemIOAbstractionsTestingHelpersVersion>21.0.29</TestableIOSystemIOAbstractionsTestingHelpersVersion>
-		<CoverletCollector>3.2.0</CoverletCollector>
+    <TestableIOSystemIOAbstractionsTestingHelpersVersion>21.2.1</TestableIOSystemIOAbstractionsTestingHelpersVersion>
+    <CoverletCollector>3.2.0</CoverletCollector>
 	</PropertyGroup>
 </Project>
