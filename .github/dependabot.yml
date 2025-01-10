@@ -4,28 +4,42 @@
 # https://docs.github.com/github/administering-a-repository/configuration-options-for-dependency-updates
 
 version: 2
+
+registries:
+  github-packages:
+    type: npm-registry
+    url: 'https://npm.pkg.github.com'
+    token: ${{ secrets.DEPENDABOT_GITHUB_PACKAGES }}
+
 updates:
-  - package-ecosystem: "nuget" # See documentation for possible values
-    directory: "/" # Location of package manifests
+  - package-ecosystem: 'nuget' # See documentation for possible values
+    directory: '/' # Location of package manifests
     schedule:
-      interval: "monthly"
+      interval: 'monthly'
+
+  - package-ecosystem: 'npm'
+    registries:
+      - 'github-packages'
+    directory: '/site'
+    schedule:
+      interval: 'monthly'
 
   - package-ecosystem: npm
     directory: /site
     schedule:
-      interval: "monthly"
+      interval: 'monthly'
     groups:
       gatsby:
         patterns:
-        - "*gatsby*/*"
-        - "*/*gatsby*"
-        - "gatsby*"
+          - '*gatsby*/*'
+          - '*/*gatsby*'
+          - 'gatsby*'
 
   - package-ecosystem: github-actions
     directory: /
     schedule:
-      interval: "monthly"
+      interval: 'monthly'
     groups:
       artifact-actions:
         patterns:
-        - "actions/*-artifact*"  # Upload/Download usually need to be updated together
+          - 'actions/*-artifact*' # Upload/Download usually need to be updated together
