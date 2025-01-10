@@ -1,0 +1,55 @@
+---
+order: 1
+title: Homepage
+---
+
+<Hero title="Crossroads">
+  Crossroads is a dotnet core commandline tool packager for developers. This is
+  a generic solution to host any application within Crossroads package
+  executable and further launches application's executable. Developers will
+  specify arguments such as name, icon, version etc for branding during the
+  package generation. The specified argument name will be used to rebrand the
+  internal application.
+
+![Lifecycle Active](https://badgen.net/badge/Lifecycle/Active/green)
+[![CI](https://github.com/morganstanley/Crossroads/actions/workflows/continuous-integration.yml/badge.svg)](https://github.com/morganstanley/Crossroads/actions/workflows/continuous-integration.yml)
+
+  <a variant="outlined" href="https://github.com/morganstanley/Crossroads">
+    Project Repo
+  </a>
+</Hero>
+
+<section className="content">
+    <Article title="Background">
+    Crossroads is a tool to generate a single executable file to host any application and its content. It is an important component of the Morgan Stanley Modern Desktop Development Platform called ComposeUI. While .NET applications do have a native option to be self contained, this tool brings that feature to Node.js, Python, Java, etc applications as well. This way applications can be distributable without requiring local installation or an app store. Applications cam be packaged for both Windows and Linux by using just one tool.
+    </Article>
+    <Article title="Why Use Crossroads?">
+        Crossroads allows you to:
+    - create an executable package.
+    - customise your package with a name, icon, version and other attributes
+    - run applications through crossroads generated package
+    </Article>
+    <Article title="Alternatives">
+    **Electron Packager** - it only focuses on Electron based applications
+
+    **Electron Forge** - it only focuses on Electron based applications
+
+    **.NET Packager** - it only focuses on .NET based applications
+
+    **PyInstaller** - it only focuses on Python based applications
+    </Article>
+    <Article title="Getting Started">
+        To install crossroads as a global dotnet tool:
+
+        ```powershell
+        dotnet tool install -g MorganStanley.Crossroads
+        ```
+
+        To get the list of available commands:
+
+        ```powershell
+        crossroads --help
+        ```
+    </Article>
+
+</section>
