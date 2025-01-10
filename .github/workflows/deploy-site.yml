@@ -11,6 +11,7 @@ defaults:
 
 permissions:
   contents: write
+  packages: read
 
 jobs:
   build:
@@ -21,10 +22,12 @@ jobs:
       - name: Use Node.js
         uses: actions/setup-node@39370e3970a6d050c480ffad4ff0ed4d3fdee5af # v4.1.0
         with:
-          node-version: 20
-          cache: 'npm'
-          cache-dependency-path: './site/package-lock.json'
+          node-version: '20.x'
+          registry-url: 'https://npm.pkg.github.com'
+          scope: '@morganstanley'
       - run: npm ci
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - run: npm run build
       - name: Deploy
         uses: crazy-max/ghaction-github-pages@fbf0a4fa4e00f45accd6cf3232368436ec06ed59 # v4.1.0

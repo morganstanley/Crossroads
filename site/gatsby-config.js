@@ -1,5 +1,3 @@
-const { plugins } = require('./src/config/base-gatsby-plugins');
-
 module.exports = {
   siteMetadata: {
     title: `Crossroads`,
@@ -9,5 +7,12 @@ module.exports = {
     //  documentationUrl: url-of.documentation.site,
   },
   pathPrefix: `/Crossroads`, // include subdirectory
-  plugins,
+  plugins: [
+    {
+      resolve: '@morganstanley/gatsby-theme-ms-gh-pages',
+      options: {
+        indexContent: 'content',
+      },
+    },
+  ],
 };
