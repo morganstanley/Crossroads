@@ -17,13 +17,6 @@ updates:
     schedule:
       interval: 'monthly'
 
-  - package-ecosystem: 'npm'
-    registries:
-      - 'github-packages'
-    directory: '/site'
-    schedule:
-      interval: 'monthly'
-
   - package-ecosystem: npm
     directory: /site
     schedule:
