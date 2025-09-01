@@ -5,11 +5,11 @@
 
 	<PropertyGroup Label="Dependencies from crossroads and Launcher">
 		<MicrosoftExtensionsHostingVersion>8.0.1</MicrosoftExtensionsHostingVersion>
-		<MicrosoftExtensionsConfigurationVersion>9.0.4</MicrosoftExtensionsConfigurationVersion>
+		<MicrosoftExtensionsConfigurationVersion>9.0.8</MicrosoftExtensionsConfigurationVersion>
 		<SystemCommandLineHostingVersion>0.3.0-alpha.21216.1</SystemCommandLineHostingVersion>
     <TestableIOSystemIOAbstractionsWrappersVersion>22.0.14</TestableIOSystemIOAbstractionsWrappersVersion>
-		<MicrosoftCodeAnalysisCSharpVersion>4.12.0</MicrosoftCodeAnalysisCSharpVersion>
-		<MicrosoftCodeAnalysisAnalyzersVersion>3.11.0</MicrosoftCodeAnalysisAnalyzersVersion>
+		<MicrosoftCodeAnalysisCSharpVersion>4.14.0</MicrosoftCodeAnalysisCSharpVersion>
+		<MicrosoftCodeAnalysisAnalyzersVersion>4.14.0</MicrosoftCodeAnalysisAnalyzersVersion>
 		<NewtonsoftJsonVersion>13.0.3</NewtonsoftJsonVersion>
 		<MicrosoftExtensionsDependencyModelVersion>9.0.4</MicrosoftExtensionsDependencyModelVersion>
 		<GitVersionMsBuildVersion>6.3.0</GitVersionMsBuildVersion>

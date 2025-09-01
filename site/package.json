@@ -8,8 +8,8 @@
     "gatsby"
   ],
   "dependencies": {
-    "@morganstanley/gatsby-theme-ms-gh-pages": "^1.0.2",
-    "gatsby": "^5.14.3",
+    "@morganstanley/gatsby-theme-ms-gh-pages": "^1.1.1",
+    "gatsby": "^5.15.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1"
   },
@@ -22,7 +22,8 @@
     "clean": "gatsby clean"
   },
   "devDependencies": {
-    "prettier": "^3.5.3",
-    "rimraf": "^6.0.1"
+    "prettier": "^3.6.2",
+    "rimraf": "^6.0.1",
+    "@parcel/watcher": "^2.5.1"
   }
 }
