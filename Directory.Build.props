@@ -11,7 +11,7 @@
 		<MicrosoftCodeAnalysisCSharpVersion>4.14.0</MicrosoftCodeAnalysisCSharpVersion>
 		<MicrosoftCodeAnalysisAnalyzersVersion>4.14.0</MicrosoftCodeAnalysisAnalyzersVersion>
 		<NewtonsoftJsonVersion>13.0.3</NewtonsoftJsonVersion>
-		<MicrosoftExtensionsDependencyModelVersion>9.0.4</MicrosoftExtensionsDependencyModelVersion>
+		<MicrosoftExtensionsDependencyModelVersion>9.0.8</MicrosoftExtensionsDependencyModelVersion>
 		<GitVersionMsBuildVersion>6.1.0</GitVersionMsBuildVersion>
 
 </PropertyGroup>
