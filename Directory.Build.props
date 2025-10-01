@@ -10,7 +10,7 @@
     <TestableIOSystemIOAbstractionsWrappersVersion>22.0.15</TestableIOSystemIOAbstractionsWrappersVersion>
 		<MicrosoftCodeAnalysisCSharpVersion>4.14.0</MicrosoftCodeAnalysisCSharpVersion>
 		<MicrosoftCodeAnalysisAnalyzersVersion>4.14.0</MicrosoftCodeAnalysisAnalyzersVersion>
-		<NewtonsoftJsonVersion>13.0.3</NewtonsoftJsonVersion>
+		<NewtonsoftJsonVersion>13.0.4</NewtonsoftJsonVersion>
 		<MicrosoftExtensionsDependencyModelVersion>9.0.8</MicrosoftExtensionsDependencyModelVersion>
 		<GitVersionMsBuildVersion>6.4.0</GitVersionMsBuildVersion>
 
