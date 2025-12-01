@@ -23,7 +23,7 @@
   },
   "devDependencies": {
     "prettier": "^3.7.3",
-    "rimraf": "^6.1.0",
+    "rimraf": "^6.1.2",
     "@parcel/watcher": "^2.5.1"
   }
 }
