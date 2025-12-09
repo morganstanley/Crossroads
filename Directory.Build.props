@@ -8,17 +8,17 @@
 		<MicrosoftExtensionsConfigurationVersion>9.0.10</MicrosoftExtensionsConfigurationVersion>
 		<SystemCommandLineHostingVersion>0.3.0-alpha.21216.1</SystemCommandLineHostingVersion>
     <TestableIOSystemIOAbstractionsWrappersVersion>22.0.16</TestableIOSystemIOAbstractionsWrappersVersion>
-		<MicrosoftCodeAnalysisCSharpVersion>4.14.0</MicrosoftCodeAnalysisCSharpVersion>
+		<MicrosoftCodeAnalysisCSharpVersion>5.0.0</MicrosoftCodeAnalysisCSharpVersion>
 		<MicrosoftCodeAnalysisAnalyzersVersion>4.14.0</MicrosoftCodeAnalysisAnalyzersVersion>
 		<NewtonsoftJsonVersion>13.0.4</NewtonsoftJsonVersion>
 		<MicrosoftExtensionsDependencyModelVersion>9.0.10</MicrosoftExtensionsDependencyModelVersion>
-		<GitVersionMsBuildVersion>6.4.0</GitVersionMsBuildVersion>
+		<GitVersionMsBuildVersion>6.5.1</GitVersionMsBuildVersion>
 
 </PropertyGroup>
 
 	<PropertyGroup  Label="Dependencies from Test">
 		<CoverletMsBuildVersion>6.0.4</CoverletMsBuildVersion>
-		<MicrosoftNETTestSdkVersion>18.0.0</MicrosoftNETTestSdkVersion>
+		<MicrosoftNETTestSdkVersion>18.0.1</MicrosoftNETTestSdkVersion>
 		<XunitVersion>2.9.3</XunitVersion>
 		<XunitRunnerVisualStudioVersion>3.1.5</XunitRunnerVisualStudioVersion>
 		<MoqVersion>4.20.72</MoqVersion>
