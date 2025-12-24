@@ -1,6 +1,6 @@
 # Crossroads (Packaging tool)
 
-![Lifecycle Active](https://badgen.net/badge/Lifecycle/Active/green)
+![Lifecycle Active](https://img.shields.io/badge/Lifecycle-Active-brightgreen)
 [![OpenSSF Scorecard](https://api.securityscorecards.dev/projects/github.com/morganstanley/Crossroads/badge)](https://securityscorecards.dev/viewer/?uri=github.com/morganstanley/Crossroads)
 [![CI](https://github.com/morganstanley/Crossroads/actions/workflows/continuous-integration.yml/badge.svg)](https://github.com/morganstanley/Crossroads/actions/workflows/continuous-integration.yml)
 
