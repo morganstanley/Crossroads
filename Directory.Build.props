@@ -7,7 +7,7 @@
 		<MicrosoftExtensionsHostingVersion>9.0.10</MicrosoftExtensionsHostingVersion>
 		<MicrosoftExtensionsConfigurationVersion>9.0.10</MicrosoftExtensionsConfigurationVersion>
 		<SystemCommandLineHostingVersion>0.3.0-alpha.21216.1</SystemCommandLineHostingVersion>
-    <TestableIOSystemIOAbstractionsWrappersVersion>22.0.16</TestableIOSystemIOAbstractionsWrappersVersion>
+    <TestableIOSystemIOAbstractionsWrappersVersion>22.1.0</TestableIOSystemIOAbstractionsWrappersVersion>
 		<MicrosoftCodeAnalysisCSharpVersion>5.0.0</MicrosoftCodeAnalysisCSharpVersion>
 		<MicrosoftCodeAnalysisAnalyzersVersion>4.14.0</MicrosoftCodeAnalysisAnalyzersVersion>
 		<NewtonsoftJsonVersion>13.0.4</NewtonsoftJsonVersion>
