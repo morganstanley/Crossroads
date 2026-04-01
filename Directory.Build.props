@@ -4,20 +4,20 @@
 	</PropertyGroup>
 
 	<PropertyGroup Label="Dependencies from crossroads and Launcher">
-		<MicrosoftExtensionsHostingVersion>9.0.10</MicrosoftExtensionsHostingVersion>
-		<MicrosoftExtensionsConfigurationVersion>9.0.10</MicrosoftExtensionsConfigurationVersion>
+		<MicrosoftExtensionsHostingVersion>10.0.5</MicrosoftExtensionsHostingVersion>
+		<MicrosoftExtensionsConfigurationVersion>10.0.5</MicrosoftExtensionsConfigurationVersion>
 		<SystemCommandLineHostingVersion>0.3.0-alpha.21216.1</SystemCommandLineHostingVersion>
 		<TestableIOSystemIOAbstractionsWrappersVersion>22.1.0</TestableIOSystemIOAbstractionsWrappersVersion>
-		<MicrosoftCodeAnalysisCSharpVersion>5.0.0</MicrosoftCodeAnalysisCSharpVersion>
-		<MicrosoftCodeAnalysisAnalyzersVersion>4.14.0</MicrosoftCodeAnalysisAnalyzersVersion>
+		<MicrosoftCodeAnalysisCSharpVersion>5.3.0</MicrosoftCodeAnalysisCSharpVersion>
+		<MicrosoftCodeAnalysisAnalyzersVersion>5.3.0-2.25625.1</MicrosoftCodeAnalysisAnalyzersVersion>
 		<NewtonsoftJsonVersion>13.0.4</NewtonsoftJsonVersion>
 		<MicrosoftExtensionsDependencyModelVersion>9.0.10</MicrosoftExtensionsDependencyModelVersion>
-		<GitVersionMsBuildVersion>6.6.0</GitVersionMsBuildVersion>
+		<GitVersionMsBuildVersion>6.7.0</GitVersionMsBuildVersion>
 
 	</PropertyGroup>
 
 	<PropertyGroup  Label="Dependencies from Test">
-		<CoverletMsBuildVersion>8.0.0</CoverletMsBuildVersion>
+		<CoverletMsBuildVersion>8.0.1</CoverletMsBuildVersion>
 		<MicrosoftNETTestSdkVersion>18.0.1</MicrosoftNETTestSdkVersion>
 		<XunitVersion>2.9.3</XunitVersion>
 		<XunitRunnerVisualStudioVersion>3.1.5</XunitRunnerVisualStudioVersion>
