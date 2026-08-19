@@ -11,6 +11,27 @@
     "@morganstanley/gatsby-theme-ms-gh-pages": "^1.2.4",
     "gatsby": "^5.16.1"
   },
+  "overrides": {
+    "@babel/core": "^7.28.0",
+    "@parcel/core": "^2.16.4",
+    "@parcel/reporter-dev-server": "^2.16.4",
+    "@parcel/transformer-js": "^2.16.4",
+    "cookie": "^0.7.0",
+    "file-type": "^21.3.1",
+    "immutable": "^4.3.9",
+    "js-yaml": "^3.15.1",
+    "lodash": "^4.17.24",
+    "path-to-regexp": "^0.1.13",
+    "picomatch": "^4.0.4",
+    "qs": "^6.15.2",
+    "serialize-javascript": "^7.0.5",
+    "sharp": "^0.35.0",
+    "tmp": "^0.2.6",
+    "uuid": "^11.1.1",
+    "webpack": "^5.104.0",
+    "ws": "^8.18.0",
+    "yaml": "^2.8.3"
+  },
   "scripts": {
     "develop": "gatsby develop -H 0.0.0.0",
     "start": "gatsby develop -H 0.0.0.0",
