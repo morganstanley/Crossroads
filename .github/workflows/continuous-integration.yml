@@ -25,8 +25,9 @@ jobs:
       - name: Setup .NET
         uses: actions/setup-dotnet@a98b56852c35b8e3190ac28c8c2271da59106c68 # v6.0.0
         with:
+          # Exact version avoids the aka.ms channel lookup that currently redirects to a retired storage account (HTTP 409)
           dotnet-version: |
-            10.0.x
+            10.0.403
       - name: Restore dependencies
         run: dotnet restore --locked-mode
       - name: Build
