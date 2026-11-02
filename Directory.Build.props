@@ -4,25 +4,25 @@
 	</PropertyGroup>
 
 	<PropertyGroup Label="Dependencies from crossroads and Launcher">
-		<MicrosoftExtensionsHostingVersion>10.0.11</MicrosoftExtensionsHostingVersion>
-		<MicrosoftExtensionsConfigurationVersion>10.0.11</MicrosoftExtensionsConfigurationVersion>
+		<MicrosoftExtensionsHostingVersion>10.0.14</MicrosoftExtensionsHostingVersion>
+		<MicrosoftExtensionsConfigurationVersion>10.0.14</MicrosoftExtensionsConfigurationVersion>
 		<SystemCommandLineHostingVersion>0.3.0-alpha.21216.1</SystemCommandLineHostingVersion>
 		<TestableIOSystemIOAbstractionsWrappersVersion>22.1.0</TestableIOSystemIOAbstractionsWrappersVersion>
 		<MicrosoftCodeAnalysisCSharpVersion>5.9.0</MicrosoftCodeAnalysisCSharpVersion>
 		<MicrosoftCodeAnalysisAnalyzersVersion>5.9.0</MicrosoftCodeAnalysisAnalyzersVersion>
 		<NewtonsoftJsonVersion>13.0.4</NewtonsoftJsonVersion>
-		<MicrosoftExtensionsDependencyModelVersion>10.0.11</MicrosoftExtensionsDependencyModelVersion>
+		<MicrosoftExtensionsDependencyModelVersion>10.0.14</MicrosoftExtensionsDependencyModelVersion>
 		<GitVersionMsBuildVersion>6.8.2</GitVersionMsBuildVersion>
 
 	</PropertyGroup>
 
 	<PropertyGroup  Label="Dependencies from Test">
 		<CoverletMsBuildVersion>10.1.0</CoverletMsBuildVersion>
-		<MicrosoftNETTestSdkVersion>18.9.0</MicrosoftNETTestSdkVersion>
+		<MicrosoftNETTestSdkVersion>18.11.0</MicrosoftNETTestSdkVersion>
 		<XunitVersion>2.9.3</XunitVersion>
 		<XunitRunnerVisualStudioVersion>3.1.5</XunitRunnerVisualStudioVersion>
-		<MoqVersion>4.20.72</MoqVersion>
-		<TestableIOSystemIOAbstractionsTestingHelpersVersion>22.2.0</TestableIOSystemIOAbstractionsTestingHelpersVersion>
+		<MoqVersion>4.21.0</MoqVersion>
+		<TestableIOSystemIOAbstractionsTestingHelpersVersion>22.3.0</TestableIOSystemIOAbstractionsTestingHelpersVersion>
 		<CoverletCollector>3.2.0</CoverletCollector>
 	</PropertyGroup>
 </Project>
