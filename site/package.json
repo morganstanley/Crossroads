@@ -13,9 +13,6 @@
   },
   "overrides": {
     "@babel/core": "^7.28.0",
-    "@parcel/core": "^2.16.4",
-    "@parcel/reporter-dev-server": "^2.16.4",
-    "@parcel/transformer-js": "^2.16.4",
     "cookie": "^0.7.0",
     "file-type": "^21.3.1",
     "immutable": "^4.3.9",
